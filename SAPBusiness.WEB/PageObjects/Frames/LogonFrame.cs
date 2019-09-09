@@ -6,7 +6,7 @@ using SAPBusiness.WEB.PageObjects.Logon;
 
 namespace SAPBusiness.WEB.PageObjects.Frames
 {
-    public class LogonFrame : BasePageObject<LogonFrame>, ILogonStrategy
+    public class LogonFrame : BasePageObject<LogonFrame>, ILogOnStrategy
     {
         private readonly LogonSection logOnSection;
         public LogonFrame(BaseWebDriver driver) : base(driver)

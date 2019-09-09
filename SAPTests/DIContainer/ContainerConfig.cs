@@ -2,7 +2,7 @@
 
 namespace SAPTests.Autofac
 {
-    class ContainerConfig
+    internal class ContainerConfig
     {
         public static ContainerBuilder Configure()
         {

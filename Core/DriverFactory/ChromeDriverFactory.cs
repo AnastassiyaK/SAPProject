@@ -10,6 +10,7 @@ namespace Core.DriverFactory
     public class ChromeDriverFactory : IDriverFactory
     {
         protected IWebDriver _driver;
+
         public IWebDriver CreateRemoteWebDriver()
         {
             ChromeOptions options = new ChromeOptions();
@@ -19,6 +20,7 @@ namespace Core.DriverFactory
 
             return _driver;
         }
+
         public IWebDriver CreateLocalWebDriver()
         {
             ChromeOptions options = new ChromeOptions();

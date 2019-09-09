@@ -3,9 +3,9 @@
 /// </summary>
 public enum NetworkType
 {
-    facebook,
-    twitter,
-    youtube,
-    linkedin,
-    github
+    Facebook,
+    Twitter,
+    Youtube,
+    Linkedin,
+    Github
 }

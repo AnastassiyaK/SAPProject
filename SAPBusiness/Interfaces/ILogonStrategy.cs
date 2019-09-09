@@ -2,7 +2,7 @@
 
 namespace SAPBusiness.Interfaces
 {
-    public interface ILogonStrategy
+    public interface ILogOnStrategy
     {
         void LogOn(User user);
     }

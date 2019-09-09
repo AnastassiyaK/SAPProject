@@ -15,11 +15,11 @@ using SAPBusiness.UserData;
 
 namespace SAPTests.TutorialNavigator
 {
-    [TestFixtureSource(typeof(BrowserType), "browsers")]
+    [TestFixtureSource(typeof(BrowserList), "browsers")]
     [Parallelizable(ParallelScope.All)]
-    public class TutorialNavigatorFixture : BaseTest
+    public class TutorialNavigatorFixture : BaseWebTest
     {
-        ILogonStrategy logonStrategy;
+        ILogOnStrategy logonStrategy;
         public TutorialNavigatorFixture(Browser browser) : base(browser)
         {
         }
@@ -107,6 +107,6 @@ namespace SAPTests.TutorialNavigator
         }
 
         public static NetworkType[] networks =
-            new NetworkType[] { NetworkType.facebook, NetworkType.twitter, NetworkType.youtube };
+            new NetworkType[] { NetworkType.Facebook, NetworkType.Twitter, NetworkType.Youtube };
     }
 }

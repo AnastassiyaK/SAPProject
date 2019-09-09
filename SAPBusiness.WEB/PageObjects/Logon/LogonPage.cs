@@ -4,7 +4,7 @@ using SAPBusiness.UserData;
 
 namespace SAPBusiness.WEB.PageObjects.Logon
 {
-    public class LogonPage : BasePageObject<LogonPage>, ILogonStrategy
+    public class LogonPage : BasePageObject<LogonPage>, ILogOnStrategy
     {
         private readonly LogonSection logOnSection;
         public LogonPage(BaseWebDriver driver) : base(driver)

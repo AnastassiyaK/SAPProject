@@ -12,10 +12,10 @@ using System;
 
 namespace SAPTests.UserServices
 {
-    [TestFixtureSource(typeof(BrowserType), "browsers")]
-    public class UserServiceFixture : BaseTest
+    [TestFixtureSource(typeof(BrowserList), "browsers")]
+    public class UserServiceFixture : BaseWebTest
     {
-        ILogonStrategy logonStrategy;
+        ILogOnStrategy logonStrategy;
         public UserServiceFixture(Browser browser) : base(browser)
         {
 
@@ -36,7 +36,6 @@ namespace SAPTests.UserServices
             {
                 Assert.Warn(e.Message);//implement custom exception
             }
-
         }
 
         [Test(Description = "Compare user progress using user's cookies and progress on the browser page")]
@@ -57,6 +56,8 @@ namespace SAPTests.UserServices
 
             Assert.Multiple(() =>
             {
+                //Assert.That(groups.Total, Is.EqualTo(progress.GroupsTotal));
+
                 Assert.IsTrue(progress.GroupsTotal == groups.Total);
                 Assert.IsTrue(progress.GroupsCompleted == groups.Completed);
                 Assert.IsTrue(progress.MissionsTotal == missions.Total);

@@ -4,17 +4,18 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedC
 {
     public class Feed
     {
-        private IWebElement element;
+        private readonly IWebElement _element;
+
         public Feed(IWebElement element)
         {
-            this.element = element;
+            _element = element;
         }
 
-        private IWebElement _elementPeopleIcon
+        private IWebElement ElementPeopleIcon
         {
             get
             {
-                return element.FindElement(By.CssSelector("a[href*='people.sap.com']"));
+                return _element.FindElement(By.CssSelector("a[href*='people.sap.com']"));
             }
         }
 
@@ -22,7 +23,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedC
         {
             get
             {
-                return element.FindElement(By.ClassName("icon")).Text;
+                return _element.FindElement(By.ClassName("icon")).Text;
             }
         }
 
@@ -30,28 +31,28 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedC
         {
             get
             {
-                return element.FindElement(By.ClassName("title")).Text;
+                return _element.FindElement(By.ClassName("title")).Text;
             }
         }
         public string Date
         {
             get
             {
-                return element.FindElement(By.ClassName("time")).Text;
+                return _element.FindElement(By.ClassName("time")).Text;
             }
         }
         public string LinkIcon
         {
             get
             {
-                return _elementPeopleIcon.Text;
+                return ElementPeopleIcon.Text;
             }
         }
         public string BlogTitle
         {
             get
             {
-                return element.FindElement(By.CssSelector("a[href*='blogs.sap.com']")).Text;
+                return _element.FindElement(By.CssSelector("a[href*='blogs.sap.com']")).Text;
             }
         }
     }

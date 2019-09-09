@@ -21,8 +21,7 @@ namespace SAPBusiness.WEB.PageObjects.MainPage.Statistics
                 return _statistics ??
                     (_statistics = _driver.FindElements(By.CssSelector(".tutorial-stats"))
                       .Select(element => new Statistics(element))
-                      .ToList()
-                      );
+                      .ToList());
             }
         }
 

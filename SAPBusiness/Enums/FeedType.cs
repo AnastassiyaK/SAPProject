@@ -7,6 +7,4 @@ public enum FeedType
     Trending,
     Latest,
     MostLiked
-
 }
-

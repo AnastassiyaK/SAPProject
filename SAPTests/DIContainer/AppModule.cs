@@ -17,6 +17,7 @@ using SAPBusiness.UserData.DeveloperCenter;
 using SAPBusiness.WEB.PageObjects.MainPage.Statistics;
 using SAPBusiness.WEB.PageObjects.Footer;
 using SAPBusiness.WEB.PageObjects.Footer.Networks;
+using SAPBusiness.Services.Interfaces.API_UserService;
 
 namespace SAPTests.Autofac
 {
@@ -64,8 +65,9 @@ namespace SAPTests.Autofac
 
             builder.RegisterType<PageFooter>().AsSelf().InstancePerDependency();
 
-            builder.RegisterType<SocialNetwork>().AsSelf().InstancePerDependency();            
+            builder.RegisterType<SocialNetwork>().AsSelf().InstancePerDependency();
 
+            builder.RegisterType<RestSharpUserService>().As<IUserService>();
 
             //builder.RegisterType<FrameLogOn>().AsSelf();
 

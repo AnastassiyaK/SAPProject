@@ -16,9 +16,9 @@ using System.Threading;
 
 namespace SAPTests.OpenSource
 {
-    [TestFixtureSource(typeof(BrowserType), "browsers")]
+    [TestFixtureSource(typeof(BrowserList), "browsers")]
     [Parallelizable(ParallelScope.All)]
-    public class OpenSourceFixture : BaseTest
+    public class OpenSourceFixture : BaseWebTest
     {
         private readonly ThreadLocal<Logger> _log = new ThreadLocal<Logger>();
         private Logger Logger

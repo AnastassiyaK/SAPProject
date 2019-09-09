@@ -20,6 +20,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedC
 
         }
         private static By GetTypeLocator(FeedType type) => By.XPath($"//div[@class='for-selection']//span[text() = '{type}']");
+
         public void SelectFeedType(FeedType type)
         {
             _driver.FindElement(By.CssSelector(".feed-sorting-container .active")).Click();

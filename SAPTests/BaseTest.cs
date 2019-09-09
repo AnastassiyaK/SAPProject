@@ -8,13 +8,14 @@ using System.Threading;
 
 namespace SAPTests
 {
-    public class BaseTest
+    public class BaseWebTest
     {
         protected Browser _browser;
 
-        private ThreadLocal<BaseWebDriver> _driver = new ThreadLocal<BaseWebDriver>();
+        private readonly ThreadLocal<BaseWebDriver> _driver = new ThreadLocal<BaseWebDriver>();
 
-        private ThreadLocal<ILifetimeScope> _scope = new ThreadLocal<ILifetimeScope>();
+        private readonly ThreadLocal<ILifetimeScope> _scope = new ThreadLocal<ILifetimeScope>();
+
         protected ILifetimeScope Scope
         {
             get => _scope.Value;
@@ -24,7 +25,7 @@ namespace SAPTests
         {
             get; private set;
         }
-        public BaseTest(Browser browser)
+        public BaseWebTest(Browser browser)
         {
             _browser = browser;
         }
@@ -34,17 +35,27 @@ namespace SAPTests
             set => _driver.Value = value;
         }
 
+        private void ResolveBrowser(ContainerBuilder builed)
+        {
+            if (_browser == Browser.Chrome)
+            {
+                builed.RegisterType<ChromeDriverFactory>().As<IDriverFactory>();
+            }
+            if (_browser == Browser.Firefox)
+            {
+                builed.RegisterType<FirefoxDriverFactory>().As<IDriverFactory>();
+            }
+            if (_browser == Browser.IE)
+            {
+                builed.RegisterType<IEDriverFactory>().As<IDriverFactory>();
+            }
+        }
+
         [SetUp]
         public void Setup()
         {
             var builder = ContainerConfig.Configure();
-
-            if (_browser == Browser.Chrome)
-                builder.RegisterType<ChromeDriverFactory>().As<IDriverFactory>();
-            if (_browser == Browser.Firefox)
-                builder.RegisterType<FirefoxDriverFactory>().As<IDriverFactory>();
-            if (_browser == Browser.IE)
-                builder.RegisterType<IEDriverFactory>().As<IDriverFactory>();
+            ResolveBrowser(builder);
 
             Container = builder.Build();
 
@@ -53,8 +64,8 @@ namespace SAPTests
             BaseDriver = Scope.Resolve<BaseWebDriver>();
 
             BaseDriver.InitRemoteDriver();
-
         }
+
         [TearDown]
         public void Teardown()
         {

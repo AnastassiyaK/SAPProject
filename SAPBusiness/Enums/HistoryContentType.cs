@@ -7,5 +7,4 @@ public enum ContentType
     Tutorial,
     Mission,
     Group
-
 }
