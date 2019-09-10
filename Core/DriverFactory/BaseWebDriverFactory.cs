@@ -1,12 +1,9 @@
-﻿using SAPTests.Configuration;
-using SAPTests.Interfaces.WebDriver;
+﻿using Core.Configuration;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SAPTests.DriverFactory
+namespace Core.DriverFactory
 {
     public abstract class BaseWebDriverFactory : IDriverFactory
     {

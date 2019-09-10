@@ -1,4 +1,4 @@
-﻿using SAPTests.Interfaces.WebDriver;
+﻿using Core.DriverFactory;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
@@ -6,7 +6,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace SAPTests.WebDriver
+namespace Core.WebDriver
 {
     public class BaseWebDriver
     {

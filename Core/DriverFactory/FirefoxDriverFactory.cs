@@ -1,11 +1,10 @@
-﻿using SAPTests.Configuration;
-using SAPTests.Interfaces.WebDriver;
+﻿using Core.Configuration;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 using System;
 
-namespace SAPTests.DriverFactory
+namespace Core.DriverFactory
 {
     public class FirefoxDriverFactory : IDriverFactory
     {

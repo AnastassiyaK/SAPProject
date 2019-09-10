@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.IO;
 
-namespace SAPTests.Configuration
+namespace Core.Configuration
 {
     public static class AppConfiguration
     {
