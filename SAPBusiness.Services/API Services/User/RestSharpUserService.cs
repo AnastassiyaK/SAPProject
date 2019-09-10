@@ -1,27 +1,43 @@
-﻿using SAPTests.Configuration;
-using SAPTests.REST_API.WebClients.RestSharpWebClient;
-using SAPTests.REST_API.WebClients.WebInterfaces;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using SAPBusiness.Services.Interfaces.API_UserService;
 using SAPBusiness.UserData.DeveloperCenter;
 using System.Net;
+using Core.Configuration;
+using RestSharp;
+using System;
 
 namespace SAPBusiness.Services.API_Services.User
 {
     public class RestSharpUserService : IUserService
     {
-        private IWebClient _webClient;
-        public RestSharpUserService()
-        {
-            _webClient = new RestSharpWebClient();
-
-        }
         public UserStatistics GetStatistics(CookieContainer cookies)
         {
-            _webClient.CreateRequest(AppConfiguration.AppSetting["APIUserService:baseUrlUserStatistics"],
-                AppConfiguration.AppSetting["APIUserService:resourceUserStatistics"],
-            cookies);
-            return JsonConvert.DeserializeObject<UserStatistics>(_webClient.GetResponse());
+            var client = new RestClient(AppConfiguration.AppSetting["APIUserService:baseUrlUserStatistics"]);
+
+            var request = new RestRequest(AppConfiguration.AppSetting["APIUserService:resourceUserStatistics"], Method.GET);
+
+            if (cookies.Count != 0)
+            {
+                client.CookieContainer = cookies;
+            }
+
+            var response = client.Execute(request);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                try
+                {
+                    return JsonConvert.DeserializeObject<UserStatistics>(response.Content);
+                }
+                catch
+                {
+                    return new UserStatistics();//should return null object
+                }
+            }
+            else
+            {
+                throw new Exception();//implement exeption if status code was not OK
+            }
         }
     }
 }

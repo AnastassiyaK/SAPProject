@@ -9,9 +9,9 @@ using TNavigator = SAPBusiness.WEB.PageObjects.TutorialNavigator.TutorialNavigat
 using SAPBusiness.WEB.PageObjects.Header;
 using SAPBusiness.WEB.PageObjects.TutorialNavigator;
 using SAPBusiness.WEB.PageObjects.Footer;
-using SAPBusiness.Interfaces;
 using SAPBusiness.UserData;
 using SAPTests.Browsers;
+using SAPBusiness.WEB.PageObjects.Logon;
 
 namespace SAPTests.TutorialNavigator
 {

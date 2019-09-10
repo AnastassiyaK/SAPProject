@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using SAPTests.Configuration;
 using NUnit.Framework;
-using SAPBusiness.Interfaces;
 using SAPBusiness.Services.API_Services.User;
 using SAPBusiness.UserData;
 using SAPBusiness.WEB.PageObjects.Frames;
@@ -9,6 +8,7 @@ using SAPBusiness.WEB.PageObjects.Header;
 using SAPBusiness.WEB.PageObjects.MainPage.Statistics;
 using SAPTests.Browsers;
 using System;
+using SAPBusiness.WEB.PageObjects.Logon;
 
 namespace SAPTests.UserServices
 {

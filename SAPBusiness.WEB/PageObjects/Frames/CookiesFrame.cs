@@ -1,4 +1,4 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.Frames

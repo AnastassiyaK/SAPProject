@@ -1,4 +1,4 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 
 namespace SAPBusiness.WEB.PageObjects
 {

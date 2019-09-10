@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using SAPTests.WebDriver;
 using SAPBusiness.WEB.PageObjects;
 using SAPBusiness.WEB.PageObjects.Frames;
 using SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts;
@@ -17,6 +16,7 @@ using SAPBusiness.UserData.DeveloperCenter;
 using SAPBusiness.WEB.PageObjects.MainPage.Statistics;
 using SAPBusiness.WEB.PageObjects.Footer;
 using SAPBusiness.WEB.PageObjects.Footer.Networks;
+using Core.WebDriver;
 
 namespace SAPTests.Autofac
 {

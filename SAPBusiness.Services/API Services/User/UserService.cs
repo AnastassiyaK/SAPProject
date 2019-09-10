@@ -19,7 +19,7 @@ namespace SAPBusiness.Services.API_Services.User
             }
             if (AppConfiguration.AppSetting["APIUserService:UserService"] == ".NetStandard")
             {
-                _userService = new StandardUserService();
+                _userService = new DefaultUserService();
             }
         }
         public UserStatistics GetUserStatistics(ReadOnlyCollection<Cookie> cookies)

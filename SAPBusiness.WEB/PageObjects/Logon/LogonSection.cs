@@ -1,11 +1,11 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.Logon
 {
-    public class LogonSection : BasePageObject<LogonSection>
+    public class LogOnSection : BasePageObject<LogOnSection>
     {
-        public LogonSection(BaseWebDriver driver) : base(driver)
+        public LogOnSection(BaseWebDriver driver) : base(driver)
         {
         }
 
@@ -31,7 +31,7 @@ namespace SAPBusiness.WEB.PageObjects.Logon
             }
         }
 
-        protected override LogonSection WaitForLoad()
+        protected override LogOnSection WaitForLoad()
         {
             return this;
         }

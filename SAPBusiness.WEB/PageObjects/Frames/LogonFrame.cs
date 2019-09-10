@@ -1,17 +1,16 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
-using SAPBusiness.Interfaces;
 using SAPBusiness.UserData;
 using SAPBusiness.WEB.PageObjects.Logon;
 
 namespace SAPBusiness.WEB.PageObjects.Frames
 {
-    public class LogonFrame : BasePageObject<LogonFrame>, ILogonStrategy
+    public class LogonFrame : BasePageObject<LogonFrame>, ILogOnStrategy
     {
-        private readonly LogonSection logOnSection;
+        private readonly LogOnSection logOnSection;
         public LogonFrame(BaseWebDriver driver) : base(driver)
         {
-            logOnSection = new LogonSection(_driver);
+            logOnSection = new LogOnSection(_driver);
         }
 
 

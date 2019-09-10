@@ -1,11 +1,9 @@
 ﻿using Autofac;
-using SAPTests.DriverFactory;
-using SAPTests.Interfaces.WebDriver;
-using SAPTests.WebDriver;
 using NUnit.Framework;
 using SAPTests.Autofac;
 using System.Threading;
-using System;
+using Core.WebDriver;
+using Core.DriverFactory;
 
 namespace SAPTests
 {

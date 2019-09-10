@@ -1,15 +1,14 @@
-﻿using SAPTests.WebDriver;
-using SAPBusiness.Interfaces;
+﻿using Core.WebDriver;
 using SAPBusiness.UserData;
 
 namespace SAPBusiness.WEB.PageObjects.Logon
 {
-    public class LogonPage : BasePageObject<LogonPage>, ILogonStrategy
+    public class LogOnPage : BasePageObject<LogOnPage>, ILogOnStrategy
     {
-        private readonly LogonSection logOnSection;
-        public LogonPage(BaseWebDriver driver) : base(driver)
+        private readonly LogOnSection logOnSection;
+        public LogOnPage(BaseWebDriver driver) : base(driver)
         {
-            logOnSection = new LogonSection(_driver);
+            logOnSection = new LogOnSection(_driver);
         }
 
         public void LogOn(User user)
@@ -19,7 +18,7 @@ namespace SAPBusiness.WEB.PageObjects.Logon
             logOnSection.LogOnButton.Click();
         }
 
-        protected override LogonPage WaitForLoad()
+        protected override LogOnPage WaitForLoad()
         {
             return this;
         }
