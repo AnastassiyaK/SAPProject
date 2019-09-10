@@ -53,11 +53,11 @@ namespace SAPTests
             }
             if (_browser == Browser.Firefox)
             {
-                builder.RegisterType<FirefoxDriverFactory>.As<IDriverFactory>();
+                builder.RegisterType<FirefoxDriverFactory>().As<IDriverFactory>();
             }
             if (_browser == Browser.IE)
             {
-                builder.RegisterType<IEDriverFactory>.As<IDriverFactory>();
+                builder.RegisterType<IEDriverFactory>().As<IDriverFactory>();
             }
 
         }
