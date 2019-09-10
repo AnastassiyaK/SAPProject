@@ -1,6 +1,6 @@
-﻿using Core.Configuration;
-using Core.REST_API.WebClients.NetWebClient;
-using Core.REST_API.WebClients.WebInterfaces;
+﻿using SAPTests.Configuration;
+using SAPTests.REST_API.WebClients.NetWebClient;
+using SAPTests.REST_API.WebClients.WebInterfaces;
 using Newtonsoft.Json;
 using SAPBusiness.Services.Interfaces.API_UserService;
 using SAPBusiness.UserData.DeveloperCenter;

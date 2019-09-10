@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Core.WebDriver;
+using SAPTests.WebDriver;
 using SAPBusiness.WEB.PageObjects;
 using SAPBusiness.WEB.PageObjects.Frames;
 using SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts;

@@ -1,4 +1,4 @@
-﻿using Core.WebDriver;
+﻿using SAPTests.WebDriver;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;

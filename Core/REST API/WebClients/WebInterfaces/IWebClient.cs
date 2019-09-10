@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Core.REST_API.WebClients.WebInterfaces
+namespace SAPTests.REST_API.WebClients.WebInterfaces
 {
     public interface IWebClient
     {

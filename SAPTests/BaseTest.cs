@@ -1,7 +1,7 @@
 ﻿using Autofac;
-using Core.DriverFactory;
-using Core.Interfaces.WebDriver;
-using Core.WebDriver;
+using SAPTests.DriverFactory;
+using SAPTests.Interfaces.WebDriver;
+using SAPTests.WebDriver;
 using NUnit.Framework;
 using SAPTests.Autofac;
 using System.Threading;

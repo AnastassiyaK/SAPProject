@@ -4,7 +4,7 @@ using NetCookie = System.Net.Cookie;
 using SeleniumCookie = OpenQA.Selenium.Cookie;
 
 
-namespace Core.REST_API.Cookies
+namespace SAPTests.REST_API.Cookies
 {
     public class CookiesService
     {

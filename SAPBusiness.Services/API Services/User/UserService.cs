@@ -1,5 +1,5 @@
-﻿using Core.Configuration;
-using Core.REST_API.Cookies;
+﻿using SAPTests.Configuration;
+using SAPTests.REST_API.Cookies;
 using OpenQA.Selenium;
 using SAPBusiness.Services.Interfaces.API_UserService;
 using SAPBusiness.UserData.DeveloperCenter;

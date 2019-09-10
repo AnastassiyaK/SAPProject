@@ -1,8 +1,8 @@
-﻿using Core.REST_API.WebClients.WebInterfaces;
+﻿using SAPTests.REST_API.WebClients.WebInterfaces;
 using System.IO;
 using System.Net;
 
-namespace Core.REST_API.WebClients.NetWebClient
+namespace SAPTests.REST_API.WebClients.NetWebClient
 {
     public class StandardWebClient : IWebClient
     {

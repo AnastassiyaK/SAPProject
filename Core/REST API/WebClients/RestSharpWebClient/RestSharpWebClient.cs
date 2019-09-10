@@ -1,11 +1,11 @@
-﻿using Core.REST_API.WebClients.WebInterfaces;
+﻿using SAPTests.REST_API.WebClients.WebInterfaces;
 using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
 
-namespace Core.REST_API.WebClients.RestSharpWebClient
+namespace SAPTests.REST_API.WebClients.RestSharpWebClient
 {
     public class RestSharpWebClient: IWebClient
     {

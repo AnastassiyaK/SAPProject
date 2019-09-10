@@ -1,6 +1,5 @@
 ﻿using Autofac;
-using Core.Browsers;
-using Core.Configuration;
+using SAPTests.Configuration;
 using NUnit.Framework;
 using SAPBusiness.Interfaces;
 using SAPBusiness.Services.API_Services.User;
@@ -8,6 +7,7 @@ using SAPBusiness.UserData;
 using SAPBusiness.WEB.PageObjects.Frames;
 using SAPBusiness.WEB.PageObjects.Header;
 using SAPBusiness.WEB.PageObjects.MainPage.Statistics;
+using SAPTests.Browsers;
 using System;
 
 namespace SAPTests.UserServices

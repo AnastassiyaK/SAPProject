@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace Core.Interfaces.WebDriver
+namespace SAPTests.Interfaces.WebDriver
 {
     public interface IDriverFactory
     {

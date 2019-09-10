@@ -1,5 +1,4 @@
-﻿using Core.Browsers;
-using Core.Configuration;
+﻿using SAPTests.Configuration;
 using NUnit.Framework;
 using SAPBusiness.DataParsers.TutorialNavigator;
 using SAPBusiness.WEB.PageObjects.Frames;
@@ -12,6 +11,7 @@ using SAPBusiness.WEB.PageObjects.TutorialNavigator;
 using SAPBusiness.WEB.PageObjects.Footer;
 using SAPBusiness.Interfaces;
 using SAPBusiness.UserData;
+using SAPTests.Browsers;
 
 namespace SAPTests.TutorialNavigator
 {

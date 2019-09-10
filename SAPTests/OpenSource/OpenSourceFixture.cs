@@ -1,6 +1,5 @@
 ﻿using Autofac;
-using Core.Browsers;
-using Core.Configuration;
+using SAPTests.Configuration;
 using NLog;
 using NUnit.Framework;
 using SAPBusiness.WEB.PageObjects.Frames;
@@ -9,6 +8,7 @@ using SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedConte
 using SAPBusiness.WEB.PageObjects.OpenSource.Memberships;
 using SAPBusiness.WEB.PageObjects.OpenSource.Projects;
 using SAPBusiness.WEB.PageObjects.OpenSource.Projects.Search;
+using SAPTests.Browsers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
