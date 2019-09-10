@@ -1,15 +1,15 @@
 ﻿using Core.WebDriver;
 using OpenQA.Selenium;
 using SAPBusiness.UserData;
-using SAPBusiness.WEB.PageObjects.Logon;
+using SAPBusiness.WEB.PageObjects.LogOn;
 
 namespace SAPBusiness.WEB.PageObjects.Frames
 {
-    public class LogonFrame : BasePageObject<LogonFrame>, ILogOnStrategy
+    public class LogOnFrame : BasePageObject<LogOnFrame>, ILogOnStrategy
     {
         private readonly LogOnSection logOnSection;
 
-        public LogonFrame(BaseWebDriver driver) : base(driver)
+        public LogOnFrame(BaseWebDriver driver) : base(driver)
         {
             logOnSection = new LogOnSection(_driver);
         }
@@ -28,7 +28,7 @@ namespace SAPBusiness.WEB.PageObjects.Frames
 
         }
 
-        protected override LogonFrame WaitForLoad()
+        protected override LogOnFrame WaitForLoad()
         {
             return this;
         }
