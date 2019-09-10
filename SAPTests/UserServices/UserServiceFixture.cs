@@ -15,7 +15,7 @@ namespace SAPTests.UserServices
     [TestFixtureSource(typeof(BrowserType), "browsers")]
     public class UserServiceFixture : BaseTest
     {
-        ILogonStrategy logonStrategy;
+        ILogOnStrategy logonStrategy;
         public UserServiceFixture(Browser browser) : base(browser)
         {
 

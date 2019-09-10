@@ -5,10 +5,11 @@ using SAPTests.WebDriver;
 using NUnit.Framework;
 using SAPTests.Autofac;
 using System.Threading;
+using System;
 
 namespace SAPTests
 {
-    public class BaseTest
+    public class BaseTest /*: IDisposable*/
     {
         protected Browser _browser;
 
@@ -34,21 +35,34 @@ namespace SAPTests
             set => _driver.Value = value;
         }
 
+        private void RegisterBrowser(ContainerBuilder builder)
+        {
+            if (_browser == Browser.Chrome)
+            {
+                builder.RegisterType<ChromeDriverFactory>().As<IDriverFactory>();
+            }                
+            if (_browser == Browser.Firefox)
+            {
+                builder.RegisterType<FirefoxDriverFactory>().As<IDriverFactory>();
+            }               
+            if (_browser == Browser.IE)
+            {
+                builder.RegisterType<IEDriverFactory>().As<IDriverFactory>();
+            }                
+        }
+
         [SetUp]
         public void Setup()
         {
             var builder = ContainerConfig.Configure();
 
-            if (_browser == Browser.Chrome)
-                builder.RegisterType<ChromeDriverFactory>().As<IDriverFactory>();
-            if (_browser == Browser.Firefox)
-                builder.RegisterType<FirefoxDriverFactory>().As<IDriverFactory>();
-            if (_browser == Browser.IE)
-                builder.RegisterType<IEDriverFactory>().As<IDriverFactory>();
+            RegisterBrowser(builder);
 
             Container = builder.Build();
 
             Scope = Container.BeginLifetimeScope();
+
+            
 
             BaseDriver = Scope.Resolve<BaseWebDriver>();
 
@@ -63,5 +77,10 @@ namespace SAPTests
             Scope.Dispose();
 
         }
+
+        //public void Dispose()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

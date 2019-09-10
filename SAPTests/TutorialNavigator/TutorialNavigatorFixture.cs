@@ -19,7 +19,7 @@ namespace SAPTests.TutorialNavigator
     [Parallelizable(ParallelScope.All)]
     public class TutorialNavigatorFixture : BaseTest
     {
-        ILogonStrategy logonStrategy;
+        ILogOnStrategy logonStrategy;
         public TutorialNavigatorFixture(Browser browser) : base(browser)
         {
         }
