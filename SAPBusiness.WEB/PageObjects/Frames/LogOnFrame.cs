@@ -1,7 +1,7 @@
-﻿using SAPBusiness.WEB.PageObjects.LogOn;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Core.WebDriver;
+using OpenQA.Selenium;
+using SAPBusiness.UserData;
+using SAPBusiness.WEB.PageObjects.LogOn;
 
 namespace SAPBusiness.WEB.PageObjects.Frames
 {
