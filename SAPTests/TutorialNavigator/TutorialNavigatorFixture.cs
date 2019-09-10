@@ -79,9 +79,9 @@ namespace SAPTests.TutorialNavigator
         {
             var tutorialNavigator = Scope.Resolve<TNavigator>().WaitForPageLoad()
                 .FilterPageByTopic("Java")
-                .WaitForFilterLoad()
-                .FilterPageByType(TileType.Tutorial)
                 .WaitForFilterLoad();
+                //.FilterPageByType(TileType.Tutorial)
+                //.WaitForFilterLoad();
 
             var legend = Scope.Resolve<TileLegend>();
 
