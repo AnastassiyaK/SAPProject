@@ -1,5 +1,4 @@
-﻿using SAPTests.Configuration;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SAPBusiness.DataParsers.TutorialNavigator;
 using SAPBusiness.WEB.PageObjects.Frames;
 using SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection;
@@ -12,10 +11,11 @@ using SAPBusiness.WEB.PageObjects.Footer;
 using SAPBusiness.UserData;
 using SAPTests.Browsers;
 using SAPBusiness.WEB.PageObjects.Logon;
+using Core.Configuration;
 
 namespace SAPTests.TutorialNavigator
 {
-    [TestFixtureSource(typeof(BrowserType), "browsers")]
+    [TestFixtureSource(typeof(BrowserList), "browsers")]
     [Parallelizable(ParallelScope.All)]
     public class TutorialNavigatorFixture : BaseTest
     {
@@ -107,6 +107,6 @@ namespace SAPTests.TutorialNavigator
         }
 
         public static NetworkType[] networks =
-            new NetworkType[] { NetworkType.facebook, NetworkType.twitter, NetworkType.youtube };
+            new NetworkType[] { NetworkType.Facebook, NetworkType.Twitter, NetworkType.Youtube };
     }
 }

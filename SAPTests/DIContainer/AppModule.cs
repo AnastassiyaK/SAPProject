@@ -17,6 +17,7 @@ using SAPBusiness.WEB.PageObjects.MainPage.Statistics;
 using SAPBusiness.WEB.PageObjects.Footer;
 using SAPBusiness.WEB.PageObjects.Footer.Networks;
 using Core.WebDriver;
+using SAPBusiness.Services.Interfaces.API_UserService;
 
 namespace SAPTests.Autofac
 {
@@ -56,17 +57,16 @@ namespace SAPTests.Autofac
 
             builder.RegisterType<LogonFrame>().AsSelf().InstancePerDependency();
 
-            builder.RegisterType<UserService>().AsSelf().InstancePerDependency();
-
             builder.RegisterType<UserStatistics>().AsSelf().InstancePerDependency();
 
             builder.RegisterType<TutorialSection>().AsSelf().InstancePerDependency();
 
             builder.RegisterType<PageFooter>().AsSelf().InstancePerDependency();
 
-            builder.RegisterType<SocialNetwork>().AsSelf().InstancePerDependency();            
+            builder.RegisterType<SocialNetwork>().AsSelf().InstancePerDependency();
 
-
+            builder.RegisterType<RestSharpUserService>().As<IUserService>();            
+            
             //builder.RegisterType<FrameLogOn>().AsSelf();
 
             //builder.RegisterAssemblyTypes(Assembly.Load(nameof(SAPBusiness)))

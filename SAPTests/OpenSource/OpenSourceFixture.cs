@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using SAPTests.Configuration;
 using NLog;
 using NUnit.Framework;
 using SAPBusiness.WEB.PageObjects.Frames;
@@ -8,15 +7,16 @@ using SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedConte
 using SAPBusiness.WEB.PageObjects.OpenSource.Memberships;
 using SAPBusiness.WEB.PageObjects.OpenSource.Projects;
 using SAPBusiness.WEB.PageObjects.OpenSource.Projects.Search;
-using SAPTests.Browsers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Core.Configuration;
+using SAPTests.Browsers;
 
 namespace SAPTests.OpenSource
 {
-    [TestFixtureSource(typeof(BrowserType), "browsers")]
+    [TestFixtureSource(typeof(BrowserList), "browsers")]
     [Parallelizable(ParallelScope.All)]
     public class OpenSourceFixture : BaseTest
     {

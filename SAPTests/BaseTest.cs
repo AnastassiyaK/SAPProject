@@ -58,9 +58,7 @@ namespace SAPTests
 
             Container = builder.Build();
 
-            Scope = Container.BeginLifetimeScope();
-
-            
+            Scope = Container.BeginLifetimeScope();            
 
             BaseDriver = Scope.Resolve<BaseWebDriver>();
 

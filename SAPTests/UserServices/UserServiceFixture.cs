@@ -1,18 +1,18 @@
 ﻿using Autofac;
-using SAPTests.Configuration;
 using NUnit.Framework;
-using SAPBusiness.Services.API_Services.User;
 using SAPBusiness.UserData;
 using SAPBusiness.WEB.PageObjects.Frames;
 using SAPBusiness.WEB.PageObjects.Header;
 using SAPBusiness.WEB.PageObjects.MainPage.Statistics;
-using SAPTests.Browsers;
 using System;
 using SAPBusiness.WEB.PageObjects.Logon;
+using Core.Configuration;
+using SAPTests.Browsers;
+using SAPBusiness.Services.Interfaces.API_UserService;
 
 namespace SAPTests.UserServices
 {
-    [TestFixtureSource(typeof(BrowserType), "browsers")]
+    [TestFixtureSource(typeof(BrowserList), "browsers")]
     public class UserServiceFixture : BaseTest
     {
         ILogOnStrategy logonStrategy;
@@ -47,7 +47,7 @@ namespace SAPTests.UserServices
 
             logonStrategy.LogOn(Scope.Resolve<UserPool>().GetUser());
 
-            var progress = Scope.Resolve<UserService>().GetUserStatistics(BaseDriver.GetBrowserCookies()).UserProgress;
+            var progress = Scope.Resolve<IUserService>().GetStatistics(BaseDriver.GetBrowserCookies()).UserProgress;
 
             var statistics = Scope.Resolve<TutorialSection>().WaitForPageLoad();
 
