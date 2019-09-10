@@ -2,7 +2,7 @@
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.Attributes
 {
-    public class Attribute
+    public class Attribute : IAttribute
     {
         private IWebElement _element;
         public Attribute(IWebElement element)

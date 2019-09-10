@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.Frames
 {
-    public class CookiesFrame : BasePageObject<CookiesFrame>
+    public class CookiesFrame : BasePageObject<CookiesFrame>, ICookiesFrame
     {
         private readonly string iFrameLocator = "iframe[id^='pop-frame']";
         public CookiesFrame(BaseWebDriver driver) : base(driver)

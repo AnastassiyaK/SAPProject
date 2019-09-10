@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SAPBusiness.WEB.PageObjects.MainPage.Statistics
 {
-    public class Statistics
+    public class Statistics : IStatistics
     {
         private readonly IWebElement _element;
 

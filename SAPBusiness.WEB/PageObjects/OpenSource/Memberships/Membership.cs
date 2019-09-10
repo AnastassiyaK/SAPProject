@@ -2,9 +2,9 @@
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.Memberships
 {
-    public class Membership
+    public class Membership : IMembership
     {
-        private IWebElement element;
+        private readonly IWebElement element;
         public Membership(IWebElement element)
         {
             this.element = element;

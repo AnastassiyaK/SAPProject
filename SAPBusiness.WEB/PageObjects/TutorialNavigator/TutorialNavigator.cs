@@ -1,28 +1,19 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
-using SAPBusiness.WEB.PageObjects.Header;
-using SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 {
-    public class TutorialNavigator : BasePageObject<TutorialNavigator>
+    public class TutorialNavigator : BasePageObject<TutorialNavigator>, ITutorialNavigator
     {
         public TutorialNavigator(BaseWebDriver driver) : base(driver)
         {
 
         }
 
-        public PageHeader Header
-        {
-            get
-            {
-                return new PageHeader(_driver);
-            }
-        }
-
         private List<TileElement> _tiles;
+
         private List<TileElement> Tiles
         {
             get
@@ -37,12 +28,11 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 
         public bool HasTiles() => Tiles.Count > 0;
 
-        //public int TilesCount() => Tiles.Count;
-
         public List<TileElement> GetAllTiles()
         {
             return Tiles;
         }
+
         public TutorialNavigator FilterPageByTopic(string title)
         {
             var element = _driver.FindElement(By.ClassName("overview"));
@@ -56,18 +46,11 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
             return this;
         }
 
-        public TutorialNavigator FilterPageByType(TileType type)
-        {
-            new FacetType(_driver).ClickOnType(type);
-            return this;
-        }
-
         public TutorialNavigator WaitForFilterLoad()
         {
             _driver.WaitForElementDissapear(By.CssSelector(".loader"), 10);
             return this;
         }
-
 
         protected override TutorialNavigator WaitForLoad()
         {

@@ -1,9 +1,9 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.Header
 {
-    public class PageHeader : BasePageObject<PageHeader>
+    public class PageHeader : BasePageObject<PageHeader>, IPageHeader
     {
         public PageHeader(BaseWebDriver driver) : base(driver)
         {

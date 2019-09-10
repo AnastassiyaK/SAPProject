@@ -1,10 +1,10 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
 using System;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects.Search
 {
-    public class SearchSection : BasePageObject<SearchSection>
+    public class SearchSection : BasePageObject<SearchSection>, ISearchSection
     {
         public SearchSection(BaseWebDriver driver) : base(driver)
         {
@@ -19,17 +19,16 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects.Search
             }
 
             _driver.FindElement(By.Id("projectSearchInput")).SendKeys(searchString);
-
         }
 
         public string GetSearchingString()
         {
             return _driver.FindElement(By.Id("projectSearchInput")).Text;
         }
+
         public void ClearSearch()
         {
             _driver.FindElement(By.Id("projectSearchInput")).SendKeys("");
-
         }
 
         public bool IsEmpty()

@@ -2,14 +2,16 @@
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
 {
-    public class ProjectCard
+    public class ProjectCard : IProjectCard
     {
-        private IWebElement element;
+        private readonly IWebElement element;
+
         public ProjectCard(IWebElement element)
         {
             this.element = element;
         }
-        private IWebElement elementTitle
+
+        private IWebElement ElementTitle
         {
             get
             {
@@ -17,7 +19,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
             }
         }
 
-        private IWebElement _imageElement
+        private IWebElement ElementImage
         {
             get
             {
@@ -25,49 +27,55 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
 
             }
         }
+
         public string Image
         {
             get
             {
-                var src = _imageElement.GetAttribute("src");
+                var src = ElementImage.GetAttribute("src");
                 return src.Substring(src.IndexOf("/dam"));
             }
         }
-        private IWebElement elementBackgroundImage
+
+        private IWebElement ElementBackgroundImage
         {
             get
             {
                 return element.FindElement(By.ClassName("feature-card-transparent-bg"));
             }
         }
+
         public string BackgroundImage
         {
             get
             {
-                var src = elementBackgroundImage.GetAttribute("style");
+                var src = ElementBackgroundImage.GetAttribute("style");
                 int length = src.Length - src.IndexOf("/dam") - 3;
                 return src.Substring(src.IndexOf("/dam"), length);
             }
         }
-        private IWebElement elementLinkLearnMore
+
+        private IWebElement ElementLinkLearnMore
         {
             get
             {
                 return element.FindElement(By.CssSelector(".feature-card-description a[href]"));
             }
         }
-        private IWebElement elementDescription
+
+        private IWebElement ElementDescription
         {
             get
             {
                 return element.FindElement(By.ClassName("feature-card-description"));
             }
         }
+
         public string Title
         {
             get
             {
-                return elementTitle.Text;
+                return ElementTitle.Text;
             }
         }
 
@@ -75,14 +83,15 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
         {
             get
             {
-                return elementLinkLearnMore.Text;
+                return ElementLinkLearnMore.Text;
             }
         }
+
         public string Description
         {
             get
             {
-                return elementDescription.Text;
+                return ElementDescription.Text;
             }
         }
     }

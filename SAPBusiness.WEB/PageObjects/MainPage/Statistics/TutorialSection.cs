@@ -1,4 +1,4 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SAPBusiness.WEB.PageObjects.MainPage.Statistics
 {
-    public class TutorialSection : BasePageObject<TutorialSection>
+    public class TutorialSection : BasePageObject<TutorialSection>, ITutorialSection
     {
         private List<Statistics> _statistics;
 

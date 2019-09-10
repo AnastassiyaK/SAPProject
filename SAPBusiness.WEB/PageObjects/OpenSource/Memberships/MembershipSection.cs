@@ -1,4 +1,4 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.Memberships
 {
-    public class MembershipSection : BasePageObject<MembershipSection>/*, IMembershipSection*/
+    public class MembershipSection : BasePageObject<MembershipSection>, IMembershipSection
     {
         public MembershipSection(BaseWebDriver driver) : base(driver)
         {
@@ -32,6 +32,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Memberships
                 return _driver.FindElement(By.ClassName("memberships-header-header")).Text;
             }
         }
+
         public string Description
         {
             get

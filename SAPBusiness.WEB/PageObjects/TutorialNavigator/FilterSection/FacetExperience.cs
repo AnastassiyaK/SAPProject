@@ -1,9 +1,9 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 {
-    class FacetExperience : FilterSection
+    public class FacetExperience : FilterSection, IFacetExperience
     {
         public FacetExperience(BaseWebDriver driver) : base(driver)
         {

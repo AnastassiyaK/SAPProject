@@ -1,9 +1,9 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent
 {
-    public class FeaturedContentSection : BasePageObject<FeaturedContentSection>
+    public class FeaturedContentSection : BasePageObject<FeaturedContentSection>, IFeaturedContentSection
     {
         public FeaturedContentSection(BaseWebDriver driver) : base(driver)
         {

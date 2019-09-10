@@ -1,9 +1,9 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
 {
-    public class ProjectSectionInfo : BasePageObject<ProjectSectionInfo>
+    public class ProjectSectionInfo : BasePageObject<ProjectSectionInfo>, IProjectSectionInfo
     {
         public ProjectSectionInfo(BaseWebDriver driver) : base(driver)
         {
@@ -16,6 +16,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
                 return _driver.FindElement(By.ClassName("projects-header")).Text;
             }
         }
+
         public string Description
         {
             get
@@ -23,6 +24,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
                 return _driver.FindElement(By.ClassName("projects-description")).Text;
             }
         }
+
         public string Email
         {
             get

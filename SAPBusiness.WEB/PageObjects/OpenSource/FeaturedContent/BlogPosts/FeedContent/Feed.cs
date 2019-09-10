@@ -2,7 +2,7 @@
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedContent
 {
-    public class Feed
+    public class Feed : IFeed
     {
         private IWebElement element;
         public Feed(IWebElement element)

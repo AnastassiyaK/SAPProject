@@ -1,9 +1,9 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 {
-    public class TileLegend : BasePageObject<TileLegend>
+    public class TileLegend : BasePageObject<TileLegend>, ITileLegend
     {
         public TileLegend(BaseWebDriver driver) : base(driver)
         {
@@ -16,6 +16,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
                 return int.Parse(TileMission.GetAttribute("data-number-items"));
             }
         }
+
         public int Tutorial
         {
             get
@@ -36,10 +37,12 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
         {
             get { return _driver.FindElement(By.CssSelector(".tiles-legend__option.mission")); }
         }
+
         private IWebElement TileTutorial
         {
             get { return _driver.FindElement(By.CssSelector(".tiles-legend__option.tutorial")); }
         }
+
         private IWebElement TileGroup
         {
             get { return _driver.FindElement(By.CssSelector(".tiles-legend__option.group")); }

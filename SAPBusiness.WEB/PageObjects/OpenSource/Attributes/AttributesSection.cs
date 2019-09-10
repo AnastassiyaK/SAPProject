@@ -1,13 +1,12 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
-using SAPBusiness.WEB.PageObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.Attributes
 {
-    public class AttributesSection : BasePageObject<AttributesSection>
+    public class AttributesSection : BasePageObject<AttributesSection>, IAttributesSection
     {
         public AttributesSection(BaseWebDriver driver) : base(driver)
         {

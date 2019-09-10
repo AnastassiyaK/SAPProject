@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.Logon
 {
-    public class LogOnSection : BasePageObject<LogOnSection>
+    public class LogOnSection : BasePageObject<LogOnSection>, ILogOnSection
     {
         public LogOnSection(BaseWebDriver driver) : base(driver)
         {

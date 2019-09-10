@@ -1,13 +1,13 @@
-﻿using SAPTests.WebDriver;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedContent;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.WebDriver;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts
 {
-    public class BlogPostSection : BasePageObject<BlogPostSection>
+    public class BlogPostSection : BasePageObject<BlogPostSection>, IBlogPostSection
     {
 
         public BlogPostSection(BaseWebDriver driver) : base(driver)
@@ -39,6 +39,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts
                 return _driver.FindElement(By.CssSelector("#order-id-3 .header-container .header-topic")).Text;
             }
         }
+
         private List<Feed> _feeds;
         private List<Feed> Feeds
         {
@@ -51,17 +52,21 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts
                       );
             }
         }
+
         public int GetFeedsAmount() => Feeds.Count;
+
         public Feed GetFeedByTitle(string title)
         {
             return Feeds[0];
         }
+
         public List<Feed> GetFeedsByType(FeedType type)
         {
             FeedSortItem.SelectFeedType(type);
             return Feeds;
 
         }
+
         public FeedType GetCurrentFeedType()
         {
             try

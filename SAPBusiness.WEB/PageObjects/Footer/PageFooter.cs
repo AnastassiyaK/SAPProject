@@ -1,10 +1,10 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
 using SAPBusiness.WEB.PageObjects.Footer.Networks;
 
 namespace SAPBusiness.WEB.PageObjects.Footer
 {
-    public class PageFooter : BasePageObject<PageFooter>
+    public class PageFooter : BasePageObject<PageFooter>, IPageFooter
     {
         public PageFooter(BaseWebDriver driver) : base(driver)
         {

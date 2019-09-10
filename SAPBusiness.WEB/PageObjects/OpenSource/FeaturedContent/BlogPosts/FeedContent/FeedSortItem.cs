@@ -1,16 +1,17 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
-using SAPBusiness.WEB.PageObjects;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedContent
 {
-    public class FeedSortItem : BasePageObject<FeedSortItem>
+    public class FeedSortItem : BasePageObject<FeedSortItem>, IFeedSortItem
     {
         private IWebElement _feedSortingContainer => _driver.FindElement(By.ClassName("feed-sorting-container"));
+
         public FeedSortItem(BaseWebDriver driver) : base(driver)
         {
 
         }
+
         public string Active
         {
             get
@@ -19,11 +20,13 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedC
             }
 
         }
+
         private static By GetTypeLocator(FeedType type) => By.XPath($"//div[@class='for-selection']//span[text() = '{type}']");
+
         public void SelectFeedType(FeedType type)
         {
             _driver.FindElement(By.CssSelector(".feed-sorting-container .active")).Click();
-            //wait
+
             _feedSortingContainer.FindElement(GetTypeLocator(type)).Click();
         }
 

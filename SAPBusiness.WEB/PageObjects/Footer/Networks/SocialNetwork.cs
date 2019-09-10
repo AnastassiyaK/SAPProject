@@ -2,7 +2,7 @@
 
 namespace SAPBusiness.WEB.PageObjects.Footer.Networks
 {
-    public class SocialNetwork
+    public class SocialNetwork : ISocialNetwork
     {
         private IWebElement element;
         public SocialNetwork(IWebElement element)

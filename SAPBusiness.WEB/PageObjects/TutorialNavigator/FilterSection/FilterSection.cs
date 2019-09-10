@@ -1,4 +1,4 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -6,12 +6,12 @@ using System.Linq;
 
 namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 {
-    public class FilterSection : BasePageObject<FilterSection>
+    public class FilterSection : BasePageObject<FilterSection>, IFilterSection
     {
         public FilterSection(BaseWebDriver driver) : base(driver)
         {
-
         }
+
         protected IWebElement _overviewElement => _driver.FindElement(By.Id("facets-options"));
 
         protected List<IWebElement> _tagElements => _overviewElement.FindElements(By.ClassName("filters__item")).ToList();

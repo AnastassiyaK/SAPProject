@@ -1,14 +1,15 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 {
-    public class FacetType : FilterSection
+    public class FacetType : FilterSection, IFacetType
     {
         public FacetType(BaseWebDriver driver) : base(driver)
         {
 
         }
+
         public IWebElement Type
         {
             get

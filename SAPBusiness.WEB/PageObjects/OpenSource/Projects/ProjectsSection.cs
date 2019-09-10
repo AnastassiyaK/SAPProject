@@ -1,4 +1,4 @@
-﻿using SAPTests.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
 using SAPBusiness.WEB.PageObjects.OpenSource.Projects.Search;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
 {
-    public class ProjectsSection : BasePageObject<ProjectsSection>
+    public class ProjectsSection : BasePageObject<ProjectsSection>, IProjectsSection
     {
         public ProjectsSection(BaseWebDriver driver) : base(driver)
         {
@@ -15,6 +15,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
         }
 
         private SearchSection _searchSection;
+
         private SearchSection SearchSection
         {
             get
@@ -22,6 +23,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
                 return _searchSection ?? (_searchSection = new SearchSection(_driver));
             }
         }
+
         public int All
         {
             get
@@ -30,6 +32,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
 
             }
         }
+
         public int Shown
         {
             get
@@ -45,7 +48,9 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
                 return _driver.FindElement(By.CssSelector(".show-entries span")).Text;
             }
         }
+
         private List<ProjectCard> _projects;
+
         private List<ProjectCard> Projects
         {
             get
@@ -58,6 +63,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
         }
 
         public int GetProjectsAmount() => Projects.Count;
+
         public ProjectCard GetProjectByTitle(string title)
         {
             foreach (var project in Projects)
@@ -69,7 +75,6 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
                 }
             }
             throw new Exception();//implement some exeption 
-
         }
 
         public List<ProjectCard> GetProjectsBySearchingString(string searchString)
