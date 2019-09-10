@@ -8,7 +8,9 @@ namespace SAPBusiness.WEB.PageObjects.Footer
     {
         public PageFooter(BaseWebDriver driver) : base(driver)
         {
+
         }
+
         private IWebElement _networks => _driver.FindElement(By.ClassName("social-networks__list"));
 
         private static By GetSocialNetworkByTitle(string type) => By.CssSelector($"a[data-share-channel='{type}']");

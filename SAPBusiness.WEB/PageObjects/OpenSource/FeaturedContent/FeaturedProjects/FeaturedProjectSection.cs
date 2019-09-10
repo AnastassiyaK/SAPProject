@@ -10,6 +10,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.FeaturedProject
         {
 
         }
+
         public string Icon
         {
             get
@@ -17,6 +18,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.FeaturedProject
                 return _driver.FindElement(By.CssSelector("#order-id-1 .header-container .icon")).GetAttribute("url");
             }
         }
+
         public string Title
         {
             get
@@ -24,6 +26,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.FeaturedProject
                 return _driver.FindElement(By.CssSelector("#order-id-1 .header-container .header-title")).Text;
             }
         }
+
         public string Topic
         {
             get
@@ -31,6 +34,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.FeaturedProject
                 return _driver.FindElement(By.CssSelector("#order-id-1 .header-container .header-topic")).Text;
             }
         }
+
         public string Description
         {
             get
@@ -46,6 +50,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.FeaturedProject
                 return _driver.FindElement(By.CssSelector("#order-id-1 .description-container a[href]")).Text;
             }
         }
+
         public string TitleLink
         {
             get

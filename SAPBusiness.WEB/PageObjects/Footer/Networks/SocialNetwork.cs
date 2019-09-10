@@ -4,11 +4,13 @@ namespace SAPBusiness.WEB.PageObjects.Footer.Networks
 {
     public class SocialNetwork : ISocialNetwork
     {
-        private IWebElement element;
+        private readonly IWebElement element;
+
         public SocialNetwork(IWebElement element)
         {
             this.element = element;
         }
+
         public IWebElement GoToLink
         {
             get
@@ -41,6 +43,5 @@ namespace SAPBusiness.WEB.PageObjects.Footer.Networks
                 return src.Substring(src.IndexOf("/dam"));
             }
         }
-
     }
 }

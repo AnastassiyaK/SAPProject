@@ -9,7 +9,6 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts
 {
     public class BlogPostSection : BasePageObject<BlogPostSection>, IBlogPostSection
     {
-
         public BlogPostSection(BaseWebDriver driver) : base(driver)
         {
 
@@ -25,6 +24,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts
                     (_feedSortItem = new FeedSortItem(_driver));
             }
         }
+
         public string Icon
         {
             get
@@ -32,6 +32,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts
                 return _driver.FindElement(By.CssSelector("#order-id-3 .header-container .icon")).GetAttribute("url");
             }
         }
+
         public string Topic
         {
             get
@@ -41,6 +42,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts
         }
 
         private List<Feed> _feeds;
+
         private List<Feed> Feeds
         {
             get

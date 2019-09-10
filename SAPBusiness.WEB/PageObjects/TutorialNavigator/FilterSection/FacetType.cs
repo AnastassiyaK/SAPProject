@@ -22,6 +22,5 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
         {
             SelectTagByTitleImproved($"{type.ToString()}");
         }
-
     }
 }

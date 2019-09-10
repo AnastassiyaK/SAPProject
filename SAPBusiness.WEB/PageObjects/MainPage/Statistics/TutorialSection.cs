@@ -12,6 +12,7 @@ namespace SAPBusiness.WEB.PageObjects.MainPage.Statistics
 
         public TutorialSection(BaseWebDriver driver) : base(driver)
         {
+
         }
 
         private List<Statistics> Statistics

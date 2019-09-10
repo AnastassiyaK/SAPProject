@@ -20,6 +20,7 @@ namespace SAPBusiness.WEB.PageObjects.MainPage.Statistics
                 return int.Parse(string.Join("", $"{Stats.Substring(Stats.IndexOf("/") + 1, Stats.Length - 2)}".TakeWhile(x => Char.IsDigit(x))));
             }
         }
+
         public int Completed
         {
             get
@@ -27,6 +28,7 @@ namespace SAPBusiness.WEB.PageObjects.MainPage.Statistics
                 return int.Parse(string.Join("", $"{Stats.Substring(0, Stats.IndexOf("/"))}".TakeWhile(x => Char.IsDigit(x))));
             }
         }
+
         public string Subtitle
         {
             get
@@ -34,6 +36,7 @@ namespace SAPBusiness.WEB.PageObjects.MainPage.Statistics
                 return _element.FindElement(By.CssSelector(".tutorial-stats__subtitle")).Text;
             }
         }
+
         private string Stats
         {
             get

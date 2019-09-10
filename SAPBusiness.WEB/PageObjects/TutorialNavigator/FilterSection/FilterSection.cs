@@ -10,6 +10,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
     {
         public FilterSection(BaseWebDriver driver) : base(driver)
         {
+
         }
 
         protected IWebElement _overviewElement => _driver.FindElement(By.Id("facets-options"));
@@ -20,7 +21,6 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 
         public FilterSection SelectTagByTitleImproved(string title)
         {
-
             _overviewElement.FindElement(GetTagLocatorWithTitle(title))
                 .Click();
 

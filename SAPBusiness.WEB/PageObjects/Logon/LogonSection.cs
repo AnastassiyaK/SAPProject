@@ -7,6 +7,7 @@ namespace SAPBusiness.WEB.PageObjects.Logon
     {
         public LogOnSection(BaseWebDriver driver) : base(driver)
         {
+
         }
 
         public IWebElement UserNameInput
@@ -16,6 +17,7 @@ namespace SAPBusiness.WEB.PageObjects.Logon
                 return _driver.FindElement(By.Id("j_username"));
             }
         }
+
         public IWebElement PasswordInput
         {
             get
@@ -23,6 +25,7 @@ namespace SAPBusiness.WEB.PageObjects.Logon
                 return _driver.FindElement(By.Id("j_password"));
             }
         }
+
         public IWebElement LogOnButton
         {
             get

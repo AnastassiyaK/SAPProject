@@ -6,6 +6,7 @@ namespace SAPBusiness.WEB.PageObjects.Logon
     public class LogOnPage : BasePageObject<LogOnPage>, ILogOnStrategy
     {
         private readonly LogOnSection logOnSection;
+
         public LogOnPage(BaseWebDriver driver) : base(driver)
         {
             logOnSection = new LogOnSection(_driver);
@@ -15,6 +16,7 @@ namespace SAPBusiness.WEB.PageObjects.Logon
         {
             logOnSection.UserNameInput.SendKeys(user.Login);
             logOnSection.PasswordInput.SendKeys(user.Password);
+
             logOnSection.LogOnButton.Click();
         }
 

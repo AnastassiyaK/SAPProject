@@ -12,6 +12,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Memberships
         {
 
         }
+
         private List<Membership> _memberships;
 
         private List<Membership> Memberships
@@ -40,6 +41,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Memberships
                 return _driver.FindElement(By.ClassName("memberships-header-description")).Text;
             }
         }
+
         public int GetMembershipsAmount() => Memberships.Count;
 
         public bool HasMemberships() => Memberships.Count > 0;

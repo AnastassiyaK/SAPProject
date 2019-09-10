@@ -8,11 +8,11 @@ namespace SAPBusiness.WEB.PageObjects.Frames
     public class LogonFrame : BasePageObject<LogonFrame>, ILogOnStrategy
     {
         private readonly LogOnSection logOnSection;
+
         public LogonFrame(BaseWebDriver driver) : base(driver)
         {
             logOnSection = new LogOnSection(_driver);
         }
-
 
         public void LogOn(User user)
         {

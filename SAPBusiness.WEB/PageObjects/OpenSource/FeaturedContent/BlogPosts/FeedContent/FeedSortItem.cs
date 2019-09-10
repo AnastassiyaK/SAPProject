@@ -5,7 +5,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedC
 {
     public class FeedSortItem : BasePageObject<FeedSortItem>, IFeedSortItem
     {
-        private IWebElement _feedSortingContainer => _driver.FindElement(By.ClassName("feed-sorting-container"));
+        private IWebElement FeedSortingContainer => _driver.FindElement(By.ClassName("feed-sorting-container"));
 
         public FeedSortItem(BaseWebDriver driver) : base(driver)
         {
@@ -27,7 +27,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedC
         {
             _driver.FindElement(By.CssSelector(".feed-sorting-container .active")).Click();
 
-            _feedSortingContainer.FindElement(GetTypeLocator(type)).Click();
+            FeedSortingContainer.FindElement(GetTypeLocator(type)).Click();
         }
 
         protected override FeedSortItem WaitForLoad()

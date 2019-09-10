@@ -4,13 +4,14 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedC
 {
     public class Feed : IFeed
     {
-        private IWebElement element;
+        private readonly IWebElement element;
+
         public Feed(IWebElement element)
         {
             this.element = element;
         }
 
-        private IWebElement _elementPeopleIcon
+        private IWebElement ElementPeopleIcon
         {
             get
             {
@@ -33,6 +34,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedC
                 return element.FindElement(By.ClassName("title")).Text;
             }
         }
+
         public string Date
         {
             get
@@ -40,13 +42,15 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedC
                 return element.FindElement(By.ClassName("time")).Text;
             }
         }
+
         public string LinkIcon
         {
             get
             {
-                return _elementPeopleIcon.Text;
+                return ElementPeopleIcon.Text;
             }
         }
+
         public string BlogTitle
         {
             get

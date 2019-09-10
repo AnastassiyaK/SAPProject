@@ -7,6 +7,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
     {
         public TileLegend(BaseWebDriver driver) : base(driver)
         {
+
         }
 
         public int Mission
@@ -35,17 +36,26 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 
         private IWebElement TileMission
         {
-            get { return _driver.FindElement(By.CssSelector(".tiles-legend__option.mission")); }
+            get
+            {
+                return _driver.FindElement(By.CssSelector(".tiles-legend__option.mission"));
+            }
         }
 
         private IWebElement TileTutorial
         {
-            get { return _driver.FindElement(By.CssSelector(".tiles-legend__option.tutorial")); }
+            get
+            {
+                return _driver.FindElement(By.CssSelector(".tiles-legend__option.tutorial"));
+            }
         }
 
         private IWebElement TileGroup
         {
-            get { return _driver.FindElement(By.CssSelector(".tiles-legend__option.group")); }
+            get
+            {
+                return _driver.FindElement(By.CssSelector(".tiles-legend__option.group"));
+            }
         }
 
         protected override TileLegend WaitForLoad()

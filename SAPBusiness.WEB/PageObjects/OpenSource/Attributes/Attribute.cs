@@ -4,12 +4,14 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Attributes
 {
     public class Attribute : IAttribute
     {
-        private IWebElement _element;
+        private readonly IWebElement _element;
+
         public Attribute(IWebElement element)
         {
             _element = element;
         }
-        private IWebElement _descriptionElement
+
+        private IWebElement ElementDescription
         {
             get
             {
@@ -24,6 +26,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Attributes
                 return _element.FindElement(By.CssSelector(".attribute-icon")).Text;
             }
         }
+
         public string Title
         {
             get
@@ -31,11 +34,12 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Attributes
                 return _element.FindElement(By.CssSelector(".attribute-title")).Text;
             }
         }
+
         public string Description
         {
             get
             {
-                return _descriptionElement.Text;
+                return ElementDescription.Text;
             }
         }
     }

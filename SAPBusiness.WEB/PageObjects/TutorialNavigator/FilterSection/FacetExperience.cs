@@ -7,6 +7,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
     {
         public FacetExperience(BaseWebDriver driver) : base(driver)
         {
+
         }
 
         public IWebElement Experience
@@ -16,6 +17,5 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
                 return _driver.FindElement(By.ClassName("overview"));
             }
         }
-
     }
 }

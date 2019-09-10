@@ -22,7 +22,6 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
                     (_tiles = _driver.FindElements(By.CssSelector(".tutorial-tile"))
                     .Select(element => new TileElement(element))
                     .ToList());
-
             }
         }
 

@@ -4,18 +4,18 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
 {
     public class ProjectCard : IProjectCard
     {
-        private readonly IWebElement element;
+        private readonly IWebElement _element;
 
         public ProjectCard(IWebElement element)
         {
-            this.element = element;
+            _element = element;
         }
 
         private IWebElement ElementTitle
         {
             get
             {
-                return element.FindElement(By.ClassName("feature-card-title"));
+                return _element.FindElement(By.ClassName("feature-card-title"));
             }
         }
 
@@ -23,7 +23,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
         {
             get
             {
-                return element.FindElement(By.ClassName("feature-card-image"));
+                return _element.FindElement(By.ClassName("feature-card-image"));
 
             }
         }
@@ -41,7 +41,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
         {
             get
             {
-                return element.FindElement(By.ClassName("feature-card-transparent-bg"));
+                return _element.FindElement(By.ClassName("feature-card-transparent-bg"));
             }
         }
 
@@ -59,7 +59,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
         {
             get
             {
-                return element.FindElement(By.CssSelector(".feature-card-description a[href]"));
+                return _element.FindElement(By.CssSelector(".feature-card-description a[href]"));
             }
         }
 
@@ -67,7 +67,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
         {
             get
             {
-                return element.FindElement(By.ClassName("feature-card-description"));
+                return _element.FindElement(By.ClassName("feature-card-description"));
             }
         }
 

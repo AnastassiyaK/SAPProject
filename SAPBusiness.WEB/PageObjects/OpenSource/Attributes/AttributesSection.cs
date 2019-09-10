@@ -12,8 +12,8 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Attributes
         {
 
         }
-        private List<Attribute> _attributes;
 
+        private List<Attribute> _attributes;
 
         private List<Attribute> Attributes
         {

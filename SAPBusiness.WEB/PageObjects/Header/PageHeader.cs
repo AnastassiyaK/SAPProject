@@ -7,6 +7,7 @@ namespace SAPBusiness.WEB.PageObjects.Header
     {
         public PageHeader(BaseWebDriver driver) : base(driver)
         {
+
         }
 
         private IWebElement Logon
