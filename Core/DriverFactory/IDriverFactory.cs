@@ -4,8 +4,6 @@ namespace Core.DriverFactory
 {
     public interface IDriverFactory
     {
-        IWebDriver CreateRemoteWebDriver();
-
-        IWebDriver CreateLocalWebDriver();
+        IWebDriver CreateWebDriver();
     }
 }

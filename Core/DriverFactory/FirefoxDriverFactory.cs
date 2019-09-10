@@ -1,22 +1,20 @@
-﻿using Core.Configuration;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Remote;
-using System;
 
 namespace Core.DriverFactory
 {
-    public class FirefoxDriverFactory : IDriverFactory
+    public class FirefoxDriverFactory : BaseWebDriverFactory
     {
-        protected IWebDriver _driver;
-        public IWebDriver CreateRemoteWebDriver()
+        protected override ICapabilities Capabilities
         {
-            FirefoxOptions options = new FirefoxOptions();
-            //options.AddAdditionalCapability("useAutomationExtension", false);//enable extensions  
-            _driver = new RemoteWebDriver(new Uri(AppConfiguration.AppSetting["SeleniumGrid:nodeUrl"]), options.ToCapabilities());
-            return _driver;
+            get
+            {
+                FirefoxOptions options = new FirefoxOptions();
+                return options.ToCapabilities();
+            }
         }
-        public IWebDriver CreateLocalWebDriver()
+
+        public override IWebDriver CreateLocalWebDriver()
         {
             FirefoxOptions options = new FirefoxOptions();
             options.AddAdditionalCapability("useAutomationExtension", false);//enable extensions  

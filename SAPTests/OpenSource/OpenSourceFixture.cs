@@ -16,7 +16,7 @@ using SAPTests.Browsers;
 
 namespace SAPTests.OpenSource
 {
-    [TestFixtureSource(typeof(BrowserList), "browsers")]
+    [TestFixtureSource(typeof(BrowserList), "Browsers")]
     [Parallelizable(ParallelScope.All)]
     public class OpenSourceFixture : BaseTest
     {

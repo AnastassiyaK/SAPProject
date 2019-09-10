@@ -19,15 +19,10 @@ namespace Core.WebDriver
             _factory = factory;
         }
         public string Url => _driver.Url;
-        public void InitRemoteDriver()
+        public void InitDriver()
         {
-            _driver = _factory.CreateRemoteWebDriver();
+            _driver = _factory.CreateWebDriver();
             _driver.Manage().Window.Maximize();
-
-        }
-
-        public void InitLocalDriver()
-        {
 
         }
 

@@ -35,18 +35,31 @@ namespace SAPTests
 
         private void RegisterBrowser(ContainerBuilder builder)
         {
+            //if (_browser == Browser.Chrome)
+            //{
+            //    builder.RegisterType<ChromeDriverFactory>().As<IDriverFactory>();
+            //}                
+            //if (_browser == Browser.Firefox)
+            //{
+            //    builder.RegisterType<FirefoxDriverFactory>().As<IDriverFactory>();
+            //}               
+            //if (_browser == Browser.IE)
+            //{
+            //    builder.RegisterType<IEDriverFactory>().As<IDriverFactory>();
+            //} 
             if (_browser == Browser.Chrome)
             {
                 builder.RegisterType<ChromeDriverFactory>().As<IDriverFactory>();
-            }                
+            }
             if (_browser == Browser.Firefox)
             {
-                builder.RegisterType<FirefoxDriverFactory>().As<IDriverFactory>();
-            }               
+                builder.RegisterType<FirefoxDriverFactory>.As<IDriverFactory>();
+            }
             if (_browser == Browser.IE)
             {
-                builder.RegisterType<IEDriverFactory>().As<IDriverFactory>();
-            }                
+                builder.RegisterType<IEDriverFactory>.As<IDriverFactory>();
+            }
+
         }
 
         [SetUp]
@@ -62,7 +75,7 @@ namespace SAPTests
 
             BaseDriver = Scope.Resolve<BaseWebDriver>();
 
-            BaseDriver.InitRemoteDriver();
+            BaseDriver.InitDriver();
 
         }
         [TearDown]

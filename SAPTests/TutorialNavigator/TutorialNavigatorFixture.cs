@@ -15,7 +15,7 @@ using Core.Configuration;
 
 namespace SAPTests.TutorialNavigator
 {
-    [TestFixtureSource(typeof(BrowserList), "browsers")]
+    [TestFixtureSource(typeof(BrowserList), "Browsers")]
     [Parallelizable(ParallelScope.All)]
     public class TutorialNavigatorFixture : BaseTest
     {

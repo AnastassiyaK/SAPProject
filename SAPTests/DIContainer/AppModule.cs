@@ -18,6 +18,7 @@ using SAPBusiness.WEB.PageObjects.Footer;
 using SAPBusiness.WEB.PageObjects.Footer.Networks;
 using Core.WebDriver;
 using SAPBusiness.Services.Interfaces.API_UserService;
+using Core.DriverFactory;
 
 namespace SAPTests.Autofac
 {
@@ -28,6 +29,8 @@ namespace SAPTests.Autofac
             builder.RegisterType<BaseWebDriver>().AsSelf().InstancePerLifetimeScope();
 
             builder.RegisterGeneric(typeof(BasePageObject<>)).AsSelf().InstancePerDependency();
+
+            builder.RegisterType<BaseWebDriverFactory>();            
 
             builder.RegisterType<CookiesFrame>().AsSelf().InstancePerDependency();
 

@@ -12,7 +12,7 @@ using SAPBusiness.Services.Interfaces.API_UserService;
 
 namespace SAPTests.UserServices
 {
-    [TestFixtureSource(typeof(BrowserList), "browsers")]
+    [TestFixtureSource(typeof(BrowserList), "Browsers")]
     public class UserServiceFixture : BaseTest
     {
         ILogOnStrategy logonStrategy;
