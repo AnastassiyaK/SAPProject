@@ -11,7 +11,7 @@ namespace SAPBusiness.WEB.PageObjects.Footer
 
         }
 
-        private IWebElement _networks => _driver.FindElement(By.ClassName("social-networks__list"));
+        private IWebElement Networks => _driver.FindElement(By.ClassName("social-networks__list"));
 
         private static By GetSocialNetworkByTitle(string type) => By.CssSelector($"a[data-share-channel='{type}']");
 
@@ -19,7 +19,7 @@ namespace SAPBusiness.WEB.PageObjects.Footer
 
         public SocialNetwork GetSocialNetwork(NetworkType type)
         {
-            return _socialNetwork ?? (_socialNetwork = new SocialNetwork(_networks.FindElement(GetSocialNetworkByTitle(type.ToString()))));
+            return _socialNetwork ?? (_socialNetwork = new SocialNetwork(Networks.FindElement(GetSocialNetworkByTitle(type.ToString()))));
         }
 
         public void OpenSocialNetWorkPage(NetworkType type)

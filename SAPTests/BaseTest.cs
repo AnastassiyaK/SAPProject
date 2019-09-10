@@ -11,9 +11,9 @@ namespace SAPTests
     {
         protected Browser _browser;
 
-        private ThreadLocal<BaseWebDriver> _driver = new ThreadLocal<BaseWebDriver>();
+        private readonly ThreadLocal<BaseWebDriver> _driver = new ThreadLocal<BaseWebDriver>();
 
-        private ThreadLocal<ILifetimeScope> _scope = new ThreadLocal<ILifetimeScope>();
+        private readonly ThreadLocal<ILifetimeScope> _scope = new ThreadLocal<ILifetimeScope>();
         protected ILifetimeScope Scope
         {
             get => _scope.Value;

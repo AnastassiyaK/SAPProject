@@ -6,19 +6,20 @@ using System;
 
 namespace Core.DriverFactory
 {
-    public class ChromeDriverFactory : IDriverFactory
-    {
-        protected IWebDriver _driver;
-        public IWebDriver CreateRemoteWebDriver()
+    public class ChromeDriverFactory : BaseWebDriverFactory
+    {        
+        protected override ICapabilities Capabilities
         {
-            ChromeOptions options = new ChromeOptions();
-            options.AddExcludedArgument("enable-automation");//enable info-bar
-            options.AddAdditionalCapability("useAutomationExtension", false);//enable extensions  
-            _driver = new RemoteWebDriver(new Uri(AppConfiguration.AppSetting["SeleniumGrid:nodeUrl"]), options.ToCapabilities());
-
-            return _driver;
+            get
+            {
+                ChromeOptions options = new ChromeOptions();
+                options.AddExcludedArgument("enable-automation");//enable info-bar
+                options.AddAdditionalCapability("useAutomationExtension", false);//enable extensions 
+                return options.ToCapabilities();
+            }
         }
-        public IWebDriver CreateLocalWebDriver()
+
+        public override IWebDriver CreateLocalWebDriver()
         {
             ChromeOptions options = new ChromeOptions();
             options.AddExcludedArgument("enable-automation");//enable info-bar

@@ -13,15 +13,15 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 
         }
 
-        protected IWebElement _overviewElement => _driver.FindElement(By.Id("facets-options"));
+        protected IWebElement OverviewElement => _driver.FindElement(By.Id("facets-options"));
 
-        protected List<IWebElement> _tagElements => _overviewElement.FindElements(By.ClassName("filters__item")).ToList();
+        protected List<IWebElement> TagElements => OverviewElement.FindElements(By.ClassName("filters__item")).ToList();
 
         protected static By GetTagLocatorWithTitle(string title) => By.XPath($".//div[text() = '{title}']");
 
         public FilterSection SelectTagByTitleImproved(string title)
         {
-            _overviewElement.FindElement(GetTagLocatorWithTitle(title))
+            OverviewElement.FindElement(GetTagLocatorWithTitle(title))
                 .Click();
 
             WaitForPageLoad();
@@ -30,7 +30,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 
         public FilterSection SelectTagByTitle(string title)
         {
-            var tag = _tagElements.FirstOrDefault(t => t.Text == title);
+            var tag = TagElements.FirstOrDefault(t => t.Text == title);
 
             if (tag is null)
             {

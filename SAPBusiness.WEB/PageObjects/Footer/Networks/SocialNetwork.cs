@@ -4,18 +4,18 @@ namespace SAPBusiness.WEB.PageObjects.Footer.Networks
 {
     public class SocialNetwork : ISocialNetwork
     {
-        private readonly IWebElement element;
+        private readonly IWebElement _element;
 
         public SocialNetwork(IWebElement element)
         {
-            this.element = element;
+            _element = element;
         }
 
         public IWebElement GoToLink
         {
             get
             {
-                return element;
+                return _element;
             }
         }
 
@@ -27,11 +27,11 @@ namespace SAPBusiness.WEB.PageObjects.Footer.Networks
             }
         }
 
-        private IWebElement _elementImage
+        private IWebElement ElementImage
         {
             get
             {
-                return element.FindElement(By.CssSelector("img"));
+                return _element.FindElement(By.CssSelector("img"));
             }
         }
 
@@ -39,7 +39,7 @@ namespace SAPBusiness.WEB.PageObjects.Footer.Networks
         {
             get
             {
-                var src = _elementImage.GetAttribute("src");
+                var src = ElementImage.GetAttribute("src");
                 return src.Substring(src.IndexOf("/dam"));
             }
         }
