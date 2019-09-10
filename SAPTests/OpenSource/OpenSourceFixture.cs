@@ -21,11 +21,13 @@ namespace SAPTests.OpenSource
     public class OpenSourceFixture : BaseTest
     {
         private readonly ThreadLocal<Logger> _log = new ThreadLocal<Logger>();
+
         private Logger Logger
         {
             get => _log.Value;
             set => _log.Value = value;
         }
+
         public OpenSourceFixture(Browser browser) : base(browser)
         {
 
@@ -34,7 +36,6 @@ namespace SAPTests.OpenSource
         [SetUp]
         public void SetUp()
         {
-
             Logger = LogManager.GetLogger($"{TestContext.CurrentContext.Test.MethodName}");
 
             BaseDriver.Navigate(AppConfiguration.AppSetting["Pages:OpenSource"]);
@@ -48,8 +49,8 @@ namespace SAPTests.OpenSource
                 Logger.Error($"Cookies were not accepted! {e.Message}");
                 Assert.Warn(e.Message);//implement custom exception
             }
-
         }
+
         [TearDown]
         public void Teardown1()
         {
@@ -85,7 +86,6 @@ namespace SAPTests.OpenSource
                 Logger.Info($"Project --- {project.Title} --- on the page with description: --- {project.Description} ---");
                 Assert.IsTrue(project.Description.Contains(randomWord) || project.Title.Contains(randomWord));
             }
-
         }
 
 
@@ -146,7 +146,6 @@ namespace SAPTests.OpenSource
 
                 Assert.IsTrue(membership.Description != "");
             }
-
         }
 
         [Test(Description = "Check all memberships have title and description using page object logging")]

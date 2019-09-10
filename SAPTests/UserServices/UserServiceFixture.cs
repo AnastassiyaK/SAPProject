@@ -16,6 +16,7 @@ namespace SAPTests.UserServices
     public class UserServiceFixture : BaseTest
     {
         ILogOnStrategy logonStrategy;
+
         public UserServiceFixture(Browser browser) : base(browser)
         {
 
@@ -36,7 +37,6 @@ namespace SAPTests.UserServices
             {
                 Assert.Warn(e.Message);//implement custom exception
             }
-
         }
 
         [Test(Description = "Compare user progress using user's cookies and progress on the browser page")]
@@ -45,7 +45,7 @@ namespace SAPTests.UserServices
         {
             Scope.Resolve<PageHeader>().WaitForPageLoad().OpenLogonFrame();
 
-            logonStrategy.LogOn(Scope.Resolve<UserPool>().GetUser());
+            logonStrategy.LogOn(new UserPool().GetUser());
 
             var progress = Scope.Resolve<IUserService>().GetStatistics(BaseDriver.GetBrowserCookies()).UserProgress;
 
@@ -65,7 +65,6 @@ namespace SAPTests.UserServices
                 Assert.IsTrue(progress.TutorialCompleted == tutorials.Completed);
 
             });
-
         }
     }
 }

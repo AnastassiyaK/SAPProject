@@ -14,19 +14,23 @@ namespace SAPTests
         private readonly ThreadLocal<BaseWebDriver> _driver = new ThreadLocal<BaseWebDriver>();
 
         private readonly ThreadLocal<ILifetimeScope> _scope = new ThreadLocal<ILifetimeScope>();
+
         protected ILifetimeScope Scope
         {
             get => _scope.Value;
             set => _scope.Value = value;
         }
+
         protected IContainer Container
         {
             get; private set;
         }
+
         public BaseTest(Browser browser)
         {
             _browser = browser;
         }
+
         protected BaseWebDriver BaseDriver
         {
             get => _driver.Value;
@@ -34,19 +38,7 @@ namespace SAPTests
         }
 
         private void RegisterBrowser(ContainerBuilder builder)
-        {
-            //if (_browser == Browser.Chrome)
-            //{
-            //    builder.RegisterType<ChromeDriverFactory>().As<IDriverFactory>();
-            //}                
-            //if (_browser == Browser.Firefox)
-            //{
-            //    builder.RegisterType<FirefoxDriverFactory>().As<IDriverFactory>();
-            //}               
-            //if (_browser == Browser.IE)
-            //{
-            //    builder.RegisterType<IEDriverFactory>().As<IDriverFactory>();
-            //} 
+        {            
             if (_browser == Browser.Chrome)
             {
                 builder.RegisterType<ChromeDriverFactory>().As<IDriverFactory>();
@@ -59,7 +51,6 @@ namespace SAPTests
             {
                 builder.RegisterType<IEDriverFactory>().As<IDriverFactory>();
             }
-
         }
 
         [SetUp]
@@ -76,15 +67,14 @@ namespace SAPTests
             BaseDriver = Scope.Resolve<BaseWebDriver>();
 
             BaseDriver.InitDriver();
-
         }
+
         [TearDown]
         public void Teardown()
         {
             BaseDriver.Quit();
 
             Scope.Dispose();
-
         }
 
         //public void Dispose()

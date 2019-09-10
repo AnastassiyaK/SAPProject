@@ -20,6 +20,7 @@ namespace SAPTests.TutorialNavigator
     public class TutorialNavigatorFixture : BaseTest
     {
         ILogOnStrategy logonStrategy;
+
         public TutorialNavigatorFixture(Browser browser) : base(browser)
         {
         }
@@ -41,6 +42,7 @@ namespace SAPTests.TutorialNavigator
             }
 
         }
+
         [Test, TestCaseSource(typeof(FilterDataParser), nameof(FilterDataParser.ExperienceTagsData))]
         [Order(1)]
         public void CheckExperienceFilterTags(string tag)
