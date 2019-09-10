@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace SAPBusiness.WEB.PageObjects.Logon
+namespace SAPBusiness.WEB.PageObjects.LogOn
 {
     public interface ILogOnSection
     {

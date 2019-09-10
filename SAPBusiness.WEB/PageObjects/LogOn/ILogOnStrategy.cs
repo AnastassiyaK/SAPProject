@@ -1,6 +1,6 @@
 ﻿using SAPBusiness.UserData;
 
-namespace SAPBusiness.WEB.PageObjects.Logon
+namespace SAPBusiness.WEB.PageObjects.LogOn
 {
     public interface ILogOnStrategy
     {

@@ -5,7 +5,7 @@ using SAPBusiness.WEB.PageObjects.Frames;
 using SAPBusiness.WEB.PageObjects.Header;
 using SAPBusiness.WEB.PageObjects.MainPage.Statistics;
 using System;
-using SAPBusiness.WEB.PageObjects.Logon;
+using SAPBusiness.WEB.PageObjects.LogOn;
 using Core.Configuration;
 using SAPTests.Browsers;
 using SAPBusiness.Services.Interfaces.API_UserService;
@@ -24,7 +24,7 @@ namespace SAPTests.UserServices
         [SetUp]
         public void SetUp()
         {
-            logonStrategy = Scope.Resolve<LogonFrame>();
+            logonStrategy = Scope.Resolve<LogOnFrame>();
 
             BaseDriver.Navigate(AppConfiguration.AppSetting["Pages:HomePage"]);
 

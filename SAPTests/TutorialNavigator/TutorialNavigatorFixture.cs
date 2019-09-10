@@ -10,7 +10,7 @@ using SAPBusiness.WEB.PageObjects.TutorialNavigator;
 using SAPBusiness.WEB.PageObjects.Footer;
 using SAPBusiness.UserData;
 using SAPTests.Browsers;
-using SAPBusiness.WEB.PageObjects.Logon;
+using SAPBusiness.WEB.PageObjects.LogOn;
 using Core.Configuration;
 
 namespace SAPTests.TutorialNavigator
@@ -27,7 +27,7 @@ namespace SAPTests.TutorialNavigator
         [SetUp]
         public void SetUp()
         {
-            logonStrategy = Scope.Resolve<LogonFrame>();
+            logonStrategy = Scope.Resolve<LogOnFrame>();
 
             BaseDriver.Navigate(AppConfiguration.AppSetting["Pages:TutorialNavigator"]);
 

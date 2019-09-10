@@ -55,7 +55,7 @@ namespace SAPTests.Autofac
 
             builder.RegisterType<UserPool>().AsSelf().InstancePerDependency();
 
-            builder.RegisterType<LogonFrame>().AsSelf().InstancePerDependency();
+            builder.RegisterType<LogOnFrame>().AsSelf().InstancePerDependency();
 
             builder.RegisterType<UserStatistics>().AsSelf().InstancePerDependency();
 
