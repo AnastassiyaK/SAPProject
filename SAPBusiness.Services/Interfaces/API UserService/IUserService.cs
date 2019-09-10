@@ -1,10 +1,11 @@
 ﻿using SAPBusiness.UserData.DeveloperCenter;
-using System.Net;
+using System.Collections.ObjectModel;
+using SeleniumCookie = OpenQA.Selenium.Cookie;
 
 namespace SAPBusiness.Services.Interfaces.API_UserService
 {
     public interface IUserService
     {
-        UserStatistics GetStatistics(CookieContainer cookies);
+        UserStatistics GetStatistics(ReadOnlyCollection<SeleniumCookie> cookies);
     }
 }

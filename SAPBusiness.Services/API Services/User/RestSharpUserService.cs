@@ -5,20 +5,25 @@ using System.Net;
 using Core.Configuration;
 using RestSharp;
 using System;
+using SeleniumCookie = OpenQA.Selenium.Cookie;
+using Core.REST_API.Cookies;
+using System.Collections.ObjectModel;
 
 namespace SAPBusiness.Services.API_Services.User
 {
     public class RestSharpUserService : IUserService
     {
-        public UserStatistics GetStatistics(CookieContainer cookies)
+        public UserStatistics GetStatistics(ReadOnlyCollection<SeleniumCookie> cookies)
         {
+            var defaultCookies = new CookiesService().ExtractCookies(cookies);
+
             var client = new RestClient(AppConfiguration.AppSetting["APIUserService:baseUrlUserStatistics"]);
 
             var request = new RestRequest(AppConfiguration.AppSetting["APIUserService:resourceUserStatistics"], Method.GET);
 
             if (cookies.Count != 0)
             {
-                client.CookieContainer = cookies;
+                client.CookieContainer = defaultCookies;
             }
 
             var response = client.Execute(request);

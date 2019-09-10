@@ -4,14 +4,18 @@ using SAPBusiness.UserData.DeveloperCenter;
 using System.Net;
 using Core.Configuration;
 using System.IO;
+using SeleniumCookie = OpenQA.Selenium.Cookie;
+using Core.REST_API.Cookies;
+using System.Collections.ObjectModel;
 
 namespace SAPBusiness.Services.API_Services.User
 {
     public class DefaultUserService : IUserService
     {
-        public UserStatistics GetStatistics(CookieContainer cookies)
+        public UserStatistics GetStatistics(ReadOnlyCollection<SeleniumCookie> cookies)
         {
-          
+            var defaultCookies = new CookiesService().ExtractCookies(cookies);
+
             var request = WebRequest.Create(AppConfiguration.AppSetting["APIUserService:baseUrlUserStatistics"]
                 + "/" + AppConfiguration.AppSetting["APIUserService:resourceUserStatistics"]) as HttpWebRequest;
 
@@ -19,7 +23,7 @@ namespace SAPBusiness.Services.API_Services.User
 
             if (cookies.Count != 0)
             {
-                request.CookieContainer = cookies;
+                request.CookieContainer = defaultCookies;
             }
 
             var response = request.GetResponse() as HttpWebResponse;
