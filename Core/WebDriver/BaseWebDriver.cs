@@ -26,6 +26,11 @@ namespace Core.WebDriver
 
         }
 
+        public void InitLocalDriver()
+        {
+
+        }
+
         public ReadOnlyCollection<Cookie> GetBrowserCookies()
         {
             return _driver.Manage().Cookies.AllCookies;

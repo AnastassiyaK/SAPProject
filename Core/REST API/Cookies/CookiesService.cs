@@ -14,7 +14,6 @@ namespace Core.REST_API.Cookies
 
             foreach (var cookie in cookies)
             {
-
                 try
                 {
                     NetCookie _cookie = new NetCookie
@@ -31,8 +30,8 @@ namespace Core.REST_API.Cookies
                     continue;
                 }
             }
+
             return container;
         }
-
     }
 }
