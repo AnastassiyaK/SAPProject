@@ -55,6 +55,8 @@ namespace SAPTests.Autofac
 
             builder.RegisterType<PageHeader>().As<IPageHeader>();
 
+            builder.RegisterType<PageFooter>().As<IPageFooter>();
+
             builder.RegisterType<TileLegend>().As<ITileLegend>();
 
             builder.RegisterType<UserPool>().AsSelf().InstancePerDependency();
@@ -64,8 +66,6 @@ namespace SAPTests.Autofac
             builder.RegisterType<UserStatistics>().AsSelf().InstancePerDependency();
 
             builder.RegisterType<TutorialSection>().As<ITutorialSection>();
-
-            builder.RegisterType<PageFooter>().As<IPageFooter>();
 
             builder.RegisterType<SocialNetwork>().As<ISocialNetwork>();
 

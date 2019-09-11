@@ -97,13 +97,13 @@ namespace SAPTests.TutorialNavigator
         [Order(3)]
         public void GetJavaTutorialsOnly()
         {
-            var tutorialNavigator = Scope.Resolve<TNavigator>().WaitForPageLoad()
+            var tutorialNavigator = Scope.Resolve<ITutorialNavigator>().WaitForPageLoad()
                 .FilterPageByTopic("Java")
                 .WaitForFilterLoad();
                 //.FilterPageByType(TileType.Tutorial)
                 //.WaitForFilterLoad();
 
-            var legend = Scope.Resolve<TileLegend>();
+            var legend = Scope.Resolve<ITileLegend>();
 
             Assert.AreEqual(legend.Tutorial, tutorialNavigator.GetAllTiles().Count);
 
@@ -117,12 +117,13 @@ namespace SAPTests.TutorialNavigator
         [TestCaseSource("networks")]
         public void CheckSocialNetworkLinks(NetworkType type)
         {
-            var footer = Scope.Resolve<PageFooter>().WaitForPageLoad();
+            var footer = Scope.Resolve<IPageFooter>().WaitForPageLoad();
 
             var pageLink = footer.GetSocialNetwork(type).Link;
 
             footer.OpenSocialNetWorkPage(type);
 
+            Logger.Info($"Network link is {pageLink}, current tab has link {BaseDriver.Url}");
             Assert.AreEqual(pageLink, BaseDriver.Url);
         }
 
