@@ -72,6 +72,12 @@ namespace SAPTests.Autofac
             builder.RegisterType<RestSharpUserService>().As<IUserService>();            
             
             builder.RegisterType<LogOnSection>().As<ILogOnSection>();
+
+            builder.RegisterType<FacetExperience>().As<IFacetExperience>();
+
+            builder.RegisterType<FacetTopic>().As<IFacetTopic>();
+
+            builder.RegisterType<FacetType>().As<IFacetType>(); 
         }
     }
 }

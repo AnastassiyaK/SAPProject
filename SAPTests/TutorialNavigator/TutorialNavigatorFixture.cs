@@ -60,7 +60,7 @@ namespace SAPTests.TutorialNavigator
         [Order(1)]
         public void CheckExperienceFilterTags(string tag)
         {
-            Scope.Resolve<IFilterSection>().SelectTagByTitle(tag);
+            Scope.Resolve<IFacetExperience>().SelectExperience(tag);
 
             var tiles = Scope.Resolve<ITutorialNavigator>().WaitForFilterLoad().GetAllTiles();
 
@@ -79,7 +79,7 @@ namespace SAPTests.TutorialNavigator
         {
             Scope.Resolve<IPageHeader>().WaitForPageLoad().OpenLogonFrame();
 
-            logonStrategy.LogOn(new UserPool().GetUser());
+            logonStrategy.LogOn(UserPool.GetUser());
 
             var tiles = Scope.Resolve<ITutorialNavigator>().WaitForPageLoad().GetAllTiles();
 
@@ -96,12 +96,16 @@ namespace SAPTests.TutorialNavigator
         [Test(Description = "Check tiles by filter #java #tutorial. And check the Tile Legend")]
         [Order(3)]
         public void GetJavaTutorialsOnly()
-        {
-            var tutorialNavigator = Scope.Resolve<ITutorialNavigator>().WaitForPageLoad()
-                .FilterPageByTopic("Java")
-                .WaitForFilterLoad();
-                //.FilterPageByType(TileType.Tutorial)
-                //.WaitForFilterLoad();
+        {         
+            Scope.Resolve<IFacetTopic>().SelectTopic("Java");
+
+            Scope.Resolve<IFacetType>().SelectType("Tutorial");
+            //.FilterPageByTopic("Java")
+            //.WaitForFilterLoad();
+            //.FilterPageByType(TileType.Tutorial)
+            //.WaitForFilterLoad();
+
+            var tutorialNavigator = Scope.Resolve<ITutorialNavigator>().WaitForPageLoad(); 
 
             var legend = Scope.Resolve<ITileLegend>();
 

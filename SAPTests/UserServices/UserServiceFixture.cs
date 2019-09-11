@@ -59,7 +59,7 @@ namespace SAPTests.UserServices
         {
             Scope.Resolve<IPageHeader>().WaitForPageLoad().OpenLogonFrame();
 
-            logonStrategy.LogOn(new UserPool().GetUser());
+            logonStrategy.LogOn(UserPool.GetUser());
 
             var progress = Scope.Resolve<IUserService>().GetStatistics(BaseDriver.GetBrowserCookies()).UserProgress;
 
