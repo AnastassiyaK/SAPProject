@@ -19,6 +19,7 @@ using SAPBusiness.WEB.PageObjects.Footer.Networks;
 using Core.WebDriver;
 using SAPBusiness.Services.Interfaces.API_UserService;
 using Core.DriverFactory;
+using SAPBusiness.WEB.PageObjects.LogOn;
 
 namespace SAPTests.Autofac
 {
@@ -30,31 +31,31 @@ namespace SAPTests.Autofac
 
             builder.RegisterGeneric(typeof(BasePageObject<>)).AsSelf().InstancePerDependency();
 
-            builder.RegisterType<BaseWebDriverFactory>();            
+            builder.RegisterType<BaseWebDriverFactory>().AsSelf().InstancePerDependency();
 
-            builder.RegisterType<CookiesFrame>().AsSelf().InstancePerDependency();
+            builder.RegisterType<CookiesFrame>().As<ICookiesFrame>();
 
-            builder.RegisterType<ProjectsSection>().AsSelf().InstancePerDependency();
+            builder.RegisterType<ProjectsSection>().As<IProjectsSection>();
 
-            builder.RegisterType<SearchSection>().AsSelf().InstancePerDependency();
+            builder.RegisterType<SearchSection>().As<ISearchSection>();
 
-            builder.RegisterType<FeedSortItem>().AsSelf().InstancePerDependency();
+            builder.RegisterType<FeedSortItem>().As<IFeedSortItem>();
 
-            builder.RegisterType<BlogPostSection>().AsSelf().InstancePerDependency();
+            builder.RegisterType<BlogPostSection>().As<IBlogPostSection>();
 
             builder.RegisterType<MembershipSection>().AsSelf().InstancePerDependency();
 
-            //builder.RegisterType<MembershipSection>().As<IMembershipSection>();
+            builder.RegisterType<MembershipSection>().As<IMembershipSection>();
 
             //builder.RegisterType<MembershipLogger>().AsSelf().InstancePerDependency();
 
-            builder.RegisterType<FilterSection>().AsSelf().InstancePerDependency();
+            builder.RegisterType<FilterSection>().As<IFilterSection>();
 
-            builder.RegisterType<TNavigator>().AsSelf().InstancePerDependency();
+            builder.RegisterType<TNavigator>().As<ITutorialNavigator>().InstancePerDependency();
 
-            builder.RegisterType<PageHeader>().AsSelf().InstancePerDependency();
+            builder.RegisterType<PageHeader>().As<IPageHeader>();
 
-            builder.RegisterType<TileLegend>().AsSelf().InstancePerDependency();
+            builder.RegisterType<TileLegend>().As<ITileLegend>();
 
             builder.RegisterType<UserPool>().AsSelf().InstancePerDependency();
 
@@ -62,21 +63,15 @@ namespace SAPTests.Autofac
 
             builder.RegisterType<UserStatistics>().AsSelf().InstancePerDependency();
 
-            builder.RegisterType<TutorialSection>().AsSelf().InstancePerDependency();
+            builder.RegisterType<TutorialSection>().As<ITutorialSection>();
 
-            builder.RegisterType<PageFooter>().AsSelf().InstancePerDependency();
+            builder.RegisterType<PageFooter>().As<IPageFooter>();
 
-            builder.RegisterType<SocialNetwork>().AsSelf().InstancePerDependency();
+            builder.RegisterType<SocialNetwork>().As<ISocialNetwork>();
 
             builder.RegisterType<RestSharpUserService>().As<IUserService>();            
             
-            //builder.RegisterType<FrameLogOn>().AsSelf();
-
-            //builder.RegisterAssemblyTypes(Assembly.Load(nameof(SAPBusiness)))
-            //    .Where(t => t.Namespace.Contains("PageObjects"));
-            //var repositoryAssemblies = Assembly.Load(nameof(SAPBusiness));
-            //etc
-            //  .GetExportedTypes()
+            builder.RegisterType<LogOnSection>().As<ILogOnSection>();
         }
     }
 }

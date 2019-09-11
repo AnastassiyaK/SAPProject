@@ -4,7 +4,6 @@ using SAPBusiness.UserData;
 using SAPBusiness.WEB.PageObjects.Frames;
 using SAPBusiness.WEB.PageObjects.Header;
 using SAPBusiness.WEB.PageObjects.MainPage.Statistics;
-using System;
 using SAPBusiness.WEB.PageObjects.LogOn;
 using Core.Configuration;
 using SAPTests.Browsers;
@@ -29,27 +28,29 @@ namespace SAPTests.UserServices
 
             BaseDriver.Navigate(AppConfiguration.AppSetting["Pages:HomePage"]);
 
-            try
-            {
-                Scope.Resolve<CookiesFrame>().WaitForPageLoad().AgreeWithPrivacyPolicy();
-            }
-            catch (Exception e)
-            {
-                Assert.Warn(e.Message);//implement custom exception
-            }
+            //Scope.Resolve<ICookiesFrame>().WaitForPageLoad().AgreeWithPrivacyPolicy();
+
+            //try
+            //{
+            //    Scope.Resolve<CookiesFrame>().WaitForPageLoad().AgreeWithPrivacyPolicy();
+            //}
+            //catch (Exception e)
+            //{
+            //    Assert.Warn(e.Message);//implement custom exception
+            //}
         }
 
         [Test(Description = "Compare user progress using user's cookies and progress on the browser page")]
         [Order(1)]
         public void CompareUserProgress()
         {
-            Scope.Resolve<PageHeader>().WaitForPageLoad().OpenLogonFrame();
+            Scope.Resolve<IPageHeader>().WaitForPageLoad().OpenLogonFrame();
 
             logonStrategy.LogOn(new UserPool().GetUser());
 
             var progress = Scope.Resolve<IUserService>().GetStatistics(BaseDriver.GetBrowserCookies()).UserProgress;
 
-            var statistics = Scope.Resolve<TutorialSection>().WaitForPageLoad();
+            var statistics = Scope.Resolve<ITutorialSection>().WaitForPageLoad();
 
             var groups = statistics.GetStatsByType(StatisticsType.Groups);
             var tutorials = statistics.GetStatsByType(StatisticsType.Tutorials);
@@ -57,13 +58,23 @@ namespace SAPTests.UserServices
 
             Assert.Multiple(() =>
             {
-                Assert.IsTrue(progress.GroupsTotal == groups.Total);
-                Assert.IsTrue(progress.GroupsCompleted == groups.Completed);
-                Assert.IsTrue(progress.MissionsTotal == missions.Total);
-                Assert.IsTrue(progress.MissionsCompleted == missions.Completed);
-                Assert.IsTrue(progress.TutorialTotal == tutorials.Total);
-                Assert.IsTrue(progress.TutorialCompleted == tutorials.Completed);
+                Assert.That(progress.GroupsTotal.Equals(groups.Total),
+                    $"{progress.GroupsTotal} not equals to {groups.Total}");
 
+                Assert.That(progress.GroupsCompleted.Equals(groups.Completed),
+                   $"{progress.GroupsCompleted} not equals to { groups.Completed}");
+
+                Assert.That(progress.MissionsTotal.Equals(missions.Total),
+                   $"{progress.MissionsTotal} not equals to {groups.Total}");
+
+                Assert.That(progress.MissionsCompleted.Equals(missions.Completed),
+                   $"{progress.MissionsCompleted} not equals to {groups.Completed}");
+
+                Assert.That(progress.TutorialTotal.Equals(tutorials.Total),
+                   $"{progress.TutorialTotal} not equals to {groups.Total}");
+
+                Assert.That(progress.TutorialCompleted.Equals(tutorials.Completed),
+                   $"{progress.TutorialCompleted} not equals to {groups.Completed}");
             });
         }
     }

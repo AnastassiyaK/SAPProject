@@ -12,6 +12,8 @@ using SAPBusiness.UserData;
 using SAPTests.Browsers;
 using SAPBusiness.WEB.PageObjects.LogOn;
 using Core.Configuration;
+using System.Threading;
+using NLog;
 
 namespace SAPTests.TutorialNavigator
 {
@@ -19,7 +21,15 @@ namespace SAPTests.TutorialNavigator
     [Parallelizable(ParallelScope.All)]
     public class TutorialNavigatorFixture : BaseTest
     {
+        private readonly ThreadLocal<Logger> _log = new ThreadLocal<Logger>();
+
         ILogOnStrategy logonStrategy;
+
+        private Logger Logger
+        {
+            get => _log.Value;
+            set => _log.Value = value;
+        }
 
         public TutorialNavigatorFixture(Browser browser) : base(browser)
         {
@@ -28,17 +38,20 @@ namespace SAPTests.TutorialNavigator
         [SetUp]
         public void SetUp()
         {
+            Logger = LogManager.GetLogger($"{TestContext.CurrentContext.Test.Name}");
+
             logonStrategy = Scope.Resolve<LogOnFrame>();
 
             BaseDriver.Navigate(AppConfiguration.AppSetting["Pages:TutorialNavigator"]);
 
             try
             {
-                Scope.Resolve<CookiesFrame>().WaitForPageLoad().AgreeWithPrivacyPolicy();
+                Scope.Resolve<ICookiesFrame>().WaitForPageLoad().AgreeWithPrivacyPolicy();
             }
             catch (Exception e)
             {
-                Assert.Warn(e.Message);//implement custom exception
+                Logger.Error($"Cookies were not accepted! {e.Message}");
+                //Assert.Warn(e.Message);//implement custom exception
             }
 
         }
@@ -47,12 +60,15 @@ namespace SAPTests.TutorialNavigator
         [Order(1)]
         public void CheckExperienceFilterTags(string tag)
         {
-            Scope.Resolve<FilterSection>().SelectTagByTitleImproved(tag);
+            Scope.Resolve<IFilterSection>().SelectTagByTitleImproved(tag);
 
-            var tiles = Scope.Resolve<TNavigator>().WaitForFilterLoad().GetAllTiles();
+            var tiles = Scope.Resolve<ITutorialNavigator>().WaitForFilterLoad().GetAllTiles();
 
+            Logger.Info($"--- { tag.ToUpper()}---");
             foreach (var tile in tiles)
             {
+                Logger.Info($"Tile tag was {tile.ExperienceTag}");
+
                 Assert.IsTrue(tile.ExperienceTag == tag);
             }
         }
@@ -61,16 +77,18 @@ namespace SAPTests.TutorialNavigator
         [Order(2)]
         public void CheckTileBookmarks()
         {
-            Scope.Resolve<PageHeader>().WaitForPageLoad().OpenLogonFrame();
+            Scope.Resolve<IPageHeader>().WaitForPageLoad().OpenLogonFrame();
 
-            logonStrategy.LogOn(Scope.Resolve<UserPool>().GetUser());
+            logonStrategy.LogOn(new UserPool().GetUser());
 
-            var tiles = Scope.Resolve<TNavigator>().WaitForPageLoad().GetAllTiles();
+            var tiles = Scope.Resolve<ITutorialNavigator>().WaitForPageLoad().GetAllTiles();
 
             CollectionAssert.IsNotEmpty(tiles);
 
             foreach (var tile in tiles)
             {
+                Logger.Info($"{tile.Title} {((tile.BookMarkDisplayed()) ? "has" : "does NOT have")} a bookmark");
+
                 Assert.IsTrue(tile.BookMarkDisplayed());
             }
         }

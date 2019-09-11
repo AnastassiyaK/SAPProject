@@ -36,18 +36,18 @@ namespace SAPTests.OpenSource
         [SetUp]
         public void SetUp()
         {
-            Logger = LogManager.GetLogger($"{TestContext.CurrentContext.Test.MethodName}");
+            Logger = LogManager.GetLogger($"{TestContext.CurrentContext.Test.Name}");
 
             BaseDriver.Navigate(AppConfiguration.AppSetting["Pages:OpenSource"]);
 
             try
             {
-                Scope.Resolve<CookiesFrame>().WaitForPageLoad().AgreeWithPrivacyPolicy();
+                Scope.Resolve<ICookiesFrame>().WaitForPageLoad().AgreeWithPrivacyPolicy();
             }
             catch (Exception e)
             {
                 Logger.Error($"Cookies were not accepted! {e.Message}");
-                Assert.Warn(e.Message);//implement custom exception
+                //Assert.Warn(e.Message);//implement custom exception
             }
         }
 
@@ -61,7 +61,7 @@ namespace SAPTests.OpenSource
         [Order(1)]
         public void CheckProjectSearchByRandomString()
         {
-            var projects = Scope.Resolve<ProjectsSection>().WaitForPageLoad().GetAllProjects();
+            var projects = Scope.Resolve<IProjectsSection>().WaitForPageLoad().GetAllProjects();
 
             var descriptions = projects.Select(project => (project.Description + " " + project.Title + " ")).ToList();
 
@@ -69,7 +69,7 @@ namespace SAPTests.OpenSource
 
             Random randomizer = new Random();
 
-            string description = String.Join("", descriptions);
+            string description = string.Join("", descriptions);
             var words = description.Split(' ');
             int index = randomizer.Next(words.Length);
 
@@ -77,9 +77,9 @@ namespace SAPTests.OpenSource
 
             Logger.Info($"A word to search : --- {randomWord} ---");
 
-            Scope.Resolve<SearchSection>().SearchResultsByString(randomWord);
+            Scope.Resolve<ISearchSection>().SearchResultsByString(randomWord);
 
-            projects = Scope.Resolve<ProjectsSection>().WaitForPageLoad().GetAllProjects();
+            projects = Scope.Resolve<IProjectsSection>().WaitForPageLoad().GetAllProjects();
 
             foreach (var project in projects)
             {
@@ -87,13 +87,12 @@ namespace SAPTests.OpenSource
                 Assert.IsTrue(project.Description.Contains(randomWord) || project.Title.Contains(randomWord));
             }
         }
-
-
+        
         [Test(Description = "Check all projects have the same background images as main images")]
         [Order(2)]
         public void CheckProjectBackgroundImage()
         {
-            var projects = Scope.Resolve<ProjectsSection>().WaitForPageLoad().GetAllProjects();
+            var projects = Scope.Resolve<IProjectsSection>().WaitForPageLoad().GetAllProjects();
 
             Logger.Debug("Projects were recieved successfully");
 
@@ -108,9 +107,9 @@ namespace SAPTests.OpenSource
         [Order(3)]
         public void CheckBlogPostSortByDate()
         {
-            Scope.Resolve<FeedSortItem>().WaitForPageLoad().SelectFeedType(FeedType.Latest);
+            Scope.Resolve<IFeedSortItem>().WaitForPageLoad().SelectFeedType(FeedType.Latest);
 
-            var feeds = Scope.Resolve<BlogPostSection>().GetAllFeeds();
+            var feeds = Scope.Resolve<IBlogPostSection>().GetAllFeeds();
 
             List<DateTime> dateBlog = feeds.Select(feed => DateTime.Parse(feed.Date)).ToList();
 
@@ -131,7 +130,7 @@ namespace SAPTests.OpenSource
         [Order(4)]
         public void CheckMembershipsTitleDescription()
         {
-            var membershipSection = Scope.Resolve<MembershipSection>().WaitForPageLoad();
+            var membershipSection = Scope.Resolve<IMembershipSection>().WaitForPageLoad();
 
             Assert.IsTrue(membershipSection.HasMemberships());
 

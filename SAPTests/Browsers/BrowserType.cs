@@ -6,6 +6,5 @@ namespace SAPTests.Browsers
     {
         public static IEnumerable<Browser> Browsers { get; } = new List<Browser> { Browser.Chrome, Browser.Firefox };
         //,Browser.IE
-
     }
 }
