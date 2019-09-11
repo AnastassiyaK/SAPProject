@@ -32,28 +32,28 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
             return Tiles;
         }
 
-        public TutorialNavigator FilterPageByTopic(string title)
-        {
-            var element = _driver.FindElement(By.ClassName("overview"));
-            var elementTitle = _driver.FindElement(By.XPath($".//div[text()='{title}']"));
+        //public TutorialNavigator FilterPageByTopic(string title)
+        //{
+        //    var element = _driver.FindElement(By.ClassName("overview"));
+        //    var elementTitle = _driver.FindElement(By.XPath($".//div[text()='{title}']"));
 
-            _driver.MoveToElement(element);
+        //    _driver.MoveToElement(element);
 
-            _driver.ExecuteScriptOnElement($"arguments[0].scrollIntoView(true);", element);
-            _driver.ExecuteScriptOnElement($"arguments[0].click()", elementTitle);
+        //    _driver.ExecuteScriptOnElement($"arguments[0].scrollIntoView(true);", element);
+        //    _driver.ExecuteScriptOnElement($"arguments[0].click()", elementTitle);
 
-            return this;
-        }
+        //    return this;
+        //}
 
         public TutorialNavigator WaitForFilterLoad()
         {
-            _driver.WaitForElementDissapear(By.CssSelector(".loader"), 10);
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
             return this;
         }
 
         protected override TutorialNavigator WaitForLoad()
         {
-            _driver.WaitForElementDissapear(By.CssSelector(".loader"), 15);
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
             return this;
         }
 

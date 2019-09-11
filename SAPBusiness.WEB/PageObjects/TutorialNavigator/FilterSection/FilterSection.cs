@@ -8,6 +8,11 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 {
     public class FilterSection : BasePageObject<FilterSection>, IFilterSection
     {
+        private readonly IFacetExperience _facetExperience;
+
+        private readonly IFacetTopic _facetTopic;
+
+        private readonly IFacetType _facetType;
         public FilterSection(BaseWebDriver driver) : base(driver)
         {
 
@@ -19,29 +24,31 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 
         protected static By GetTagLocatorWithTitle(string title) => By.XPath($".//div[text() = '{title}']");
 
-        public FilterSection SelectTagByTitleImproved(string title)
+        public FilterSection SelectTagByTitle(string title)
         {
             OverviewElement.FindElement(GetTagLocatorWithTitle(title))
                 .Click();
 
-            WaitForPageLoad();
             return this;
         }
 
-        public FilterSection SelectTagByTitle(string title)
+        public void SelectExperience(string experience)
         {
-            var tag = TagElements.FirstOrDefault(t => t.Text == title);
-
-            if (tag is null)
-            {
-                throw new Exception("tag not found");
-            }
-
-            tag.Click();
-
-            WaitForPageLoad();
-            return this;
+            SelectTagByTitle(experience);
+           
         }
+
+        //public IFacetType SelectType(string type)
+        //{
+        //    SelectTagByTitle(type);
+        //    return _facetType;
+        //}
+
+        //public IFacetTopic SelectTopic(string topic)
+        //{
+        //    SelectTagByTitle(topic);
+        //    return _facetTopic;
+        //}
 
         protected override FilterSection WaitForLoad()
         {

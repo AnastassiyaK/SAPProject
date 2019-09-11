@@ -3,24 +3,34 @@ using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 {
-    public class FacetType : FilterSection, IFacetType
+    public class FacetType : BasePageObject<FacetType>, IFacetType
     {
         public FacetType(BaseWebDriver driver) : base(driver)
         {
 
         }
 
-        public IWebElement Type
+        private IWebElement Facet
         {
             get
             {
-                return _driver.FindElement(By.ClassName("facet-type"));
+                return _driver.FindElement(By.CssSelector(".facet-type"));
             }
         }
 
-        public void ClickOnType(TileType type)
+        private IWebElement GetTag(string tag)
         {
-            SelectTagByTitleImproved($"{type.ToString()}");
+            return Facet.FindElement(By.CssSelector($"div[data-id='tutorial:type/{tag.ToLower()}']"));
+        }
+
+        public void SelectType(string type)
+        {
+            GetTag(type).Click();
+        }
+
+        protected override FacetType WaitForLoad()
+        {
+            return this;
         }
     }
 }

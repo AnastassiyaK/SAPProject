@@ -3,6 +3,5 @@
     public interface IFilterSection : IPageObject<IFilterSection>
     {
         FilterSection SelectTagByTitle(string title);
-        FilterSection SelectTagByTitleImproved(string title);
     }
 }
