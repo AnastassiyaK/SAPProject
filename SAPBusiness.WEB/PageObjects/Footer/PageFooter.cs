@@ -19,7 +19,7 @@ namespace SAPBusiness.WEB.PageObjects.Footer
 
         public SocialNetwork GetSocialNetwork(NetworkType type)
         {
-            return _socialNetwork ?? (_socialNetwork = new SocialNetwork(Networks.FindElement(GetSocialNetworkByTitle(type.ToString()))));
+            return _socialNetwork ?? (_socialNetwork = new SocialNetwork(Networks.FindElement(GetSocialNetworkByTitle(type.ToString().ToLower()))));
         }
 
         public void OpenSocialNetWorkPage(NetworkType type)
@@ -31,6 +31,11 @@ namespace SAPBusiness.WEB.PageObjects.Footer
         protected override PageFooter WaitForLoad()
         {
             return this;
+        }
+
+        public new IPageFooter WaitForPageLoad()
+        {
+            return base.WaitForPageLoad();
         }
     }
 }

@@ -62,5 +62,10 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
         {
             return this;
         }
+
+        public new ITileLegend WaitForPageLoad()
+        {
+            return base.WaitForPageLoad();
+        }
     }
 }
