@@ -5,14 +5,26 @@ namespace Core.Configuration
 {
     public static class AppConfiguration
     {
-        public static IConfiguration AppSetting { get; }
+        public static IConfiguration AppSetting { get; private set; }
+
+        public static IConfigurationBuilder ConfigurationBuilder { get; }
+
+        public static string NodeUrl { get; private set; }
+
+        public static int TimeOutWebElement { get; private set; }
+
         static AppConfiguration()
         {
-            AppSetting = new ConfigurationBuilder()
-                    .AddJsonFile($@"{Directory.GetCurrentDirectory()}\Configuration\appSettingsWebDriver.json")
-                    .AddJsonFile($@"{Directory.GetCurrentDirectory()}\Configuration\appSettingsAPIServices.json")
-                    .AddJsonFile($@"{Directory.GetCurrentDirectory()}\Configuration\appSettingsTests.json")
-                    .Build();
+            ConfigurationBuilder = new ConfigurationBuilder();
+        }
+
+        public static void SetConfiguration()
+        {
+            AppSetting = ConfigurationBuilder.Build();
+
+            NodeUrl = AppSetting["SeleniumGrid:nodeUrl"];
+
+            TimeOutWebElement = int.Parse(AppSetting["Webdriver:WebElementTimeOut"]);
         }
     }
 }

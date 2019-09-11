@@ -1,4 +1,5 @@
-﻿using Core.DriverFactory;
+﻿using Core.Configuration;
+using Core.DriverFactory;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
@@ -58,9 +59,9 @@ namespace Core.WebDriver
             return true;
         }
 
-        public void WaitForElementDissapear(By locator, int timeoutInSeconds)
+        public void WaitForElementDissapear(By locator)
         {
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(timeoutInSeconds));
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(AppConfiguration.TimeOutWebElement));
             wait.Until(driver =>
             {
                 try

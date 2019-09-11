@@ -15,7 +15,7 @@ namespace Core.DriverFactory
 
         public IWebDriver CreateWebDriver()
         {
-            _driver = new RemoteWebDriver(new Uri(AppConfiguration.AppSetting["SeleniumGrid:nodeUrl"]), Capabilities);
+            _driver = new RemoteWebDriver(new Uri(AppConfiguration.NodeUrl), Capabilities);
 
             return _driver;
         }
