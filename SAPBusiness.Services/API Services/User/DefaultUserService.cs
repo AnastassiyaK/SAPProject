@@ -45,8 +45,7 @@ namespace SAPBusiness.Services.API_Services.User
             catch
             {
                 return new UserStatistics();//should return null object
-            }
-           
+            }           
         }      
     }
 }
