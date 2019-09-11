@@ -46,5 +46,10 @@ namespace SAPBusiness.WEB.PageObjects.Frames
         {
             return this;
         }
+
+        public new ICookiesFrame WaitForPageLoad()
+        {
+            return base.WaitForPageLoad();
+        }
     }
 }

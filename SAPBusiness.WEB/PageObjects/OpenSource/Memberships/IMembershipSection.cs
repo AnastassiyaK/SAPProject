@@ -2,7 +2,7 @@
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.Memberships
 {
-    public interface IMembershipSection
+    public interface IMembershipSection : IPageObject<IMembershipSection>
     {
         string Description { get; }
         string Title { get; }

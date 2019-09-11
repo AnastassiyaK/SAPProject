@@ -38,7 +38,12 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects.Search
 
         protected override SearchSection WaitForLoad()
         {
-            throw new NotImplementedException();
+            return this;
+        }
+
+        public new ISearchSection WaitForPageLoad()
+        {
+            return base.WaitForPageLoad();
         }
     }
 }

@@ -47,5 +47,10 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
         {
             return this;
         }
+
+        public new IFilterSection WaitForPageLoad()
+        {
+            return base.WaitForPageLoad();
+        }
     }
 }

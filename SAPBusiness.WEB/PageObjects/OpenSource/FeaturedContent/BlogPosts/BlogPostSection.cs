@@ -91,5 +91,10 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts
         {
             return this;
         }
+
+        public new IBlogPostSection WaitForPageLoad()
+        {
+            return base.WaitForPageLoad();
+        }
     }
 }

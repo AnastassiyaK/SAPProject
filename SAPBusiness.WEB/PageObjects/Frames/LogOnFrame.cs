@@ -7,11 +7,11 @@ namespace SAPBusiness.WEB.PageObjects.Frames
 {
     public class LogOnFrame : BasePageObject<LogOnFrame>, ILogOnStrategy
     {
-        private readonly LogOnSection logOnSection;
+        private readonly ILogOnSection _logOnSection;
 
-        public LogOnFrame(BaseWebDriver driver) : base(driver)
+        public LogOnFrame(BaseWebDriver driver, ILogOnSection logOnSection) : base(driver)
         {
-            logOnSection = new LogOnSection(_driver);
+            _logOnSection = logOnSection;
         }
 
         public void LogOn(User user)
@@ -20,9 +20,9 @@ namespace SAPBusiness.WEB.PageObjects.Frames
 
             _driver.SwitchToFrame(_driver.FindElement(By.Id("IDS_UI_Window")));
 
-            logOnSection.UserNameInput.SendKeys(user.Login);
-            logOnSection.PasswordInput.SendKeys(user.Password);
-            logOnSection.LogOnButton.Click();
+            _logOnSection.UserNameInput.SendKeys(user.Login);
+            _logOnSection.PasswordInput.SendKeys(user.Password);
+            _logOnSection.LogOnButton.Click();
 
             _driver.SwitchToDefaultContent();
 

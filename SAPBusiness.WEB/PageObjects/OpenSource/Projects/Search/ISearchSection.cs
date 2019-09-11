@@ -1,6 +1,6 @@
 ﻿namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects.Search
 {
-    public interface ISearchSection
+    public interface ISearchSection : IPageObject<ISearchSection>
     {
         void ClearSearch();
         string GetSearchingString();

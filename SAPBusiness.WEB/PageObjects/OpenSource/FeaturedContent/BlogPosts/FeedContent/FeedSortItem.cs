@@ -34,5 +34,10 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedC
         {
             return this;
         }
+
+        public new IFeedSortItem WaitForPageLoad()
+        {
+            return base.WaitForPageLoad();
+        }
     }
 }

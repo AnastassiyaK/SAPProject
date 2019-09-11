@@ -75,5 +75,13 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
                 return TileLevel.Text;
             }
         }
+
+        public string Title
+        {
+            get
+            {
+                return TileTitle.Text;
+            }
+        }
     }
 }

@@ -5,19 +5,19 @@ namespace SAPBusiness.WEB.PageObjects.LogOn
 {
     public class LogOnPage : BasePageObject<LogOnPage>, ILogOnStrategy
     {
-        private readonly LogOnSection logOnSection;
+        private readonly ILogOnSection _logOnSection;
 
-        public LogOnPage(BaseWebDriver driver) : base(driver)
+        public LogOnPage(BaseWebDriver driver,ILogOnSection logOnSection) : base(driver)
         {
-            logOnSection = new LogOnSection(_driver);
+            _logOnSection = logOnSection;
         }
 
         public void LogOn(User user)
         {
-            logOnSection.UserNameInput.SendKeys(user.Login);
-            logOnSection.PasswordInput.SendKeys(user.Password);
+            _logOnSection.UserNameInput.SendKeys(user.Login);
+            _logOnSection.PasswordInput.SendKeys(user.Password);
 
-            logOnSection.LogOnButton.Click();
+            _logOnSection.LogOnButton.Click();
         }
 
         protected override LogOnPage WaitForLoad()

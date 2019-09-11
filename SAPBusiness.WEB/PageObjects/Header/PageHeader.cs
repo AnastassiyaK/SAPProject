@@ -27,5 +27,10 @@ namespace SAPBusiness.WEB.PageObjects.Header
         {
             return this;
         }
+
+        public new IPageHeader WaitForPageLoad()
+        {
+            return base.WaitForPageLoad();
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
 {
-    public interface IProjectsSection
+    public interface IProjectsSection : IPageObject<IProjectsSection>
     {
         int All { get; }
         string InfoShowing { get; }

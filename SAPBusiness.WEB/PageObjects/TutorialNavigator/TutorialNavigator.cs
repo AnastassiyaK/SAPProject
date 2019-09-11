@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 {
@@ -13,7 +14,6 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
         }
 
         private List<TileElement> _tiles;
-
         private List<TileElement> Tiles
         {
             get
@@ -55,6 +55,11 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
         {
             _driver.WaitForElementDissapear(By.CssSelector(".loader"), 15);
             return this;
+        }
+
+        public new ITutorialNavigator WaitForPageLoad()
+        {
+            return base.WaitForPageLoad();
         }
     }
 }

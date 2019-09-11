@@ -68,5 +68,10 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Memberships
         {
             return this;
         }
+
+        public new IMembershipSection WaitForPageLoad()
+        {
+            return base.WaitForPageLoad();
+        }
     }
 }

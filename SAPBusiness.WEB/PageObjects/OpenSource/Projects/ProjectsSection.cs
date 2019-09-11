@@ -92,5 +92,10 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
         {
             return this;
         }
+
+        public new IProjectsSection WaitForPageLoad()
+        {
+            return base.WaitForPageLoad();
+        }
     }
 }

@@ -2,7 +2,12 @@
 
 namespace SAPBusiness.WEB.PageObjects
 {
-    public abstract class BasePageObject<PageObject> where PageObject : class
+    public interface IPageObject<PageObject> where PageObject : class
+    {
+        PageObject WaitForPageLoad();
+    }
+
+    public abstract class BasePageObject<PageObject> : IPageObject<PageObject> where PageObject : class
     {
         protected BaseWebDriver _driver;
 
@@ -11,7 +16,7 @@ namespace SAPBusiness.WEB.PageObjects
             _driver = driver;
         }
 
-        public virtual PageObject WaitForPageLoad()
+        public PageObject WaitForPageLoad()
         {
             _driver.WaitReadyState();
             return WaitForLoad();
@@ -19,4 +24,6 @@ namespace SAPBusiness.WEB.PageObjects
 
         protected abstract PageObject WaitForLoad();
     }
+
+
 }

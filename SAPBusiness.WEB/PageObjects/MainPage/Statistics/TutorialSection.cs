@@ -44,5 +44,10 @@ namespace SAPBusiness.WEB.PageObjects.MainPage.Statistics
         {
             return this;
         }
+
+        public new ITutorialSection WaitForPageLoad()
+        {
+            return base.WaitForPageLoad();           
+        }
     }
 }
