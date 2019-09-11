@@ -4,6 +4,8 @@ using SAPTests.Autofac;
 using System.Threading;
 using Core.WebDriver;
 using Core.DriverFactory;
+using Core.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace SAPTests
 {
@@ -53,16 +55,19 @@ namespace SAPTests
             }
         }
 
-        [SetUp]
-        public void Setup()
-        {
+        [OneTimeSetUp]
+        public void Configure()
+        {       
             var builder = ContainerConfig.Configure();
-
             RegisterBrowser(builder);
 
             Container = builder.Build();
+        }
 
-            Scope = Container.BeginLifetimeScope();            
+        [SetUp]
+        public void Setup()
+        {           
+            Scope = Container.BeginLifetimeScope();
 
             BaseDriver = Scope.Resolve<BaseWebDriver>();
 
@@ -77,6 +82,11 @@ namespace SAPTests
             Scope.Dispose();
         }
 
+        [OneTimeTearDown]
+        public void CleanUp()
+        {
+            Container.Dispose();
+        }
         //public void Dispose()
         //{
         //    throw new NotImplementedException();

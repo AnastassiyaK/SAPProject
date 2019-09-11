@@ -60,7 +60,7 @@ namespace SAPTests.TutorialNavigator
         [Order(1)]
         public void CheckExperienceFilterTags(string tag)
         {
-            Scope.Resolve<IFilterSection>().SelectTagByTitleImproved(tag);
+            Scope.Resolve<IFilterSection>().SelectTagByTitle(tag);
 
             var tiles = Scope.Resolve<ITutorialNavigator>().WaitForFilterLoad().GetAllTiles();
 

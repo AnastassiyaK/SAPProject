@@ -15,6 +15,7 @@ using System.Threading;
 namespace SAPTests.UserServices
 {
     [TestFixtureSource(typeof(BrowserList), "Browsers")]
+    [Parallelizable(ParallelScope.All)]
     public class UserServiceFixture : BaseTest
     {
         private readonly ThreadLocal<Logger> _log = new ThreadLocal<Logger>();
