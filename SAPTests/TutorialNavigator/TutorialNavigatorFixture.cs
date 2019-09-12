@@ -1,19 +1,18 @@
 ﻿using NUnit.Framework;
-using SAPBusiness.DataParsers.TutorialNavigator;
 using SAPBusiness.WEB.PageObjects.Frames;
 using SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection;
 using System;
 using Autofac;
-using TNavigator = SAPBusiness.WEB.PageObjects.TutorialNavigator.TutorialNavigator;
 using SAPBusiness.WEB.PageObjects.Header;
 using SAPBusiness.WEB.PageObjects.TutorialNavigator;
 using SAPBusiness.WEB.PageObjects.Footer;
 using SAPBusiness.UserData;
 using SAPTests.Browsers;
 using SAPBusiness.WEB.PageObjects.LogOn;
-using Core.Configuration;
 using System.Threading;
 using NLog;
+using SAPTests.Configuration;
+using SAPTests.DataParsers.TutorialNavigator;
 
 namespace SAPTests.TutorialNavigator
 {
@@ -56,7 +55,7 @@ namespace SAPTests.TutorialNavigator
 
         }
 
-        [Test, TestCaseSource(typeof(FilterDataParser), nameof(FilterDataParser.ExperienceTagsData))]
+        [Test, TestCaseSource(typeof(FilterData), nameof(FilterData.ExperienceTagsData))]
         [Order(1)]
         public void CheckExperienceFilterTags(string tag)
         {
@@ -100,10 +99,6 @@ namespace SAPTests.TutorialNavigator
             Scope.Resolve<IFacetTopic>().SelectTopic("Java");
 
             Scope.Resolve<IFacetType>().SelectType("Tutorial");
-            //.FilterPageByTopic("Java")
-            //.WaitForFilterLoad();
-            //.FilterPageByType(TileType.Tutorial)
-            //.WaitForFilterLoad();
 
             var tutorialNavigator = Scope.Resolve<ITutorialNavigator>().WaitForPageLoad(); 
 
