@@ -11,8 +11,7 @@ using SAPTests.Browsers;
 using SAPBusiness.WEB.PageObjects.LogOn;
 using System.Threading;
 using NLog;
-using SAPTests.Configuration;
-using SAPTests.DataParsers.TutorialNavigator;
+using SAPTests.TestData.TutorialNavigator.Modules;
 
 namespace SAPTests.TutorialNavigator
 {
@@ -41,7 +40,7 @@ namespace SAPTests.TutorialNavigator
 
             logonStrategy = Scope.Resolve<LogOnFrame>();
 
-            BaseDriver.Navigate(AppConfiguration.AppSetting["Pages:TutorialNavigator"]);
+            //BaseDriver.Navigate(AppConfiguration.AppSetting["Pages:TutorialNavigator"]);
 
             try
             {
@@ -55,7 +54,7 @@ namespace SAPTests.TutorialNavigator
 
         }
 
-        [Test, TestCaseSource(typeof(FilterData), nameof(FilterData.ExperienceTagsData))]
+        [Test, TestCaseSource(typeof(FilterData), nameof(FilterData.ExperienceTags))]
         [Order(1)]
         public void CheckExperienceFilterTags(string tag)
         {

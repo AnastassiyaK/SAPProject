@@ -20,6 +20,8 @@ using Core.WebDriver;
 using SAPBusiness.Services.Interfaces.API_UserService;
 using Core.DriverFactory;
 using SAPBusiness.WEB.PageObjects.LogOn;
+using Core.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace SAPTests.Autofac
 {
@@ -27,7 +29,11 @@ namespace SAPTests.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<BaseWebDriver>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<ConfigurationBuilder>().As<IConfigurationBuilder>().SingleInstance();
+
+            builder.RegisterType<DriverConfiguration>().As<IDriverConfiguration>().SingleInstance();
+
+            builder.RegisterType<WebDriver>().AsSelf().InstancePerLifetimeScope();
 
             builder.RegisterGeneric(typeof(BasePageObject<>)).AsSelf().InstancePerDependency();
 
@@ -46,8 +52,6 @@ namespace SAPTests.Autofac
             builder.RegisterType<MembershipSection>().AsSelf().InstancePerDependency();
 
             builder.RegisterType<MembershipSection>().As<IMembershipSection>();
-
-            //builder.RegisterType<MembershipLogger>().AsSelf().InstancePerDependency();
 
             builder.RegisterType<FilterSection>().As<IFilterSection>();
 
@@ -69,15 +73,15 @@ namespace SAPTests.Autofac
 
             builder.RegisterType<SocialNetwork>().As<ISocialNetwork>();
 
-            builder.RegisterType<RestSharpUserService>().As<IUserService>();            
-            
+            builder.RegisterType<RestSharpUserService>().As<IUserService>();
+
             builder.RegisterType<LogOnSection>().As<ILogOnSection>();
 
             builder.RegisterType<FacetExperience>().As<IFacetExperience>();
 
             builder.RegisterType<FacetTopic>().As<IFacetTopic>();
 
-            builder.RegisterType<FacetType>().As<IFacetType>(); 
+            builder.RegisterType<FacetType>().As<IFacetType>();
         }
     }
 }

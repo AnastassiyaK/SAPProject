@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Core.Configuration;
 using SAPTests.Browsers;
 
 namespace SAPTests.OpenSource
@@ -38,7 +37,7 @@ namespace SAPTests.OpenSource
         {
             Logger = LogManager.GetLogger($"{TestContext.CurrentContext.Test.Name}");
 
-            BaseDriver.Navigate(AppConfiguration.AppSetting["Pages:OpenSource"]);
+            //BaseDriver.Navigate(AppConfiguration.AppSetting["Pages:OpenSource"]);
 
             try
             {
