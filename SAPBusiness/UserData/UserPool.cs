@@ -7,19 +7,18 @@ using System.Runtime.CompilerServices;
 namespace SAPBusiness.UserData
 {
     public class UserPool
-    {        
+    {
         private static IList<User> _users;
 
-        private UserPool()
+        static UserPool()
         {
-           
+            string jsonResult = File.ReadAllText($@"{Directory.GetCurrentDirectory()}\UserDataAccess\users.json");
+            _users = JsonConvert.DeserializeObject<UserList>(jsonResult).Users;
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public static User GetUser()
         {
-            SetUsers();
-
             if (_users.Count.Equals(0))
             {
                 throw new System.Exception("Not available users");
@@ -29,12 +28,6 @@ namespace SAPBusiness.UserData
             _users.Remove(user);
 
             return user;
-        }
-
-        private static void SetUsers()
-        {
-            string jsonResult = File.ReadAllText($@"{Directory.GetCurrentDirectory()}\UserDataAccess\users.json");
-            _users = JsonConvert.DeserializeObject<UserList>(jsonResult).Users;
         }
     }
 }
