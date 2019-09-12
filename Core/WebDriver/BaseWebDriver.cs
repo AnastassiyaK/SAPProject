@@ -13,7 +13,7 @@ namespace Core.WebDriver
     {
         private IWebDriver _driver;
 
-        IDriverFactory _factory;
+        private IDriverFactory _factory;
 
         public BaseWebDriver(IDriverFactory factory)
         {
@@ -135,10 +135,9 @@ namespace Core.WebDriver
         }
         public void ExecuteScriptOnElement(string script, IWebElement element)
         {
-            IJavaScriptExecutor js = _driver as IJavaScriptExecutor;
+            script = script ?? throw new ArgumentNullException(nameof(script));
 
-            if (js == null)
-                throw new InvalidCastException("Driver must support js execution");
+            IJavaScriptExecutor js = _driver as IJavaScriptExecutor;
 
             js.ExecuteScript(script, element);
         }
@@ -148,18 +147,12 @@ namespace Core.WebDriver
 
             IJavaScriptExecutor js = _driver as IJavaScriptExecutor;
 
-            if (js == null)
-                throw new InvalidCastException("Driver must support js execution");
-
             js.ExecuteScript(script);
         }
         public void WaitReadyState()
         {
             var waitDOM = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
             IJavaScriptExecutor js = _driver as IJavaScriptExecutor;
-
-            if (js == null)
-                throw new InvalidCastException("Driver must support js execution");
 
             waitDOM.Until(driver => (bool)js.ExecuteScript("return document.readyState == 'complete'"));
         }

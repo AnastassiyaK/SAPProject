@@ -1,7 +1,8 @@
 ﻿{
-  "ExperienceTags": [
-    "Beginner",
-    "Intermediate",
-    "Advanced"
-  ]
+  "experience": {
+    "tags": [ "Beginner", "Intermediate", "Advanced" ]
+  },
+  "topics": {
+    "tags": [ "", "", "" ]
+  }
 }

@@ -40,7 +40,7 @@ namespace SAPTests
         }
 
         private void RegisterBrowser(ContainerBuilder builder)
-        {            
+        {
             if (_browser == Browser.Chrome)
             {
                 builder.RegisterType<ChromeDriverFactory>().As<IDriverFactory>();
@@ -57,7 +57,7 @@ namespace SAPTests
 
         [OneTimeSetUp]
         public void Configure()
-        {       
+        {
             var builder = ContainerConfig.Configure();
             RegisterBrowser(builder);
 
@@ -66,8 +66,23 @@ namespace SAPTests
 
         [SetUp]
         public void Setup()
-        {           
-            Scope = Container.BeginLifetimeScope();
+        {
+            Scope = Container.BeginLifetimeScope(container =>
+            {
+                if (_browser == Browser.Chrome)
+                {
+                    container.RegisterType<ChromeDriverFactory>().As<IDriverFactory>();
+                }
+                if (_browser == Browser.Firefox)
+                {
+                    container.RegisterType<FirefoxDriverFactory>().As<IDriverFactory>();
+                }
+                if (_browser == Browser.IE)
+                {
+                    container.RegisterType<IEDriverFactory>().As<IDriverFactory>();
+                }
+            });
+
 
             BaseDriver = Scope.Resolve<BaseWebDriver>();
 
