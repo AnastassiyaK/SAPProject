@@ -7,17 +7,30 @@ namespace Core.DriverFactory
 {
     public abstract class BaseWebDriverFactory : IDriverFactory
     {
+        protected IDriverConfiguration _configuration;
+
         protected IWebDriver _driver;
+
+        public BaseWebDriverFactory(IDriverConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         protected abstract ICapabilities Capabilities { get; }
 
-        public abstract IWebDriver CreateLocalWebDriver();
+        protected abstract IWebDriver CreateLocalWebDriver();
+
+        protected virtual IWebDriver CreateRemoteWebDriver()
+        {
+            _driver = new RemoteWebDriver(new Uri(_configuration.HubUrl), Capabilities);
+            return _driver;
+        }
 
         public IWebDriver CreateWebDriver()
         {
-            _driver = new RemoteWebDriver(new Uri(AppConfiguration.NodeUrl), Capabilities);
-
-            return _driver;
+            return _configuration.UseGrid
+                ? CreateRemoteWebDriver()
+                : CreateLocalWebDriver();
         }
     }
 }

@@ -9,33 +9,33 @@ using System.Linq;
 
 namespace Core.WebDriver
 {
-    public class BaseWebDriver
+    public class WebDriver
     {
         private IWebDriver _driver;
 
         private IDriverFactory _factory;
 
-        public BaseWebDriver(IDriverFactory factory)
+        IDriverConfiguration _configuration;
+
+        public WebDriver(IDriverFactory factory, IDriverConfiguration configuration)
         {
             _factory = factory;
+            _configuration = configuration;
         }
+
         public string Url => _driver.Url;
+
         public void InitDriver()
         {
             _driver = _factory.CreateWebDriver();
             _driver.Manage().Window.Maximize();
-
-        }
-
-        public void InitLocalDriver()
-        {
-
         }
 
         public ReadOnlyCollection<Cookie> GetBrowserCookies()
         {
             return _driver.Manage().Cookies.AllCookies;
         }
+
         public IWebElement FindElement(By locator)
         {
             return _driver.FindElement(locator);
@@ -61,7 +61,7 @@ namespace Core.WebDriver
 
         public void WaitForElementDissapear(By locator)
         {
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(AppConfiguration.TimeOutWebElement));
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_configuration.TimeOutSearch));
             wait.Until(driver =>
             {
                 try
@@ -77,8 +77,8 @@ namespace Core.WebDriver
                     return true;
                 }
             });
-
         }
+
         public void WaitForElementDissapear(IWebElement element, int timeoutInSeconds)
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(timeoutInSeconds));
@@ -97,8 +97,8 @@ namespace Core.WebDriver
                     return true;
                 }
             });
-
         }
+
         public void WaitForElement(By locator, int timeoutInSeconds)
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(timeoutInSeconds));
@@ -114,6 +114,7 @@ namespace Core.WebDriver
                 }
             });
         }
+
         public void WaitForElements(ReadOnlyCollection<IWebElement> elements, int timeoutInSeconds)
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(timeoutInSeconds));
@@ -129,10 +130,12 @@ namespace Core.WebDriver
                 }
             });
         }
+
         public void Navigate(string url)
         {
             _driver.Navigate().GoToUrl(url);
         }
+
         public void ExecuteScriptOnElement(string script, IWebElement element)
         {
             script = script ?? throw new ArgumentNullException(nameof(script));
@@ -141,6 +144,7 @@ namespace Core.WebDriver
 
             js.ExecuteScript(script, element);
         }
+
         public void ExecuteScript(string script)
         {
             script = script ?? throw new ArgumentNullException(nameof(script));
@@ -149,6 +153,7 @@ namespace Core.WebDriver
 
             js.ExecuteScript(script);
         }
+
         public void WaitReadyState()
         {
             var waitDOM = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
@@ -166,23 +171,28 @@ namespace Core.WebDriver
         {
             _driver.SwitchTo().DefaultContent();
         }
+
         public void SwitchToLastTab()
         {
             _driver.SwitchTo().Window(_driver.WindowHandles.Last());
         }
+
         public void SwitchToFirstTab()
         {
             _driver.SwitchTo().Window(_driver.WindowHandles.First());
         }
+
         public void MoveToElement(IWebElement element)
         {
             Actions action = new Actions(_driver);
             action.MoveToElement(element).Perform();
         }
+
         public void Refresh()
         {
             _driver.Navigate().Refresh();
         }
+
         public void Close()
         {
             _driver.Close();
@@ -193,6 +203,5 @@ namespace Core.WebDriver
             if (_driver == null) return;
             _driver.Quit();
         }
-
     }
 }

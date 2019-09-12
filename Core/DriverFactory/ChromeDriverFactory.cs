@@ -1,10 +1,15 @@
-﻿using OpenQA.Selenium;
+﻿using Core.Configuration;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
 namespace Core.DriverFactory
 {
     public class ChromeDriverFactory : BaseWebDriverFactory
-    {        
+    {
+        public ChromeDriverFactory(IDriverConfiguration configuration) : base(configuration)
+        {
+        }
+
         protected override ICapabilities Capabilities
         {
             get
@@ -16,7 +21,7 @@ namespace Core.DriverFactory
             }
         }
 
-        public override IWebDriver CreateLocalWebDriver()
+        protected override IWebDriver CreateLocalWebDriver()
         {
             ChromeOptions options = new ChromeOptions();
             options.AddExcludedArgument("enable-automation");//enable info-bar
