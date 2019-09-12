@@ -2,24 +2,22 @@
 using SAPBusiness.Services.Interfaces.API_UserService;
 using SAPBusiness.UserData.DeveloperCenter;
 using System.Net;
-using Core.Configuration;
 using RestSharp;
-using System;
 using SeleniumCookie = OpenQA.Selenium.Cookie;
 using Core.REST_API.Cookies;
 using System.Collections.ObjectModel;
 
 namespace SAPBusiness.Services.API_Services.User
 {
-    public class RestSharpUserService : IUserService
+    public class RestSharpUserService : BaseUserService, IUserService
     {
         public UserStatistics GetStatistics(ReadOnlyCollection<SeleniumCookie> cookies)
         {
-            var defaultCookies = new CookiesService().ExtractCookies(cookies);
+            var defaultCookies = new CookiesConverter().ExtractCookies(cookies);
 
-            var client = new RestClient(AppConfiguration.AppSetting["APIUserService:baseUrlUserStatistics"]);
+            var client = new RestClient(baseUrl);
 
-            var request = new RestRequest(AppConfiguration.AppSetting["APIUserService:resourceUserStatistics"], Method.GET);
+            var request = new RestRequest(resourceUrl, Method.GET);
 
             if (cookies.Count != 0)
             {
@@ -30,18 +28,11 @@ namespace SAPBusiness.Services.API_Services.User
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                try
-                {
-                    return JsonConvert.DeserializeObject<UserStatistics>(response.Content);
-                }
-                catch
-                {
-                    return new UserStatistics();//should return null object
-                }
+                return JsonConvert.DeserializeObject<UserStatistics>(response.Content);
             }
             else
             {
-                throw new Exception();//implement exeption if status code was not OK
+                throw new WebException($"{response.StatusCode}");
             }
         }
     }
