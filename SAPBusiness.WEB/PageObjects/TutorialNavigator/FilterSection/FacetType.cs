@@ -5,7 +5,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 {
     public class FacetType : BasePageObject<FacetType>, IFacetType
     {
-        public FacetType(BaseWebDriver driver) : base(driver)
+        public FacetType(WebDriver driver) : base(driver)
         {
 
         }

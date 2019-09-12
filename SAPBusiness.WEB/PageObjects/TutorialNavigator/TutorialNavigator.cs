@@ -8,7 +8,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 {
     public class TutorialNavigator : BasePageObject<TutorialNavigator>, ITutorialNavigator
     {
-        public TutorialNavigator(BaseWebDriver driver) : base(driver)
+        public TutorialNavigator(WebDriver driver) : base(driver)
         {
 
         }

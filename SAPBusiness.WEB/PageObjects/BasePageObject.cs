@@ -9,9 +9,9 @@ namespace SAPBusiness.WEB.PageObjects
 
     public abstract class BasePageObject<PageObject> : IPageObject<PageObject> where PageObject : class
     {
-        protected BaseWebDriver _driver;
+        protected WebDriver _driver;
 
-        public BasePageObject(BaseWebDriver driver)
+        public BasePageObject(WebDriver driver)
         {
             _driver = driver;
         }

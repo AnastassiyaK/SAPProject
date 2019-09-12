@@ -6,7 +6,7 @@ namespace SAPBusiness.WEB.PageObjects.Footer
 {
     public class PageFooter : BasePageObject<PageFooter>, IPageFooter
     {
-        public PageFooter(BaseWebDriver driver) : base(driver)
+        public PageFooter(WebDriver driver) : base(driver)
         {
 
         }

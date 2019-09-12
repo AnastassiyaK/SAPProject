@@ -13,7 +13,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
         private readonly IFacetTopic _facetTopic;
 
         private readonly IFacetType _facetType;
-        public FilterSection(BaseWebDriver driver) : base(driver)
+        public FilterSection(WebDriver driver) : base(driver)
         {
 
         }

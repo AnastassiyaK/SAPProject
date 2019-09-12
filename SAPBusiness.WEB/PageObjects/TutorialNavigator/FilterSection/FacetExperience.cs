@@ -5,7 +5,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 {
     public class FacetExperience : BasePageObject<FacetExperience>, IFacetExperience
     {
-        public FacetExperience(BaseWebDriver driver) : base(driver)
+        public FacetExperience(WebDriver driver) : base(driver)
         {
 
         }

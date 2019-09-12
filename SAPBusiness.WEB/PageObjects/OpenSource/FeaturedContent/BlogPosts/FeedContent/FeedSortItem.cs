@@ -7,7 +7,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedC
     {
         private IWebElement FeedSortingContainer => _driver.FindElement(By.ClassName("feed-sorting-container"));
 
-        public FeedSortItem(BaseWebDriver driver) : base(driver)
+        public FeedSortItem(WebDriver driver) : base(driver)
         {
 
         }

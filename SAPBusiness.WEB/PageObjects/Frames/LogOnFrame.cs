@@ -9,14 +9,14 @@ namespace SAPBusiness.WEB.PageObjects.Frames
     {
         private readonly ILogOnSection _logOnSection;
 
-        public LogOnFrame(BaseWebDriver driver, ILogOnSection logOnSection) : base(driver)
+        public LogOnFrame(WebDriver driver, ILogOnSection logOnSection) : base(driver)
         {
             _logOnSection = logOnSection;
         }
 
         public void LogOn(User user)
         {
-            _driver.WaitForElement(By.Id("IDS_UI_Window"), 15);
+            _driver.WaitForElement(By.Id("IDS_UI_Window"));
 
             _driver.SwitchToFrame(_driver.FindElement(By.Id("IDS_UI_Window")));
 

@@ -10,7 +10,7 @@ namespace SAPBusiness.WEB.PageObjects.MainPage.Statistics
     {
         private List<Statistics> _statistics;
 
-        public TutorialSection(BaseWebDriver driver) : base(driver)
+        public TutorialSection(WebDriver driver) : base(driver)
         {
 
         }
@@ -27,7 +27,7 @@ namespace SAPBusiness.WEB.PageObjects.MainPage.Statistics
             }
         }
 
-        public Statistics GetStatsByType(StatisticsType type)
+        public IStatistics GetStatsByType(StatisticsType type)
         {
             foreach (var stats in Statistics)
             {
@@ -42,6 +42,8 @@ namespace SAPBusiness.WEB.PageObjects.MainPage.Statistics
 
         protected override TutorialSection WaitForLoad()
         {
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
+            _driver.WaitForElement(By.CssSelector(".tutorial-stats"));
             return this;
         }
 

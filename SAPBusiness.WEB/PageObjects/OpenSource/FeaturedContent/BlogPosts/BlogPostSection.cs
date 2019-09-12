@@ -9,7 +9,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts
 {
     public class BlogPostSection : BasePageObject<BlogPostSection>, IBlogPostSection
     {
-        public BlogPostSection(BaseWebDriver driver) : base(driver)
+        public BlogPostSection(WebDriver driver) : base(driver)
         {
 
         }

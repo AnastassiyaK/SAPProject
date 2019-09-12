@@ -5,7 +5,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
 {
     public class ContributorCard : BasePageObject<ContributorCard>, IContributorCard
     {
-        public ContributorCard(BaseWebDriver driver) : base(driver)
+        public ContributorCard(WebDriver driver) : base(driver)
         {
 
         }

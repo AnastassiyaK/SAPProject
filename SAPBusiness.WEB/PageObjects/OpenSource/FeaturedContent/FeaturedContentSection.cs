@@ -5,7 +5,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent
 {
     public class FeaturedContentSection : BasePageObject<FeaturedContentSection>, IFeaturedContentSection
     {
-        public FeaturedContentSection(BaseWebDriver driver) : base(driver)
+        public FeaturedContentSection(WebDriver driver) : base(driver)
         {
 
         }

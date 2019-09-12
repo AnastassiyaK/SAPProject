@@ -7,7 +7,7 @@ namespace SAPBusiness.WEB.PageObjects.LogOn
     {
         private readonly ILogOnSection _logOnSection;
 
-        public LogOnPage(BaseWebDriver driver,ILogOnSection logOnSection) : base(driver)
+        public LogOnPage(WebDriver driver,ILogOnSection logOnSection) : base(driver)
         {
             _logOnSection = logOnSection;
         }

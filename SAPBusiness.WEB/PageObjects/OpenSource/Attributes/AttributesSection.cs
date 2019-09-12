@@ -8,7 +8,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Attributes
 {
     public class AttributesSection : BasePageObject<AttributesSection>, IAttributesSection
     {
-        public AttributesSection(BaseWebDriver driver) : base(driver)
+        public AttributesSection(WebDriver driver) : base(driver)
         {
 
         }

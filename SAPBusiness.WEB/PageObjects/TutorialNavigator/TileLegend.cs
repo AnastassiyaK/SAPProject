@@ -5,7 +5,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 {
     public class TileLegend : BasePageObject<TileLegend>, ITileLegend
     {
-        public TileLegend(BaseWebDriver driver) : base(driver)
+        public TileLegend(WebDriver driver) : base(driver)
         {
 
         }

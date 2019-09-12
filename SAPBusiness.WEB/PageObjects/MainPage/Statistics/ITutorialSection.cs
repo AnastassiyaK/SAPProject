@@ -2,6 +2,6 @@
 {
     public interface ITutorialSection : IPageObject<ITutorialSection>
     {
-        Statistics GetStatsByType(StatisticsType type);
+        IStatistics GetStatsByType(StatisticsType type);
     }
 }

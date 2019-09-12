@@ -8,7 +8,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Memberships
 {
     public class MembershipSection : BasePageObject<MembershipSection>, IMembershipSection
     {
-        public MembershipSection(BaseWebDriver driver) : base(driver)
+        public MembershipSection(WebDriver driver) : base(driver)
         {
 
         }

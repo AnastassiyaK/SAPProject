@@ -6,7 +6,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects.Search
 {
     public class SearchSection : BasePageObject<SearchSection>, ISearchSection
     {
-        public SearchSection(BaseWebDriver driver) : base(driver)
+        public SearchSection(WebDriver driver) : base(driver)
         {
 
         }

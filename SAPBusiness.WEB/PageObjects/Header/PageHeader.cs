@@ -5,7 +5,7 @@ namespace SAPBusiness.WEB.PageObjects.Header
 {
     public class PageHeader : BasePageObject<PageHeader>, IPageHeader
     {
-        public PageHeader(BaseWebDriver driver) : base(driver)
+        public PageHeader(WebDriver driver) : base(driver)
         {
 
         }

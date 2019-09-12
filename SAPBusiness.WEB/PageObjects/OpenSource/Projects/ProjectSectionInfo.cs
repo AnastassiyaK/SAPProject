@@ -5,7 +5,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
 {
     public class ProjectSectionInfo : BasePageObject<ProjectSectionInfo>, IProjectSectionInfo
     {
-        public ProjectSectionInfo(BaseWebDriver driver) : base(driver)
+        public ProjectSectionInfo(WebDriver driver) : base(driver)
         {
 
         }
