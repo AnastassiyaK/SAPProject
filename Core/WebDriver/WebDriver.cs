@@ -13,7 +13,7 @@ namespace Core.WebDriver
     {
         private IWebDriver _driver;
 
-        private IDriverFactory _factory;
+        private readonly IDriverFactory _factory;
 
         IDriverConfiguration _configuration;
 
@@ -61,7 +61,7 @@ namespace Core.WebDriver
 
         public void WaitForElementDissapear(By locator)
         {
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_configuration.TimeOutSearch));
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_configuration.DissapearTime));
             wait.Until(driver =>
             {
                 try
@@ -79,9 +79,9 @@ namespace Core.WebDriver
             });
         }
 
-        public void WaitForElementDissapear(IWebElement element, int timeoutInSeconds)
+        public void WaitForElementDissapear(IWebElement element)
         {
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(timeoutInSeconds));
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_configuration.DissapearTime));
             wait.Until(driver =>
             {
                 try
@@ -99,9 +99,9 @@ namespace Core.WebDriver
             });
         }
 
-        public void WaitForElement(By locator, int timeoutInSeconds)
+        public void WaitForElement(By locator)
         {
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(timeoutInSeconds));
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_configuration.TimeOutSearch));
             wait.Until(driver =>
             {
                 try
@@ -115,9 +115,9 @@ namespace Core.WebDriver
             });
         }
 
-        public void WaitForElements(ReadOnlyCollection<IWebElement> elements, int timeoutInSeconds)
+        public void WaitForElements(ReadOnlyCollection<IWebElement> elements)
         {
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(timeoutInSeconds));
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_configuration.TimeOutSearch));
             wait.Until(driver =>
             {
                 try
@@ -156,7 +156,7 @@ namespace Core.WebDriver
 
         public void WaitReadyState()
         {
-            var waitDOM = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            var waitDOM = new WebDriverWait(_driver, TimeSpan.FromSeconds(_configuration.TimeOutPageLoad));
             IJavaScriptExecutor js = _driver as IJavaScriptExecutor;
 
             waitDOM.Until(driver => (bool)js.ExecuteScript("return document.readyState == 'complete'"));

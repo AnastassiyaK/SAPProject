@@ -27,7 +27,7 @@ namespace Core.DriverFactory
         }
 
         public IWebDriver CreateWebDriver()
-        {
+        {           
             return _configuration.UseGrid
                 ? CreateRemoteWebDriver()
                 : CreateLocalWebDriver();
