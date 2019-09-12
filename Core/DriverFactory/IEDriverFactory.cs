@@ -1,10 +1,15 @@
-﻿using OpenQA.Selenium;
+﻿using Core.Configuration;
+using OpenQA.Selenium;
 using OpenQA.Selenium.IE;
 
 namespace Core.DriverFactory
 {
     public class IEDriverFactory : BaseWebDriverFactory
     {
+        public IEDriverFactory(IDriverConfiguration configuration) : base(configuration)
+        {
+        }
+
         protected override ICapabilities Capabilities
         {
             get
@@ -14,7 +19,7 @@ namespace Core.DriverFactory
             }
         }
 
-        public override IWebDriver CreateLocalWebDriver()
+        protected override IWebDriver CreateLocalWebDriver()
         {
             InternetExplorerOptions options = new InternetExplorerOptions();
             options.AddAdditionalCapability("useAutomationExtension", false);//enable extensions  

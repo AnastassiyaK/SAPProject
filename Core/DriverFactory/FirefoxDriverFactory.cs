@@ -1,10 +1,15 @@
-﻿using OpenQA.Selenium;
+﻿using Core.Configuration;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 
 namespace Core.DriverFactory
 {
     public class FirefoxDriverFactory : BaseWebDriverFactory
     {
+        public FirefoxDriverFactory(IDriverConfiguration configuration) : base(configuration)
+        {
+        }
+
         protected override ICapabilities Capabilities
         {
             get
@@ -14,7 +19,7 @@ namespace Core.DriverFactory
             }
         }
 
-        public override IWebDriver CreateLocalWebDriver()
+        protected override IWebDriver CreateLocalWebDriver()
         {
             FirefoxOptions options = new FirefoxOptions();
             options.AddAdditionalCapability("useAutomationExtension", false);//enable extensions  

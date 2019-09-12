@@ -8,16 +8,12 @@ namespace SAPBusiness.UserData
 {
     public class UserPool
     {
-        //public User GetUser()
-        //{
-        //    string jsonResult = File.ReadAllText($@"{Directory.GetCurrentDirectory()}\UserDataAccess\users.json");
-        //    return JsonConvert.DeserializeObject<User>(jsonResult);
-        //}
         private static IList<User> _users;
-        private UserPool()
+
+        static UserPool()
         {
             string jsonResult = File.ReadAllText($@"{Directory.GetCurrentDirectory()}\UserDataAccess\users.json");
-            _users = JsonConvert.DeserializeObject<IList<User>>(jsonResult);
+            _users = JsonConvert.DeserializeObject<UserList>(jsonResult).Users;
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
