@@ -5,13 +5,14 @@ using System;
 using Autofac;
 using SAPBusiness.WEB.PageObjects.Header;
 using SAPBusiness.WEB.PageObjects.TutorialNavigator;
-using SAPBusiness.WEB.PageObjects.Footer;
 using SAPBusiness.UserData;
 using SAPTests.Browsers;
 using SAPBusiness.WEB.PageObjects.LogOn;
 using System.Threading;
 using NLog;
 using SAPTests.TestData.TutorialNavigator.Modules;
+using SAPBusiness.WEB.PageObjects;
+using SAPBusiness.WEB.PageObjects.Footer.Networks;
 
 namespace SAPTests.TutorialNavigator
 {
@@ -40,18 +41,17 @@ namespace SAPTests.TutorialNavigator
 
             logonStrategy = Scope.Resolve<LogOnFrame>();
 
-            //BaseDriver.Navigate(AppConfiguration.AppSetting["Pages:TutorialNavigator"]);
+            Scope.Resolve<ITutorialNavigator>().Open();
 
             try
             {
-                Scope.Resolve<ICookiesFrame>().WaitForPageLoad().AgreeWithPrivacyPolicy();
+                PageExtension.WaitForLoading(Scope.Resolve<ICookiesFrame>()).AgreeWithPrivacyPolicy();
             }
             catch (Exception e)
             {
                 Logger.Error($"Cookies were not accepted! {e.Message}");
                 //Assert.Warn(e.Message);//implement custom exception
             }
-
         }
 
         [Test, TestCaseSource(typeof(FilterData), nameof(FilterData.ExperienceTags))]
@@ -60,7 +60,9 @@ namespace SAPTests.TutorialNavigator
         {
             Scope.Resolve<IFacetExperience>().SelectExperience(tag);
 
-            var tiles = Scope.Resolve<ITutorialNavigator>().WaitForFilterLoad().GetAllTiles();
+            var tutorualNavigator = Scope.Resolve<ITutorialNavigator>();
+
+            var tiles = PageExtension.WaitForLoading(tutorualNavigator).GetAllTiles();
 
             Logger.Info($"--- { tag.ToUpper()}---");
             foreach (var tile in tiles)
@@ -75,11 +77,14 @@ namespace SAPTests.TutorialNavigator
         [Order(2)]
         public void CheckTileBookmarks()
         {
-            Scope.Resolve<IPageHeader>().WaitForPageLoad().OpenLogonFrame();
+            var pageHeader = Scope.Resolve<IPageHeader>();
+            PageExtension.WaitForLoading(pageHeader).OpenLogonFrame();
 
             logonStrategy.LogOn(UserPool.GetUser());
 
-            var tiles = Scope.Resolve<ITutorialNavigator>().WaitForPageLoad().GetAllTiles();
+            var tutorialNavigator = PageExtension.WaitForLoading(Scope.Resolve<ITutorialNavigator>());
+
+            var tiles = tutorialNavigator.GetAllTiles();
 
             CollectionAssert.IsNotEmpty(tiles);
 
@@ -94,12 +99,14 @@ namespace SAPTests.TutorialNavigator
         [Test(Description = "Check tiles by filter #java #tutorial. And check the Tile Legend")]
         [Order(3)]
         public void GetJavaTutorialsOnly()
-        {         
-            Scope.Resolve<IFacetTopic>().SelectTopic("Java");
+        {
+            var facetTopic = Scope.Resolve<IFacetTopic>();
+            PageExtension.WaitForLoading(facetTopic).SelectTopic("Java");
 
-            Scope.Resolve<IFacetType>().SelectType("Tutorial");
+            var facetType = Scope.Resolve<IFacetType>();
+            PageExtension.WaitForLoading(facetType).SelectType("Tutorial");
 
-            var tutorialNavigator = Scope.Resolve<ITutorialNavigator>().WaitForPageLoad(); 
+            var tutorialNavigator = PageExtension.WaitForLoading(Scope.Resolve<ITutorialNavigator>());
 
             var legend = Scope.Resolve<ITileLegend>();
 
@@ -115,11 +122,11 @@ namespace SAPTests.TutorialNavigator
         [TestCaseSource("networks")]
         public void CheckSocialNetworkLinks(NetworkType type)
         {
-            var footer = Scope.Resolve<IPageFooter>().WaitForPageLoad();
+            var networkSection = PageExtension.WaitForLoading(Scope.Resolve<ISocialNetworkSection>());
 
-            var pageLink = footer.GetSocialNetwork(type).Link;
+            var pageLink = networkSection.GetNetworkLink(type);
 
-            footer.OpenSocialNetWorkPage(type);
+            networkSection.OpenNetwork(type);
 
             Logger.Info($"Network link is {pageLink}, current tab has link {BaseDriver.Url}");
             Assert.AreEqual(pageLink, BaseDriver.Url);

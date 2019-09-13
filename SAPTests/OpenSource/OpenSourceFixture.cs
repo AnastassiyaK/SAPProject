@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using SAPTests.Browsers;
+using SAPBusiness.WEB.PageObjects;
+using SAPBusiness.WEB.PageObjects.OpenSource;
 
 namespace SAPTests.OpenSource
 {
@@ -37,11 +39,11 @@ namespace SAPTests.OpenSource
         {
             Logger = LogManager.GetLogger($"{TestContext.CurrentContext.Test.Name}");
 
-            //BaseDriver.Navigate(AppConfiguration.AppSetting["Pages:OpenSource"]);
+            Scope.Resolve<IOpenSource>().Open();
 
             try
             {
-                Scope.Resolve<ICookiesFrame>().WaitForPageLoad().AgreeWithPrivacyPolicy();
+                PageExtension.WaitForLoading(Scope.Resolve<ICookiesFrame>()).AgreeWithPrivacyPolicy();
             }
             catch (Exception e)
             {
@@ -60,7 +62,9 @@ namespace SAPTests.OpenSource
         [Order(1)]
         public void CheckProjectSearchByRandomString()
         {
-            var projects = Scope.Resolve<IProjectsSection>().WaitForPageLoad().GetAllProjects();
+            var projectSection = Scope.Resolve<IProjectsSection>();
+
+            var projects = PageExtension.WaitForLoading(projectSection).GetAllProjects();
 
             var descriptions = projects.Select(project => (project.Description + " " + project.Title + " ")).ToList();
 
@@ -78,7 +82,9 @@ namespace SAPTests.OpenSource
 
             Scope.Resolve<ISearchSection>().SearchResultsByString(randomWord);
 
-            projects = Scope.Resolve<IProjectsSection>().WaitForPageLoad().GetAllProjects();
+            projectSection = Scope.Resolve<IProjectsSection>();
+
+            projects = PageExtension.WaitForLoading(projectSection).GetAllProjects();
 
             foreach (var project in projects)
             {
@@ -86,12 +92,14 @@ namespace SAPTests.OpenSource
                 Assert.IsTrue(project.Description.Contains(randomWord) || project.Title.Contains(randomWord));
             }
         }
-        
+
         [Test(Description = "Check all projects have the same background images as main images")]
         [Order(2)]
         public void CheckProjectBackgroundImage()
         {
-            var projects = Scope.Resolve<IProjectsSection>().WaitForPageLoad().GetAllProjects();
+            var projectSection = Scope.Resolve<IProjectsSection>();
+
+            var projects = PageExtension.WaitForLoading(projectSection).GetAllProjects();
 
             Logger.Debug("Projects were recieved successfully");
 
@@ -106,7 +114,9 @@ namespace SAPTests.OpenSource
         [Order(3)]
         public void CheckBlogPostSortByDate()
         {
-            Scope.Resolve<IFeedSortItem>().WaitForPageLoad().SelectFeedType(FeedType.Latest);
+            var feedSortItem = Scope.Resolve<IFeedSortItem>();
+
+            PageExtension.WaitForLoading(feedSortItem).SelectFeedType(FeedType.Latest);
 
             var feeds = Scope.Resolve<IBlogPostSection>().GetAllFeeds();
 
@@ -129,9 +139,9 @@ namespace SAPTests.OpenSource
         [Order(4)]
         public void CheckMembershipsTitleDescription()
         {
-            var membershipSection = Scope.Resolve<IMembershipSection>().WaitForPageLoad();
+            var membershipSection = Scope.Resolve<IMembershipSection>();
 
-            Assert.IsTrue(membershipSection.HasMemberships());
+            Assert.IsTrue(PageExtension.WaitForLoading(membershipSection).HasMemberships());
 
             var memberships = membershipSection.GetAllMemberships();
             foreach (var membership in memberships)

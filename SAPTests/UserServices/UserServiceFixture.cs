@@ -10,6 +10,10 @@ using SAPBusiness.Services.Interfaces.API_UserService;
 using System;
 using NLog;
 using System.Threading;
+using SAPBusiness.WEB.PageObjects;
+using SAPBusiness.WEB.PageObjects.MainPage;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace SAPTests.UserServices
 {
@@ -39,11 +43,11 @@ namespace SAPTests.UserServices
 
             logonStrategy = Scope.Resolve<LogOnFrame>();
 
-            BaseDriver.Navigate("https://developers.sap.com");
+            Scope.Resolve<IMainPage>().Open();
 
             try
             {
-                Scope.Resolve<ICookiesFrame>().WaitForPageLoad().AgreeWithPrivacyPolicy();
+                PageExtension.WaitForLoading(Scope.Resolve<ICookiesFrame>()).AgreeWithPrivacyPolicy();
             }
             catch (Exception e)
             {
@@ -56,13 +60,13 @@ namespace SAPTests.UserServices
         [Order(1)]
         public void CompareUserProgress()
         {
-            Scope.Resolve<IPageHeader>().WaitForPageLoad().OpenLogonFrame();
+            PageExtension.WaitForLoading(Scope.Resolve<IPageHeader>()).OpenLogonFrame();
 
             logonStrategy.LogOn(UserPool.GetUser());
 
             var progress = Scope.Resolve<IUserService>().GetStatistics(BaseDriver.GetBrowserCookies()).UserProgress;
 
-            var statistics = Scope.Resolve<ITutorialSection>().WaitForPageLoad();
+            var statistics = PageExtension.WaitForLoading(Scope.Resolve<ITutorialSection>());
 
             var groups = statistics.GetStatsByType(StatisticsType.Groups);
             var tutorials = statistics.GetStatsByType(StatisticsType.Tutorials);
