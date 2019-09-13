@@ -2,6 +2,7 @@
 using Core.Configuration;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
+using SAPBusiness.Configuration;
 using SAPTests.Autofac;
 using System.Threading;
 
@@ -31,12 +32,17 @@ namespace SAPTests
 
             var configuration = Scope.Resolve<IConfigurationBuilder>()
               .AddJsonFile(@"Configuration\appSettingsWebDriver.json")
-              .AddJsonFile(@"Configuration\appSettingsTests.json")
+              .AddJsonFile(@"Configuration\appSettingsSAPBusiness.json")
               .Build();
 
             var driverConfiguration = Scope.Resolve<IDriverConfiguration>();
 
             configuration.GetSection("WebDriver").Bind(driverConfiguration);
+
+            var appConfiguration = Scope.Resolve<IAppConfiguration>();
+
+            configuration.GetSection("Links").Bind(appConfiguration);
+
         }
 
         [OneTimeTearDown]

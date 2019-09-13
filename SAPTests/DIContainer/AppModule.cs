@@ -22,6 +22,11 @@ using Core.DriverFactory;
 using SAPBusiness.WEB.PageObjects.LogOn;
 using Core.Configuration;
 using Microsoft.Extensions.Configuration;
+using Core.REST_API.Cookies;
+using SAPBusiness.Configuration;
+using SAPBusiness.WEB.PageObjects.MainPage;
+using SAPBusiness.WEB.PageObjects.OpenSource;
+using OpenSourcePage = SAPBusiness.WEB.PageObjects.OpenSource.OpenSource;
 
 namespace SAPTests.Autofac
 {
@@ -33,11 +38,19 @@ namespace SAPTests.Autofac
 
             builder.RegisterType<DriverConfiguration>().As<IDriverConfiguration>().SingleInstance();
 
+            builder.RegisterType<AppConfiguration>().As<IAppConfiguration>().SingleInstance(); 
+
             builder.RegisterType<WebDriver>().AsSelf().InstancePerLifetimeScope();
 
-            builder.RegisterGeneric(typeof(BasePageObject<>)).AsSelf().InstancePerDependency();
+            builder.RegisterType<CookiesConverter>().As<ICookiesConverter>();
+
+            builder.RegisterType<BasePageObject>().AsSelf().InstancePerDependency();
 
             builder.RegisterType<BaseWebDriverFactory>().AsSelf().InstancePerDependency();
+
+            builder.RegisterType<MainPage>().As<IMainPage>().InstancePerDependency();
+
+            builder.RegisterType<OpenSourcePage>().As<IOpenSource>().InstancePerDependency(); 
 
             builder.RegisterType<CookiesFrame>().As<ICookiesFrame>();
 
@@ -82,6 +95,8 @@ namespace SAPTests.Autofac
             builder.RegisterType<FacetTopic>().As<IFacetTopic>();
 
             builder.RegisterType<FacetType>().As<IFacetType>();
+
+            builder.RegisterType<SocialNetworkSection>().As<ISocialNetworkSection>(); 
         }
     }
 }
