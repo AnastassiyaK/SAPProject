@@ -6,17 +6,28 @@ using System.IO;
 using SeleniumCookie = OpenQA.Selenium.Cookie;
 using Core.REST_API.Cookies;
 using System.Collections.ObjectModel;
+using SAPBusiness.Configuration;
 
 namespace SAPBusiness.Services.API_Services.User
 {
     public class DefaultUserService : BaseUserService, IUserService
     {
+        private readonly ICookiesConverter _cookiesConverter;
+
+        private readonly IAppConfiguration _appConfiguration;
+
+        public DefaultUserService(ICookiesConverter cookiesConverter, IAppConfiguration appConfiguration)
+        {
+            _cookiesConverter = cookiesConverter;
+            _appConfiguration = appConfiguration;
+        }
+
         public UserStatistics GetStatistics(ReadOnlyCollection<SeleniumCookie> cookies)
         {
-            var defaultCookies = new CookiesConverter().ExtractCookies(cookies);
+            var defaultCookies = _cookiesConverter.ExtractCookies(cookies);
 
-            var request = WebRequest.Create(baseUrl
-                + "/" + resourceUrl) as HttpWebRequest;
+            var request = WebRequest.Create(string.Concat(_appConfiguration.ProdUrl, "/", resourceUrl))
+                as HttpWebRequest;
 
             request.Method = "GET";
 

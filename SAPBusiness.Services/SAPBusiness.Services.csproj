@@ -7,12 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\SAPBusiness.WEB\SAPBusiness.WEB.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Configuration\appSettingsAPIServices.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\SAPBusiness\SAPBusiness.csproj" />
   </ItemGroup>
 
 </Project>
