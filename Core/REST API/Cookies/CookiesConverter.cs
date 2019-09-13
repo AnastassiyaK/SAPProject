@@ -6,7 +6,7 @@ using SeleniumCookie = OpenQA.Selenium.Cookie;
 
 namespace Core.REST_API.Cookies
 {
-    public class CookiesConverter
+    public class CookiesConverter : ICookiesConverter
     {
         public CookieContainer ExtractCookies(ReadOnlyCollection<SeleniumCookie> cookies)
         {

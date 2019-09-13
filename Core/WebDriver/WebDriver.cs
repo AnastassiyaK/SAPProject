@@ -15,7 +15,7 @@ namespace Core.WebDriver
 
         private readonly IDriverFactory _factory;
 
-        IDriverConfiguration _configuration;
+        readonly IDriverConfiguration _configuration;
 
         public WebDriver(IDriverFactory factory, IDriverConfiguration configuration)
         {
@@ -136,6 +136,11 @@ namespace Core.WebDriver
             _driver.Navigate().GoToUrl(url);
         }
 
+        public void NavigateToPage(string url)
+        {
+            _driver.Navigate().GoToUrl(url + ".html");
+        }
+
         public void ExecuteScriptOnElement(string script, IWebElement element)
         {
             script = script ?? throw new ArgumentNullException(nameof(script));
@@ -165,6 +170,11 @@ namespace Core.WebDriver
         public void SwitchToFrame(IWebElement iFrame)
         {
             _driver.SwitchTo().Frame(iFrame);
+        }
+
+        public Type GetDriverType()
+        {
+            return _factory.GetType();
         }
 
         public void SwitchToDefaultContent()
