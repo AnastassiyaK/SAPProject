@@ -25,7 +25,6 @@ namespace SAPBusiness.UserData
             }
 
             var user = _users.First();
-            _users.Remove(user);
 
             return user;
         }

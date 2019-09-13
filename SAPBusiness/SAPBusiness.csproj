@@ -9,6 +9,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Configuration\appSettingsSAPBusiness.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="UserDataAccess\users.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
