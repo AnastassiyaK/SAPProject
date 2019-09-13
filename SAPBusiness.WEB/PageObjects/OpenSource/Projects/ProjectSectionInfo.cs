@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
 {
-    public class ProjectSectionInfo : BasePageObject<ProjectSectionInfo>, IProjectSectionInfo
+    public class ProjectSectionInfo : BasePageObject, IProjectSectionInfo
     {
         public ProjectSectionInfo(WebDriver driver) : base(driver)
         {
@@ -34,9 +34,9 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
             }
         }
 
-        protected override ProjectSectionInfo WaitForLoad()
+        public void WaitForLoad()
         {
-            return this;
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
         }
     }
 }

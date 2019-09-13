@@ -4,7 +4,7 @@ using System;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.FeaturedProjects
 {
-    class FeaturedProjectSection : BasePageObject<FeaturedProjectSection>, IFeaturedProjectSection
+    class FeaturedProjectSection : BasePageObject, IFeaturedProjectSection
     {
         public FeaturedProjectSection(WebDriver driver) : base(driver)
         {
@@ -59,9 +59,9 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.FeaturedProject
             }
         }
 
-        protected override FeaturedProjectSection WaitForLoad()
+        public void WaitForLoad()
         {
-            throw new NotImplementedException();
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
         }
     }
 }

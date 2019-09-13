@@ -1,6 +1,6 @@
 ﻿namespace SAPBusiness.WEB.PageObjects.OpenSource.Attributes
 {
-    public interface IAttributesSection
+    public interface IAttributesSection : IPageObject
     {
         Attribute GetAttributeByTitle(string title);
         int GetAttributesAmount();

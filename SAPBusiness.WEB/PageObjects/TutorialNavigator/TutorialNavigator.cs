@@ -1,19 +1,25 @@
-﻿using Core.WebDriver;
+﻿using Core.DriverFactory;
+using Core.WebDriver;
 using OpenQA.Selenium;
+using SAPBusiness.Configuration;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 {
-    public class TutorialNavigator : BasePageObject<TutorialNavigator>, ITutorialNavigator
+    public class TutorialNavigator : BasePageObject, ITutorialNavigator
     {
-        public TutorialNavigator(WebDriver driver) : base(driver)
-        {
+        private readonly string relativeUrl = "/tutorial-navigator";
 
+        private readonly IAppConfiguration _appConfiguration;
+
+        public TutorialNavigator(WebDriver driver, IAppConfiguration appConfiguration) : base(driver)
+        {
+            _appConfiguration = appConfiguration;
         }
 
         private List<TileElement> _tiles;
+
         private List<TileElement> Tiles
         {
             get
@@ -32,34 +38,25 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
             return Tiles;
         }
 
-        //public TutorialNavigator FilterPageByTopic(string title)
-        //{
-        //    var element = _driver.FindElement(By.ClassName("overview"));
-        //    var elementTitle = _driver.FindElement(By.XPath($".//div[text()='{title}']"));
-
-        //    _driver.MoveToElement(element);
-
-        //    _driver.ExecuteScriptOnElement($"arguments[0].scrollIntoView(true);", element);
-        //    _driver.ExecuteScriptOnElement($"arguments[0].click()", elementTitle);
-
-        //    return this;
-        //}
-
-        public TutorialNavigator WaitForFilterLoad()
+        public ITutorialNavigator WaitForFilterLoad()
         {
             _driver.WaitForElementDissapear(By.CssSelector(".loader"));
             return this;
         }
 
-        protected override TutorialNavigator WaitForLoad()
+        public void WaitForLoad()
         {
             _driver.WaitForElementDissapear(By.CssSelector(".loader"));
-            return this;
+
+            if (_driver.GetDriverType() == typeof(FirefoxDriverFactory))
+            {
+                _driver.WaitForElement(By.CssSelector(".tutorial-tile"));
+            }
         }
 
-        public new ITutorialNavigator WaitForPageLoad()
+        public void Open()
         {
-            return base.WaitForPageLoad();
+            _driver.NavigateToPage(string.Concat(_appConfiguration.ProdUrl + relativeUrl));
         }
     }
 }

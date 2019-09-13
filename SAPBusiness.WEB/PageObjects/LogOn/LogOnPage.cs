@@ -3,11 +3,11 @@ using SAPBusiness.UserData;
 
 namespace SAPBusiness.WEB.PageObjects.LogOn
 {
-    public class LogOnPage : BasePageObject<LogOnPage>, ILogOnStrategy
+    public class LogOnPage : BasePageObject, ILogOnStrategy
     {
         private readonly ILogOnSection _logOnSection;
 
-        public LogOnPage(WebDriver driver,ILogOnSection logOnSection) : base(driver)
+        public LogOnPage(WebDriver driver, ILogOnSection logOnSection) : base(driver)
         {
             _logOnSection = logOnSection;
         }
@@ -18,11 +18,6 @@ namespace SAPBusiness.WEB.PageObjects.LogOn
             _logOnSection.PasswordInput.SendKeys(user.Password);
 
             _logOnSection.LogOnButton.Click();
-        }
-
-        protected override LogOnPage WaitForLoad()
-        {
-            return this;
         }
     }
 }

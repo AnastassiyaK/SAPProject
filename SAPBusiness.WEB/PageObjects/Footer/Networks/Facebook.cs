@@ -1,12 +1,7 @@
-﻿using OpenQA.Selenium;
-
-namespace SAPBusiness.WEB.PageObjects.Footer.Networks
+﻿namespace SAPBusiness.WEB.PageObjects.Footer.Networks
 {
-    public class Facebook : SocialNetwork
+    public class Facebook 
     {
-        public Facebook(IWebElement element) : base(element)
-        {
-
-        }
+       
     }
 }

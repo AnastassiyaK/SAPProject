@@ -1,6 +1,6 @@
 ﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 {
-    public interface ITileLegend : IPageObject<ITileLegend>
+    public interface ITileLegend : IPageObject
     {
         int Group { get; }
         int Mission { get; }

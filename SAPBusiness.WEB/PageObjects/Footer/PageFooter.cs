@@ -4,7 +4,7 @@ using SAPBusiness.WEB.PageObjects.Footer.Networks;
 
 namespace SAPBusiness.WEB.PageObjects.Footer
 {
-    public class PageFooter : BasePageObject<PageFooter>, IPageFooter
+    public class PageFooter : BasePageObject, IPageFooter
     {
         public PageFooter(WebDriver driver) : base(driver)
         {
@@ -13,29 +13,11 @@ namespace SAPBusiness.WEB.PageObjects.Footer
 
         private IWebElement Networks => _driver.FindElement(By.ClassName("social-networks__list"));
 
-        private static By GetSocialNetworkByTitle(string type) => By.CssSelector($"a[data-share-channel='{type}']");
+        private ISocialNetwork _socialNetwork;
 
-        private SocialNetwork _socialNetwork;
-
-        public SocialNetwork GetSocialNetwork(NetworkType type)
+        public void WaitForLoad()
         {
-            return _socialNetwork ?? (_socialNetwork = new SocialNetwork(Networks.FindElement(GetSocialNetworkByTitle(type.ToString().ToLower()))));
-        }
-
-        public void OpenSocialNetWorkPage(NetworkType type)
-        {
-            GetSocialNetwork(type).GoToLink.Click();
-            _driver.SwitchToLastTab();
-        }
-
-        protected override PageFooter WaitForLoad()
-        {
-            return this;
-        }
-
-        public new IPageFooter WaitForPageLoad()
-        {
-            return base.WaitForPageLoad();
+            base.WaitForPageLoad();
         }
     }
 }

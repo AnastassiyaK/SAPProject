@@ -4,26 +4,18 @@ namespace SAPBusiness.WEB.PageObjects.Footer.Networks
 {
     public class SocialNetwork : ISocialNetwork
     {
-        private readonly IWebElement _element;
+        private IWebElement _element;
 
         public SocialNetwork(IWebElement element)
         {
             _element = element;
         }
 
-        public IWebElement GoToLink
-        {
-            get
-            {
-                return _element;
-            }
-        }
-
         public string Link
         {
             get
             {
-                return GoToLink.GetAttribute("href");
+                return _element.GetAttribute("href");
             }
         }
 

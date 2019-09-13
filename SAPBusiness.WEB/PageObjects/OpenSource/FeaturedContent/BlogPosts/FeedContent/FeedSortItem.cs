@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedContent
 {
-    public class FeedSortItem : BasePageObject<FeedSortItem>, IFeedSortItem
+    public class FeedSortItem : BasePageObject, IFeedSortItem
     {
         private IWebElement FeedSortingContainer => _driver.FindElement(By.ClassName("feed-sorting-container"));
 
@@ -30,14 +30,9 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedC
             FeedSortingContainer.FindElement(GetTypeLocator(type)).Click();
         }
 
-        protected override FeedSortItem WaitForLoad()
+        public void WaitForLoad()
         {
-            return this;
-        }
-
-        public new IFeedSortItem WaitForPageLoad()
-        {
-            return base.WaitForPageLoad();
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
         }
     }
 }

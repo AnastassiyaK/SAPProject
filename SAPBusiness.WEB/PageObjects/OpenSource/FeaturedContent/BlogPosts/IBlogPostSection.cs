@@ -3,7 +3,7 @@ using SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedConte
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts
 {
-    public interface IBlogPostSection : IPageObject<IBlogPostSection>
+    public interface IBlogPostSection : IPageObject
     {
         string Icon { get; }
         string Topic { get; }

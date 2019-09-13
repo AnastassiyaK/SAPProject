@@ -2,9 +2,8 @@
 
 namespace SAPBusiness.WEB.PageObjects.Footer
 {
-    public interface IPageFooter : IPageObject<IPageFooter>
+    public interface IPageFooter : IPageObject
     {
-        SocialNetwork GetSocialNetwork(NetworkType type);
-        void OpenSocialNetWorkPage(NetworkType type);
+
     }
 }

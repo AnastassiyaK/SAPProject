@@ -4,7 +4,7 @@ using System;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects.Search
 {
-    public class SearchSection : BasePageObject<SearchSection>, ISearchSection
+    public class SearchSection : BasePageObject, ISearchSection
     {
         public SearchSection(WebDriver driver) : base(driver)
         {
@@ -36,14 +36,9 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects.Search
             return String.IsNullOrEmpty(_driver.FindElement(By.Id("projectSearchInput")).Text) ? true : false;
         }
 
-        protected override SearchSection WaitForLoad()
+        public void WaitForLoad()
         {
-            return this;
-        }
-
-        public new ISearchSection WaitForPageLoad()
-        {
-            return base.WaitForPageLoad();
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace SAPBusiness.WEB.PageObjects.Frames
 {
-    public interface ICookiesFrame : IPageObject<ICookiesFrame>
+    public interface ICookiesFrame : IPageObject
     {
         void AgreeWithPrivacyPolicy();
     }

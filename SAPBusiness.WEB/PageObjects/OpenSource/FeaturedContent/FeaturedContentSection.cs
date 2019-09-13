@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent
 {
-    public class FeaturedContentSection : BasePageObject<FeaturedContentSection>, IFeaturedContentSection
+    public class FeaturedContentSection : BasePageObject, IFeaturedContentSection
     {
         public FeaturedContentSection(WebDriver driver) : base(driver)
         {
@@ -18,9 +18,9 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent
             }
         }
 
-        protected override FeaturedContentSection WaitForLoad()
+        public void WaitForLoad()
         {
-            return this;
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
         }
     }
 }

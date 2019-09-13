@@ -1,6 +1,6 @@
 ﻿namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedContent
 {
-    public interface IFeedSortItem : IPageObject<IFeedSortItem>
+    public interface IFeedSortItem : IPageObject
     {
         string Active { get; }
 

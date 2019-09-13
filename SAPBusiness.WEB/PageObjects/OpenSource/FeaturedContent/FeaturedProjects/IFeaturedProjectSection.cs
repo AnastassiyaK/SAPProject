@@ -1,6 +1,6 @@
 ﻿namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.FeaturedProjects
 {
-    interface IFeaturedProjectSection
+    interface IFeaturedProjectSection : IPageObject
     {
         string Description { get; }
         string Icon { get; }

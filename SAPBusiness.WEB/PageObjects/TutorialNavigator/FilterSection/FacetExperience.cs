@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 {
-    public class FacetExperience : BasePageObject<FacetExperience>, IFacetExperience
+    public class FacetExperience : BasePageObject, IFacetExperience
     {
         public FacetExperience(WebDriver driver) : base(driver)
         {
@@ -28,9 +28,9 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
             GetTag(experience).Click();
         }
 
-        protected override FacetExperience WaitForLoad()
+        public void WaitForLoad()
         {
-            return this;
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
         }
     }
 }

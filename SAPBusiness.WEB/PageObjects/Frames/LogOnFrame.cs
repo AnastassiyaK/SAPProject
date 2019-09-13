@@ -5,7 +5,7 @@ using SAPBusiness.WEB.PageObjects.LogOn;
 
 namespace SAPBusiness.WEB.PageObjects.Frames
 {
-    public class LogOnFrame : BasePageObject<LogOnFrame>, ILogOnStrategy
+    public class LogOnFrame : BasePageObject, ILogOnStrategy
     {
         private readonly ILogOnSection _logOnSection;
 
@@ -26,11 +26,13 @@ namespace SAPBusiness.WEB.PageObjects.Frames
 
             _driver.SwitchToDefaultContent();
 
+            WaitForProcessing();
+
         }
 
-        protected override LogOnFrame WaitForLoad()
+        public void WaitForProcessing()
         {
-            return this;
+            _driver.WaitForElementDissapear(By.Id("IDS_UI_Window"));
         }
     }
 }

@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
 {
-    public class ContributorCard : BasePageObject<ContributorCard>, IContributorCard
+    public class ContributorCard : BasePageObject, IContributorCard
     {
         public ContributorCard(WebDriver driver) : base(driver)
         {
@@ -32,11 +32,6 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
             {
                 return _driver.FindElement(By.CssSelector(".first-xs .col-xs:nth-last-child(1)")).Text;
             }
-        }
-
-        protected override ContributorCard WaitForLoad()
-        {
-            return this;
         }
     }
 }

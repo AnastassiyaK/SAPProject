@@ -7,7 +7,7 @@ using Core.WebDriver;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts
 {
-    public class BlogPostSection : BasePageObject<BlogPostSection>, IBlogPostSection
+    public class BlogPostSection : BasePageObject, IBlogPostSection
     {
         public BlogPostSection(WebDriver driver) : base(driver)
         {
@@ -66,7 +66,6 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts
         {
             FeedSortItem.SelectFeedType(type);
             return Feeds;
-
         }
 
         public FeedType GetCurrentFeedType()
@@ -87,14 +86,9 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts
             return Feeds;
         }
 
-        protected override BlogPostSection WaitForLoad()
+        public void WaitForLoad()
         {
-            return this;
-        }
-
-        public new IBlogPostSection WaitForPageLoad()
-        {
-            return base.WaitForPageLoad();
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
         }
     }
 }

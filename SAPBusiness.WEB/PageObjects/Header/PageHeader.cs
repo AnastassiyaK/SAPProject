@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.Header
 {
-    public class PageHeader : BasePageObject<PageHeader>, IPageHeader
+    public class PageHeader : BasePageObject, IPageHeader
     {
         public PageHeader(WebDriver driver) : base(driver)
         {
@@ -23,14 +23,9 @@ namespace SAPBusiness.WEB.PageObjects.Header
             Logon.Click();
         }
 
-        protected override PageHeader WaitForLoad()
+        public void WaitForLoad()
         {
-            return this;
-        }
-
-        public new IPageHeader WaitForPageLoad()
-        {
-            return base.WaitForPageLoad();
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
         }
     }
 }

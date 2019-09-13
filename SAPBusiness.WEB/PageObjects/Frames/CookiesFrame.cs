@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.Frames
 {
-    public class CookiesFrame : BasePageObject<CookiesFrame>, ICookiesFrame
+    public class CookiesFrame : BasePageObject, ICookiesFrame
     {
         private readonly string iFrameLocator = "iframe[id^='pop-frame']";
 
@@ -42,14 +42,9 @@ namespace SAPBusiness.WEB.PageObjects.Frames
             }
         }
 
-        protected override CookiesFrame WaitForLoad()
+        public void WaitForLoad()
         {
-            return this;
-        }
-
-        public new ICookiesFrame WaitForPageLoad()
-        {
-            return base.WaitForPageLoad();
+            base.WaitForPageLoad();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace SAPBusiness.WEB.PageObjects.MainPage.Statistics
 {
@@ -17,7 +18,9 @@ namespace SAPBusiness.WEB.PageObjects.MainPage.Statistics
         {
             get
             {
-                return int.Parse(string.Join("", $"{Stats.Substring(Stats.IndexOf("/") + 1, Stats.Length - 2)}".TakeWhile(x => Char.IsDigit(x))));
+                Regex regex = new Regex(@"\d[0-9]*(?!\/)");
+                Match match = regex.Match(Stats);
+                return int.Parse(match.Value);
             }
         }
 
@@ -25,7 +28,9 @@ namespace SAPBusiness.WEB.PageObjects.MainPage.Statistics
         {
             get
             {
-                return int.Parse(string.Join("", $"{Stats.Substring(0, Stats.IndexOf("/"))}".TakeWhile(x => Char.IsDigit(x))));
+                Regex regex = new Regex(@"(?!\/)\d[0 - 9]*");
+                Match match = regex.Match(Stats);
+                return int.Parse(match.Value);
             }
         }
 

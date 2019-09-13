@@ -2,7 +2,7 @@
 
 namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 {
-    public interface IFacetExperience
+    public interface IFacetExperience : IPageObject
     {
         void SelectExperience(string experience);
     }

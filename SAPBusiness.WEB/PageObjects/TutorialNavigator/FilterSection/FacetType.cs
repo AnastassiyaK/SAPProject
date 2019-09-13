@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 {
-    public class FacetType : BasePageObject<FacetType>, IFacetType
+    public class FacetType : BasePageObject, IFacetType
     {
         public FacetType(WebDriver driver) : base(driver)
         {
@@ -28,9 +28,9 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
             GetTag(type).Click();
         }
 
-        protected override FacetType WaitForLoad()
+        public void WaitForLoad()
         {
-            return this;
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
         }
     }
 }

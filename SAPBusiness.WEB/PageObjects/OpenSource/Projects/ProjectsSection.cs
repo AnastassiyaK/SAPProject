@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
 {
-    public class ProjectsSection : BasePageObject<ProjectsSection>, IProjectsSection
+    public class ProjectsSection : BasePageObject, IProjectsSection
     {
         public ProjectsSection(WebDriver driver) : base(driver)
         {
@@ -29,7 +29,6 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
             get
             {
                 return int.Parse(string.Join("", $"{InfoShowing.Substring(InfoShowing.IndexOf("/"), InfoShowing.Length)}".TakeWhile(x => Char.IsDigit(x))));
-
             }
         }
 
@@ -88,14 +87,9 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
             return Projects;
         }
 
-        protected override ProjectsSection WaitForLoad()
+        public void WaitForLoad()
         {
-            return this;
-        }
-
-        public new IProjectsSection WaitForPageLoad()
-        {
-            return base.WaitForPageLoad();
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
         }
     }
 }

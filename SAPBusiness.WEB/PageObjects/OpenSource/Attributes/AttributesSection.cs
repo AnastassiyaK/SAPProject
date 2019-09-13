@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.Attributes
 {
-    public class AttributesSection : BasePageObject<AttributesSection>, IAttributesSection
+    public class AttributesSection : BasePageObject, IAttributesSection
     {
         public AttributesSection(WebDriver driver) : base(driver)
         {
@@ -44,9 +44,9 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Attributes
             throw new Exception();//implement some exeption 
         }
 
-        protected override AttributesSection WaitForLoad()
+        public void WaitForLoad()
         {
-            return this;
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
         }
     }
 }

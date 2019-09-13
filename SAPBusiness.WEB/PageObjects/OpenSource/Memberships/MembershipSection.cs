@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.Memberships
 {
-    public class MembershipSection : BasePageObject<MembershipSection>, IMembershipSection
+    public class MembershipSection : BasePageObject, IMembershipSection
     {
         public MembershipSection(WebDriver driver) : base(driver)
         {
@@ -64,14 +64,9 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Memberships
             return Memberships;
         }
 
-        protected override MembershipSection WaitForLoad()
+        public void WaitForLoad()
         {
-            return this;
-        }
-
-        public new IMembershipSection WaitForPageLoad()
-        {
-            return base.WaitForPageLoad();
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
         }
     }
 }

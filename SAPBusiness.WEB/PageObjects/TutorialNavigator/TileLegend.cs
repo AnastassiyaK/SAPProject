@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 {
-    public class TileLegend : BasePageObject<TileLegend>, ITileLegend
+    public class TileLegend : BasePageObject, ITileLegend
     {
         public TileLegend(WebDriver driver) : base(driver)
         {
@@ -58,14 +58,9 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
             }
         }
 
-        protected override TileLegend WaitForLoad()
+        public void WaitForLoad()
         {
-            return this;
-        }
-
-        public new ITileLegend WaitForPageLoad()
-        {
-            return base.WaitForPageLoad();
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
         }
     }
 }

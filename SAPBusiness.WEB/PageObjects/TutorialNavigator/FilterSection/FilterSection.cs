@@ -6,27 +6,25 @@ using System.Linq;
 
 namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 {
-    public class FilterSection : BasePageObject<FilterSection>, IFilterSection
+    public class FilterSection : BasePageObject, IFilterSection
     {
-        private readonly IFacetExperience _facetExperience;
-
-        private readonly IFacetTopic _facetTopic;
-
-        private readonly IFacetType _facetType;
         public FilterSection(WebDriver driver) : base(driver)
         {
 
         }
 
-        protected IWebElement OverviewElement => _driver.FindElement(By.Id("facets-options"));
+        protected IWebElement GetOverviewElement()
+        {
+            return _driver.FindElement(By.Id("facets-options"));
+        }
 
-        protected List<IWebElement> TagElements => OverviewElement.FindElements(By.ClassName("filters__item")).ToList();
+        protected List<IWebElement> TagElements => GetOverviewElement().FindElements(By.ClassName("filters__item")).ToList();
 
         protected static By GetTagLocatorWithTitle(string title) => By.XPath($".//div[text() = '{title}']");
 
         public FilterSection SelectTagByTitle(string title)
         {
-            OverviewElement.FindElement(GetTagLocatorWithTitle(title))
+            GetOverviewElement().FindElement(GetTagLocatorWithTitle(title))
                 .Click();
 
             return this;
@@ -35,29 +33,12 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
         public void SelectExperience(string experience)
         {
             SelectTagByTitle(experience);
-           
+
         }
 
-        //public IFacetType SelectType(string type)
-        //{
-        //    SelectTagByTitle(type);
-        //    return _facetType;
-        //}
-
-        //public IFacetTopic SelectTopic(string topic)
-        //{
-        //    SelectTagByTitle(topic);
-        //    return _facetTopic;
-        //}
-
-        protected override FilterSection WaitForLoad()
+        public void WaitForLoad()
         {
-            return this;
-        }
-
-        public new IFilterSection WaitForPageLoad()
-        {
-            return base.WaitForPageLoad();
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
         }
     }
 }

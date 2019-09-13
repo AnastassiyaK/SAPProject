@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SAPBusiness.WEB.PageObjects.MainPage.Statistics
 {
-    public class TutorialSection : BasePageObject<TutorialSection>, ITutorialSection
+    public class TutorialSection : BasePageObject, ITutorialSection
     {
         private List<Statistics> _statistics;
 
@@ -40,16 +40,10 @@ namespace SAPBusiness.WEB.PageObjects.MainPage.Statistics
             throw new Exception();
         }
 
-        protected override TutorialSection WaitForLoad()
+        public void WaitForLoad()
         {
             _driver.WaitForElementDissapear(By.CssSelector(".loader"));
             _driver.WaitForElement(By.CssSelector(".tutorial-stats"));
-            return this;
-        }
-
-        public new ITutorialSection WaitForPageLoad()
-        {
-            return base.WaitForPageLoad();           
         }
     }
 }
