@@ -4,7 +4,7 @@ using OpenQA.Selenium.Firefox;
 
 namespace Core.DriverFactory
 {
-    public class FirefoxDriverFactory : BaseWebDriverFactory
+    public class FirefoxDriverFactory : WebDriverFactory
     {
         public FirefoxDriverFactory(IDriverConfiguration configuration) : base(configuration)
         {

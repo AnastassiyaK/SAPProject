@@ -4,7 +4,7 @@ using OpenQA.Selenium.IE;
 
 namespace Core.DriverFactory
 {
-    public class IEDriverFactory : BaseWebDriverFactory
+    public class IEDriverFactory : WebDriverFactory
     {
         public IEDriverFactory(IDriverConfiguration configuration) : base(configuration)
         {

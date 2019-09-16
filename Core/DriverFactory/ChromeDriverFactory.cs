@@ -4,7 +4,7 @@ using OpenQA.Selenium.Chrome;
 
 namespace Core.DriverFactory
 {
-    public class ChromeDriverFactory : BaseWebDriverFactory
+    public class ChromeDriverFactory : WebDriverFactory
     {
         public ChromeDriverFactory(IDriverConfiguration configuration) : base(configuration)
         {

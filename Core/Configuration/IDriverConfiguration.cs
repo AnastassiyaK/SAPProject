@@ -2,10 +2,10 @@
 {
     public interface IDriverConfiguration
     {
-        string HubUrl { get; set; }
-        int TimeOutSearch { get; set; }
         int DissapearTime { get; set; }
+        string HubUrl { get; set; }
         int TimeOutPageLoad { get; set; }
+        int TimeOutSearch { get; set; }
         bool UseGrid { get; set; }
     }
 }

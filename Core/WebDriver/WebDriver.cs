@@ -13,9 +13,9 @@ namespace Core.WebDriver
     {
         private IWebDriver _driver;
 
-        private readonly IDriverFactory _factory;
-
         readonly IDriverConfiguration _configuration;
+
+        private readonly IDriverFactory _factory;
 
         public WebDriver(IDriverFactory factory, IDriverConfiguration configuration)
         {
@@ -25,15 +25,27 @@ namespace Core.WebDriver
 
         public string Url => _driver.Url;
 
-        public void InitDriver()
+        public void Close()
         {
-            _driver = _factory.CreateWebDriver();
-            _driver.Manage().Window.Maximize();
+            _driver.Close();
         }
 
-        public ReadOnlyCollection<Cookie> GetBrowserCookies()
+        public void ExecuteScriptOnElement(string script, IWebElement element)
         {
-            return _driver.Manage().Cookies.AllCookies;
+            script = script ?? throw new ArgumentNullException(nameof(script));
+
+            IJavaScriptExecutor js = _driver as IJavaScriptExecutor;
+
+            js.ExecuteScript(script, element);
+        }
+
+        public void ExecuteScript(string script)
+        {
+            script = script ?? throw new ArgumentNullException(nameof(script));
+
+            IJavaScriptExecutor js = _driver as IJavaScriptExecutor;
+
+            js.ExecuteScript(script);
         }
 
         public IWebElement FindElement(By locator)
@@ -44,6 +56,16 @@ namespace Core.WebDriver
         public ReadOnlyCollection<IWebElement> FindElements(By locator)
         {
             return _driver.FindElements(locator);
+        }
+
+        public ReadOnlyCollection<Cookie> GetBrowserCookies()
+        {
+            return _driver.Manage().Cookies.AllCookies;
+        }
+
+        public Type GetDriverType()
+        {
+            return _factory.GetType();
         }
 
         public bool HasElement(By locator)
@@ -57,6 +79,59 @@ namespace Core.WebDriver
                 return false;
             }
             return true;
+        }
+
+        public void InitDriver()
+        {
+            _driver = _factory.CreateWebDriver();
+            _driver.Manage().Window.Maximize();
+        }
+
+        public void MoveToElement(IWebElement element)
+        {
+            Actions action = new Actions(_driver);
+            action.MoveToElement(element).Perform();
+        }
+
+        public void Navigate(string url)
+        {
+            _driver.Navigate().GoToUrl(url);
+        }
+
+        public void NavigateToPage(string url)
+        {
+            _driver.Navigate().GoToUrl(url + ".html");
+        }
+
+        public void Quit()
+        {
+            if (_driver == null) return;
+            _driver.Quit();
+        }
+
+        public void Refresh()
+        {
+            _driver.Navigate().Refresh();
+        }
+
+        public void SwitchToFrame(IWebElement iFrame)
+        {
+            _driver.SwitchTo().Frame(iFrame);
+        }
+
+        public void SwitchToDefaultContent()
+        {
+            _driver.SwitchTo().DefaultContent();
+        }
+
+        public void SwitchToLastTab()
+        {
+            _driver.SwitchTo().Window(_driver.WindowHandles.Last());
+        }
+
+        public void SwitchToFirstTab()
+        {
+            _driver.SwitchTo().Window(_driver.WindowHandles.First());
         }
 
         public void WaitForElementDissapear(By locator)
@@ -131,87 +206,12 @@ namespace Core.WebDriver
             });
         }
 
-        public void Navigate(string url)
-        {
-            _driver.Navigate().GoToUrl(url);
-        }
-
-        public void NavigateToPage(string url)
-        {
-            _driver.Navigate().GoToUrl(url + ".html");
-        }
-
-        public void ExecuteScriptOnElement(string script, IWebElement element)
-        {
-            script = script ?? throw new ArgumentNullException(nameof(script));
-
-            IJavaScriptExecutor js = _driver as IJavaScriptExecutor;
-
-            js.ExecuteScript(script, element);
-        }
-
-        public void ExecuteScript(string script)
-        {
-            script = script ?? throw new ArgumentNullException(nameof(script));
-
-            IJavaScriptExecutor js = _driver as IJavaScriptExecutor;
-
-            js.ExecuteScript(script);
-        }
-
         public void WaitReadyState()
         {
             var waitDOM = new WebDriverWait(_driver, TimeSpan.FromSeconds(_configuration.TimeOutPageLoad));
             IJavaScriptExecutor js = _driver as IJavaScriptExecutor;
 
             waitDOM.Until(driver => (bool)js.ExecuteScript("return document.readyState == 'complete'"));
-        }
-
-        public void SwitchToFrame(IWebElement iFrame)
-        {
-            _driver.SwitchTo().Frame(iFrame);
-        }
-
-        public Type GetDriverType()
-        {
-            return _factory.GetType();
-        }
-
-        public void SwitchToDefaultContent()
-        {
-            _driver.SwitchTo().DefaultContent();
-        }
-
-        public void SwitchToLastTab()
-        {
-            _driver.SwitchTo().Window(_driver.WindowHandles.Last());
-        }
-
-        public void SwitchToFirstTab()
-        {
-            _driver.SwitchTo().Window(_driver.WindowHandles.First());
-        }
-
-        public void MoveToElement(IWebElement element)
-        {
-            Actions action = new Actions(_driver);
-            action.MoveToElement(element).Perform();
-        }
-
-        public void Refresh()
-        {
-            _driver.Navigate().Refresh();
-        }
-
-        public void Close()
-        {
-            _driver.Close();
-        }
-
-        public void Quit()
-        {
-            if (_driver == null) return;
-            _driver.Quit();
         }
     }
 }

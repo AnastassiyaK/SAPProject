@@ -3,7 +3,6 @@ using System.Net;
 using DefaultCookie = System.Net.Cookie;
 using SeleniumCookie = OpenQA.Selenium.Cookie;
 
-
 namespace Core.REST_API.Cookies
 {
     public class CookiesConverter : ICookiesConverter

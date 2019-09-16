@@ -5,13 +5,13 @@ using System;
 
 namespace Core.DriverFactory
 {
-    public abstract class BaseWebDriverFactory : IDriverFactory
+    public abstract class WebDriverFactory : IDriverFactory
     {
         protected IDriverConfiguration _configuration;
 
         protected IWebDriver _driver;
 
-        public BaseWebDriverFactory(IDriverConfiguration configuration)
+        public WebDriverFactory(IDriverConfiguration configuration)
         {
             _configuration = configuration;
         }
@@ -27,7 +27,7 @@ namespace Core.DriverFactory
         }
 
         public IWebDriver CreateWebDriver()
-        {           
+        {
             return _configuration.UseGrid
                 ? CreateRemoteWebDriver()
                 : CreateLocalWebDriver();
