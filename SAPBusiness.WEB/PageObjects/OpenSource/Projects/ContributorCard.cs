@@ -7,7 +7,6 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
     {
         public ContributorCard(WebDriver driver) : base(driver)
         {
-
         }
 
         public string Icon

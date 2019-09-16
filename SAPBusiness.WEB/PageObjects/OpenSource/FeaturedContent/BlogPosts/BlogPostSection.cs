@@ -1,27 +1,31 @@
-﻿using OpenQA.Selenium;
+﻿using Core.WebDriver;
+using OpenQA.Selenium;
 using SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedContent;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.WebDriver;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts
 {
     public class BlogPostSection : BasePageObject, IBlogPostSection
     {
-        public BlogPostSection(WebDriver driver) : base(driver)
-        {
+        private readonly IFeedFactory _feedFactory;
 
+        private List<IFeed> _feeds;
+
+        private FeedSortList _feedSortItem;
+
+        public BlogPostSection(WebDriver driver, IFeedFactory feedFactory) : base(driver)
+        {
+            _feedFactory = feedFactory;
         }
 
-        private FeedSortItem _feedSortItem;
-
-        private FeedSortItem FeedSortItem
+        private FeedSortList FeedSort
         {
             get
             {
                 return _feedSortItem ??
-                    (_feedSortItem = new FeedSortItem(_driver));
+                    (_feedSortItem = new FeedSortList(_driver));
             }
         }
 
@@ -41,15 +45,13 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts
             }
         }
 
-        private List<Feed> _feeds;
-
-        private List<Feed> Feeds
+        private List<IFeed> Feeds
         {
             get
             {
                 return _feeds ??
                       (_feeds = _driver.FindElements(By.ClassName("feed-item"))
-                      .Select(element => new Feed(element))
+                      .Select(element => _feedFactory.Create(element))
                       .ToList()
                       );
             }
@@ -57,14 +59,9 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts
 
         public int GetFeedsAmount() => Feeds.Count;
 
-        public Feed GetFeedByTitle(string title)
+        public List<IFeed> GetFeedsByType(FeedType type)
         {
-            return Feeds[0];
-        }
-
-        public List<Feed> GetFeedsByType(FeedType type)
-        {
-            FeedSortItem.SelectFeedType(type);
+            FeedSort.SelectFeedType(type);
             return Feeds;
         }
 
@@ -72,16 +69,15 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts
         {
             try
             {
-                return (FeedType)Enum.Parse(typeof(FeedType), FeedSortItem.Active);
+                return (FeedType)Enum.Parse(typeof(FeedType), FeedSort.Active);
             }
-            catch (Exception e)
+            catch
             {
-                throw new Exception();//return new exception
+                throw new ArgumentException("Cannot parse feed sort container value into Enum");
             }
-
         }
 
-        public List<Feed> GetAllFeeds()
+        public List<IFeed> GetAllFeeds()
         {
             return Feeds;
         }

@@ -1,5 +1,6 @@
 ﻿using Core.WebDriver;
 using OpenQA.Selenium;
+using SAPBusiness.WEB.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,20 +9,22 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Attributes
 {
     public class AttributesSection : BasePageObject, IAttributesSection
     {
-        public AttributesSection(WebDriver driver) : base(driver)
-        {
+        private readonly IAttributeFactory _attributeFactory;
 
+        private List<IAttribute> _attributes;
+
+        public AttributesSection(WebDriver driver, IAttributeFactory attributeFactory) : base(driver)
+        {
+            _attributeFactory = attributeFactory;
         }
 
-        private List<Attribute> _attributes;
-
-        private List<Attribute> Attributes
+        private List<IAttribute> Attributes
         {
             get
             {
                 return _attributes ??
                       (_attributes = _driver.FindElements(By.CssSelector(".attribute-container"))
-                      .Select(element => new Attribute(element))
+                      .Select(element => _attributeFactory.Create(element))
                       .ToList()
                       );
             }
@@ -31,7 +34,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Attributes
 
         public bool HasAttributes() => Attributes.Count > 0;
 
-        public Attribute GetAttributeByTitle(string title)
+        public IAttribute GetAttributeByTitle(string title)
         {
             foreach (var attribute in Attributes)
             {
@@ -41,7 +44,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Attributes
 
                 }
             }
-            throw new Exception();//implement some exeption 
+            throw new AttributeNotFoundException(title);
         }
 
         public void WaitForLoad()

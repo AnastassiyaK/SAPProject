@@ -1,5 +1,6 @@
 ﻿using Core.WebDriver;
 using OpenQA.Selenium;
+using SAPBusiness.WEB.Exceptions;
 using SAPBusiness.WEB.PageObjects.OpenSource.Projects.Search;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,11 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
 {
     public class ProjectsSection : BasePageObject, IProjectsSection
     {
-        public ProjectsSection(WebDriver driver) : base(driver)
-        {
+        private readonly IProjectCardFactory _projectCardFactory;
 
+        public ProjectsSection(WebDriver driver, IProjectCardFactory projectCardFactory) : base(driver)
+        {
+            _projectCardFactory = projectCardFactory;
         }
 
         private SearchSection _searchSection;
@@ -28,7 +31,8 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
         {
             get
             {
-                return int.Parse(string.Join("", $"{InfoShowing.Substring(InfoShowing.IndexOf("/"), InfoShowing.Length)}".TakeWhile(x => Char.IsDigit(x))));
+                return int.Parse(string.Join("", $"{InfoShowing.Substring(InfoShowing.IndexOf("/"), InfoShowing.Length)}"
+                    .TakeWhile(x => Char.IsDigit(x))));
             }
         }
 
@@ -36,7 +40,8 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
         {
             get
             {
-                return int.Parse(string.Join("", $"{InfoShowing.Substring(0, InfoShowing.IndexOf("/"))}".TakeWhile(x => Char.IsDigit(x))));
+                return int.Parse(string.Join("", $"{InfoShowing.Substring(0, InfoShowing.IndexOf("/"))}"
+                    .TakeWhile(x => Char.IsDigit(x))));
             }
         }
 
@@ -48,22 +53,22 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
             }
         }
 
-        private List<ProjectCard> _projects;
+        private List<IProjectCard> _projects;
 
-        private List<ProjectCard> Projects
+        private List<IProjectCard> Projects
         {
             get
             {
                 return _projects ??
                     (_projects = _driver.FindElements(By.ClassName("feature-card-container"))
-                    .Select(element => new ProjectCard(element))
+                    .Select(element => _projectCardFactory.Create(element))
                     .ToList());
             }
         }
 
         public int GetProjectsAmount() => Projects.Count;
 
-        public ProjectCard GetProjectByTitle(string title)
+        public IProjectCard GetProjectByTitle(string title)
         {
             foreach (var project in Projects)
             {
@@ -73,16 +78,16 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
 
                 }
             }
-            throw new Exception();//implement some exeption 
+            throw new ProjectCardNotFoundException(title;
         }
 
-        public List<ProjectCard> GetProjectsBySearchingString(string searchString)
+        public List<IProjectCard> GetProjectsBySearchingString(string searchString)
         {
             SearchSection.SearchResultsByString(searchString);
             return Projects;
         }
 
-        public List<ProjectCard> GetAllProjects()
+        public List<IProjectCard> GetAllProjects()
         {
             return Projects;
         }

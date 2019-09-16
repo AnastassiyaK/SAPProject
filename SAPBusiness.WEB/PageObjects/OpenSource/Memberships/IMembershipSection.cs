@@ -7,8 +7,8 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Memberships
         string Description { get; }
         string Title { get; }
 
-        List<Membership> GetAllMemberships();
-        Membership GetMembershipContainerByTitle(string title);
+        List<IMembership> GetAllMemberships();
+        IMembership GetMembershipContainerByTitle(string title);
         int GetMembershipsAmount();
         bool HasMemberships();
     }

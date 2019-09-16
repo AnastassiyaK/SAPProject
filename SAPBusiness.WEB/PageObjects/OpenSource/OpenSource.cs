@@ -7,9 +7,10 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource
     {
         private readonly string relativeUrl = "/open-source";
 
-        private readonly IAppConfiguration _appConfiguration;
+        private readonly IEnvironmentConfig _appConfiguration;
 
-        public OpenSource(WebDriver driver, IAppConfiguration appConfiguration) : base(driver)
+        public OpenSource(WebDriver driver, IEnvironmentConfig appConfiguration) 
+            : base(driver)
         {
             _appConfiguration = appConfiguration;
         }

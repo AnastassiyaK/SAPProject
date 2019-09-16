@@ -1,6 +1,5 @@
 ﻿using Core.WebDriver;
 using OpenQA.Selenium;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,7 +9,6 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
     {
         public FilterSection(WebDriver driver) : base(driver)
         {
-
         }
 
         protected IWebElement GetOverviewElement()
@@ -33,7 +31,6 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
         public void SelectExperience(string experience)
         {
             SelectTagByTitle(experience);
-
         }
 
         public void WaitForLoad()

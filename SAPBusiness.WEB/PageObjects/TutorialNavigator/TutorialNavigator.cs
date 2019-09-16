@@ -2,6 +2,7 @@
 using Core.WebDriver;
 using OpenQA.Selenium;
 using SAPBusiness.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,29 +12,33 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
     {
         private readonly string relativeUrl = "/tutorial-navigator";
 
-        private readonly IAppConfiguration _appConfiguration;
+        private readonly IEnvironmentConfig _appConfiguration;
 
-        public TutorialNavigator(WebDriver driver, IAppConfiguration appConfiguration) : base(driver)
+        private readonly ITileElementFactory _tilesFactory;
+
+        private List<ITileElement> _tiles;
+
+        public TutorialNavigator(WebDriver driver, ITileElementFactory tilesFactory, IEnvironmentConfig appConfiguration)
+            : base(driver)
         {
             _appConfiguration = appConfiguration;
+            _tilesFactory = tilesFactory ?? throw new ArgumentNullException(nameof(tilesFactory));
         }
 
-        private List<TileElement> _tiles;
-
-        private List<TileElement> Tiles
+        private List<ITileElement> Tiles
         {
             get
             {
                 return _tiles ??
                     (_tiles = _driver.FindElements(By.CssSelector(".tutorial-tile"))
-                    .Select(element => new TileElement(element))
+                    .Select(element => _tilesFactory.CreateTile(element))
                     .ToList());
             }
         }
 
         public bool HasTiles() => Tiles.Count > 0;
 
-        public List<TileElement> GetAllTiles()
+        public List<ITileElement> GetAllTiles()
         {
             return Tiles;
         }

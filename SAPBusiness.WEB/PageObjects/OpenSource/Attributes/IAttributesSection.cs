@@ -2,7 +2,7 @@
 {
     public interface IAttributesSection : IPageObject
     {
-        Attribute GetAttributeByTitle(string title);
+        IAttribute GetAttributeByTitle(string title);
         int GetAttributesAmount();
         bool HasAttributes();
     }

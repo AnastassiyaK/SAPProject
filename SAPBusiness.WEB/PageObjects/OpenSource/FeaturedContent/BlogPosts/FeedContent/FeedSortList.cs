@@ -3,13 +3,18 @@ using OpenQA.Selenium;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedContent
 {
-    public class FeedSortItem : BasePageObject, IFeedSortItem
+    public class FeedSortList : BasePageObject, IFeedSortItem
     {
-        private IWebElement FeedSortingContainer => _driver.FindElement(By.ClassName("feed-sorting-container"));
-
-        public FeedSortItem(WebDriver driver) : base(driver)
+        public FeedSortList(WebDriver driver) : base(driver)
         {
+        }
 
+        private IWebElement FeedSortingContainer
+        {
+            get
+            {
+                return _driver.FindElement(By.ClassName("feed-sorting-container"));
+            }
         }
 
         public string Active
@@ -18,10 +23,9 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedC
             {
                 return _driver.FindElement(By.CssSelector(".feed-sorting-container .active")).Text;
             }
-
         }
 
-        private static By GetTypeLocator(FeedType type) => By.XPath($"//div[@class='for-selection']//span[text() = '{type}']");
+        private static By GetTypeLocator(FeedType type) => By.XPath($"//span[text() = '{type}']");
 
         public void SelectFeedType(FeedType type)
         {

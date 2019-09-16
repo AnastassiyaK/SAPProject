@@ -4,7 +4,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 {
     public interface ITutorialNavigator : IPageObject
     {
-        List<TileElement> GetAllTiles();
+        List<ITileElement> GetAllTiles();
 
         void Open();
         bool HasTiles();

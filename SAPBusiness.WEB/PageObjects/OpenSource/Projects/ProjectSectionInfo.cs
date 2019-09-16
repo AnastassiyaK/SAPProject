@@ -7,7 +7,6 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
     {
         public ProjectSectionInfo(WebDriver driver) : base(driver)
         {
-
         }
 
         public string Header

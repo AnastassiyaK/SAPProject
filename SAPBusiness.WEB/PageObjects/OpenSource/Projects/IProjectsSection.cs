@@ -8,9 +8,9 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
         string InfoShowing { get; }
         int Shown { get; }
 
-        List<ProjectCard> GetAllProjects();
-        ProjectCard GetProjectByTitle(string title);
+        List<IProjectCard> GetAllProjects();
+        IProjectCard GetProjectByTitle(string title);
         int GetProjectsAmount();
-        List<ProjectCard> GetProjectsBySearchingString(string searchString);
+        List<IProjectCard> GetProjectsBySearchingString(string searchString);
     }
 }

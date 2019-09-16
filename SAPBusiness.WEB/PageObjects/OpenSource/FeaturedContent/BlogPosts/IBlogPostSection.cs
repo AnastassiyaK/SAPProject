@@ -8,10 +8,9 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts
         string Icon { get; }
         string Topic { get; }
 
-        List<Feed> GetAllFeeds();
+        List<IFeed> GetAllFeeds();
         FeedType GetCurrentFeedType();
-        Feed GetFeedByTitle(string title);
         int GetFeedsAmount();
-        List<Feed> GetFeedsByType(FeedType type);
+        List<IFeed> GetFeedsByType(FeedType type);
     }
 }

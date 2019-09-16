@@ -1,5 +1,6 @@
 ﻿using Core.WebDriver;
 using OpenQA.Selenium;
+using SAPBusiness.WEB.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,20 +9,22 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Memberships
 {
     public class MembershipSection : BasePageObject, IMembershipSection
     {
-        public MembershipSection(WebDriver driver) : base(driver)
-        {
+        private readonly IMembershipFactory _membershipFactory;
 
+        private List<IMembership> _memberships;
+
+        public MembershipSection(WebDriver driver, IMembershipFactory membershipFactory) : base(driver)
+        {
+            _membershipFactory = membershipFactory;
         }
 
-        private List<Membership> _memberships;
-
-        private List<Membership> Memberships
+        private List<IMembership> Memberships
         {
             get
             {
                 return _memberships ??
                     (_memberships = _driver.FindElements(By.ClassName("membership-container"))
-                    .Select(element => new Membership(element))
+                    .Select(element => _membershipFactory.Create(element))
                     .ToList());
             }
         }
@@ -46,7 +49,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Memberships
 
         public bool HasMemberships() => Memberships.Count > 0;
 
-        public Membership GetMembershipContainerByTitle(string title)
+        public IMembership GetMembershipContainerByTitle(string title)
         {
             foreach (var membership in Memberships)
             {
@@ -56,10 +59,10 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Memberships
 
                 }
             }
-            throw new Exception();//implement some exeption            
+            throw new MembershipNotFoundException(title);      
         }
 
-        public List<Membership> GetAllMemberships()
+        public List<IMembership> GetAllMemberships()
         {
             return Memberships;
         }

@@ -7,7 +7,6 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
     {
         public FacetTopic(WebDriver driver) : base(driver)
         {
-
         }
 
         private IWebElement Facet

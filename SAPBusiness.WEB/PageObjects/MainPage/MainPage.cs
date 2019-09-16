@@ -5,9 +5,9 @@ namespace SAPBusiness.WEB.PageObjects.MainPage
 {
     public class MainPage : BasePageObject, IMainPage
     {
-        private readonly IAppConfiguration _appConfiguration;
+        private readonly IEnvironmentConfig _appConfiguration;
 
-        public MainPage(WebDriver driver, IAppConfiguration appConfiguration) : base(driver)
+        public MainPage(WebDriver driver, IEnvironmentConfig appConfiguration) : base(driver)
         {
             _appConfiguration = appConfiguration;
         }

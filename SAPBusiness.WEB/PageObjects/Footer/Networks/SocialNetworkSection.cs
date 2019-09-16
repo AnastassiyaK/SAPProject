@@ -1,6 +1,7 @@
-﻿using System;
-using Core.WebDriver;
+﻿using Core.WebDriver;
 using OpenQA.Selenium;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SAPBusiness.WEB.PageObjects.Footer.Networks
 {
@@ -26,6 +27,19 @@ namespace SAPBusiness.WEB.PageObjects.Footer.Networks
             }
         }
 
+        private List<SocialNetwork> _socialNetworks;
+
+        private List<SocialNetwork> SocialNetworks
+        {
+            get
+            {
+                return _socialNetworks ??
+                    (_socialNetworks = _driver.FindElements(By.CssSelector(".tutorial-tile"))
+                    .Select(element => new SocialNetwork(element))
+                    .ToList());
+            }
+        }
+
         public void OpenNetwork(NetworkType type)
         {
             NetworkList.FindElement(By.CssSelector($"a[data-share-channel='{type.ToString().ToLower()}']")).Click();
@@ -35,8 +49,9 @@ namespace SAPBusiness.WEB.PageObjects.Footer.Networks
 
         public string GetNetworkLink(NetworkType type)
         {
-            return NetworkList.FindElement(By.CssSelector($"a[data-share-channel='{type.ToString().ToLower()}']"))
-                .GetAttribute("href");
+            return new SocialNetwork(NetworkList
+                .FindElement(By.CssSelector($"a[data-share-channel='{type.ToString().ToLower()}']")))
+                .Link;
         }
 
         public void WaitForLoad()

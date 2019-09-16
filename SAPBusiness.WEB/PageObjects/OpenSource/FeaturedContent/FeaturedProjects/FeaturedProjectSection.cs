@@ -1,6 +1,5 @@
 ﻿using Core.WebDriver;
 using OpenQA.Selenium;
-using System;
 
 namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.FeaturedProjects
 {
@@ -8,7 +7,6 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.FeaturedProject
     {
         public FeaturedProjectSection(WebDriver driver) : base(driver)
         {
-
         }
 
         public string Icon
