@@ -1,22 +1,22 @@
-﻿using Newtonsoft.Json;
+﻿using Core.REST_API.Cookies;
+using Newtonsoft.Json;
+using SAPBusiness.Configuration;
 using SAPBusiness.Services.Interfaces.API_UserService;
 using SAPBusiness.UserData.DeveloperCenter;
-using System.Net;
-using System.IO;
-using SeleniumCookie = OpenQA.Selenium.Cookie;
-using Core.REST_API.Cookies;
 using System.Collections.ObjectModel;
-using SAPBusiness.Configuration;
+using System.IO;
+using System.Net;
+using SeleniumCookie = OpenQA.Selenium.Cookie;
 
 namespace SAPBusiness.Services.API_Services.User
 {
     public class DefaultUserService : BaseUserService, IUserService
     {
+        private readonly IEnvironmentConfig _appConfiguration;
+
         private readonly ICookiesConverter _cookiesConverter;
 
-        private readonly IAppConfiguration _appConfiguration;
-
-        public DefaultUserService(ICookiesConverter cookiesConverter, IAppConfiguration appConfiguration)
+        public DefaultUserService(ICookiesConverter cookiesConverter, IEnvironmentConfig appConfiguration)
         {
             _cookiesConverter = cookiesConverter;
             _appConfiguration = appConfiguration;
