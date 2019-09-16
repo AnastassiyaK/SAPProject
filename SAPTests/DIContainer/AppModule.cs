@@ -27,6 +27,7 @@ using SAPBusiness.Configuration;
 using SAPBusiness.WEB.PageObjects.MainPage;
 using SAPBusiness.WEB.PageObjects.OpenSource;
 using OpenSourcePage = SAPBusiness.WEB.PageObjects.OpenSource.OpenSource;
+using SAPBusiness.WEB.PageObjects.OpenSource.Attributes;
 
 namespace SAPTests.Autofac
 {
@@ -38,7 +39,7 @@ namespace SAPTests.Autofac
 
             builder.RegisterType<DriverConfiguration>().As<IDriverConfiguration>().SingleInstance();
 
-            builder.RegisterType<AppConfiguration>().As<IAppConfiguration>().SingleInstance(); 
+            builder.RegisterType<EnvironmentConfig>().As<IEnvironmentConfig>().SingleInstance(); 
 
             builder.RegisterType<WebDriver>().AsSelf().InstancePerLifetimeScope();
 
@@ -46,7 +47,7 @@ namespace SAPTests.Autofac
 
             builder.RegisterType<BasePageObject>().AsSelf().InstancePerDependency();
 
-            builder.RegisterType<BaseWebDriverFactory>().AsSelf().InstancePerDependency();
+            builder.RegisterType<WebDriverFactory>().AsSelf().InstancePerDependency();
 
             builder.RegisterType<MainPage>().As<IMainPage>().InstancePerDependency();
 
@@ -58,7 +59,7 @@ namespace SAPTests.Autofac
 
             builder.RegisterType<SearchSection>().As<ISearchSection>();
 
-            builder.RegisterType<FeedSortItem>().As<IFeedSortItem>();
+            builder.RegisterType<FeedSortList>().As<IFeedSortItem>();
 
             builder.RegisterType<BlogPostSection>().As<IBlogPostSection>();
 
@@ -96,7 +97,17 @@ namespace SAPTests.Autofac
 
             builder.RegisterType<FacetType>().As<IFacetType>();
 
-            builder.RegisterType<SocialNetworkSection>().As<ISocialNetworkSection>(); 
+            builder.RegisterType<SocialNetworkSection>().As<ISocialNetworkSection>();
+
+            builder.RegisterType<TileElementFactory>().As<ITileElementFactory>();
+
+            builder.RegisterType<FeedFactory>().As<IFeedFactory>();
+
+            builder.RegisterType<AttributesSection>().As<IAttributesSection>();
+
+            builder.RegisterType<AttributeFactory>().As<IAttributeFactory>();
+
+            builder.RegisterType<Membership>().As<IMembership>(); 
         }
     }
 }

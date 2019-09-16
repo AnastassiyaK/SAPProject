@@ -1,18 +1,18 @@
-﻿using NUnit.Framework;
-using SAPBusiness.WEB.PageObjects.Frames;
-using SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection;
-using System;
-using Autofac;
-using SAPBusiness.WEB.PageObjects.Header;
-using SAPBusiness.WEB.PageObjects.TutorialNavigator;
-using SAPBusiness.UserData;
-using SAPTests.Browsers;
-using SAPBusiness.WEB.PageObjects.LogOn;
-using System.Threading;
+﻿using Autofac;
 using NLog;
-using SAPTests.TestData.TutorialNavigator.Modules;
+using NUnit.Framework;
+using SAPBusiness.UserData;
 using SAPBusiness.WEB.PageObjects;
 using SAPBusiness.WEB.PageObjects.Footer.Networks;
+using SAPBusiness.WEB.PageObjects.Frames;
+using SAPBusiness.WEB.PageObjects.Header;
+using SAPBusiness.WEB.PageObjects.LogOn;
+using SAPBusiness.WEB.PageObjects.TutorialNavigator;
+using SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection;
+using SAPTests.Browsers;
+using SAPTests.TestData.TutorialNavigator.Modules;
+using System;
+using System.Threading;
 
 namespace SAPTests.TutorialNavigator
 {

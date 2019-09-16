@@ -1,19 +1,17 @@
 ﻿using Autofac;
+using NLog;
 using NUnit.Framework;
+using SAPBusiness.Services.Interfaces.API_UserService;
 using SAPBusiness.UserData;
+using SAPBusiness.WEB.PageObjects;
 using SAPBusiness.WEB.PageObjects.Frames;
 using SAPBusiness.WEB.PageObjects.Header;
-using SAPBusiness.WEB.PageObjects.MainPage.Statistics;
 using SAPBusiness.WEB.PageObjects.LogOn;
-using SAPTests.Browsers;
-using SAPBusiness.Services.Interfaces.API_UserService;
-using System;
-using NLog;
-using System.Threading;
-using SAPBusiness.WEB.PageObjects;
 using SAPBusiness.WEB.PageObjects.MainPage;
-using System.Text.RegularExpressions;
-using System.Linq;
+using SAPBusiness.WEB.PageObjects.MainPage.Statistics;
+using SAPTests.Browsers;
+using System;
+using System.Threading;
 
 namespace SAPTests.UserServices
 {
