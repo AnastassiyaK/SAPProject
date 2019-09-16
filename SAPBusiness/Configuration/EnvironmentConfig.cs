@@ -2,7 +2,7 @@
 
 namespace SAPBusiness.Configuration
 {
-    public class AppConfiguration : IAppConfiguration
+    public class EnvironmentConfig : IEnvironmentConfig
     {
         [JsonProperty("ProdUrl")]
         public string ProdUrl { get; set; }

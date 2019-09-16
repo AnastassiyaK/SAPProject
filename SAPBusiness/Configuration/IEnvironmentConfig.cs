@@ -1,6 +1,6 @@
 ﻿namespace SAPBusiness.Configuration
 {
-    public interface IAppConfiguration
+    public interface IEnvironmentConfig
     {
         string ProdUrl { get; }
     }

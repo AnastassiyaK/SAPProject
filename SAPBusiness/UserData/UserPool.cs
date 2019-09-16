@@ -8,7 +8,7 @@ namespace SAPBusiness.UserData
 {
     public class UserPool
     {
-        private static IList<User> _users;
+        private static readonly IList<User> _users;
 
         static UserPool()
         {
