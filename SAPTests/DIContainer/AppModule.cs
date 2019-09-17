@@ -1,33 +1,33 @@
 ﻿using Autofac;
+using Core.Configuration;
+using Core.DriverFactory;
+using Core.REST_API.Cookies;
+using Core.WebDriver;
+using Microsoft.Extensions.Configuration;
+using SAPBusiness.Configuration;
+using SAPBusiness.Services.API_Services.User;
+using SAPBusiness.Services.Interfaces.API_UserService;
+using SAPBusiness.UserData;
+using SAPBusiness.UserData.DeveloperCenter;
 using SAPBusiness.WEB.PageObjects;
+using SAPBusiness.WEB.PageObjects.Footer;
+using SAPBusiness.WEB.PageObjects.Footer.Networks;
 using SAPBusiness.WEB.PageObjects.Frames;
+using SAPBusiness.WEB.PageObjects.Header;
+using SAPBusiness.WEB.PageObjects.LogOn;
+using SAPBusiness.WEB.PageObjects.MainPage;
+using SAPBusiness.WEB.PageObjects.MainPage.Statistics;
+using SAPBusiness.WEB.PageObjects.OpenSource;
+using SAPBusiness.WEB.PageObjects.OpenSource.Attributes;
 using SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts;
 using SAPBusiness.WEB.PageObjects.OpenSource.FeaturedContent.BlogPosts.FeedContent;
 using SAPBusiness.WEB.PageObjects.OpenSource.Memberships;
 using SAPBusiness.WEB.PageObjects.OpenSource.Projects;
 using SAPBusiness.WEB.PageObjects.OpenSource.Projects.Search;
-using TNavigator = SAPBusiness.WEB.PageObjects.TutorialNavigator.TutorialNavigator;
-using SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection;
-using SAPBusiness.WEB.PageObjects.Header;
 using SAPBusiness.WEB.PageObjects.TutorialNavigator;
-using SAPBusiness.UserData;
-using SAPBusiness.Services.API_Services.User;
-using SAPBusiness.UserData.DeveloperCenter;
-using SAPBusiness.WEB.PageObjects.MainPage.Statistics;
-using SAPBusiness.WEB.PageObjects.Footer;
-using SAPBusiness.WEB.PageObjects.Footer.Networks;
-using Core.WebDriver;
-using SAPBusiness.Services.Interfaces.API_UserService;
-using Core.DriverFactory;
-using SAPBusiness.WEB.PageObjects.LogOn;
-using Core.Configuration;
-using Microsoft.Extensions.Configuration;
-using Core.REST_API.Cookies;
-using SAPBusiness.Configuration;
-using SAPBusiness.WEB.PageObjects.MainPage;
-using SAPBusiness.WEB.PageObjects.OpenSource;
+using SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection;
 using OpenSourcePage = SAPBusiness.WEB.PageObjects.OpenSource.OpenSource;
-using SAPBusiness.WEB.PageObjects.OpenSource.Attributes;
+using TNavigator = SAPBusiness.WEB.PageObjects.TutorialNavigator.TutorialNavigator;
 
 namespace SAPTests.Autofac
 {
@@ -39,7 +39,7 @@ namespace SAPTests.Autofac
 
             builder.RegisterType<DriverConfiguration>().As<IDriverConfiguration>().SingleInstance();
 
-            builder.RegisterType<EnvironmentConfig>().As<IEnvironmentConfig>().SingleInstance(); 
+            builder.RegisterType<EnvironmentConfig>().As<IEnvironmentConfig>().SingleInstance();
 
             builder.RegisterType<WebDriver>().AsSelf().InstancePerLifetimeScope();
 
@@ -51,7 +51,7 @@ namespace SAPTests.Autofac
 
             builder.RegisterType<MainPage>().As<IMainPage>().InstancePerDependency();
 
-            builder.RegisterType<OpenSourcePage>().As<IOpenSource>().InstancePerDependency(); 
+            builder.RegisterType<OpenSourcePage>().As<IOpenSource>().InstancePerDependency();
 
             builder.RegisterType<CookiesFrame>().As<ICookiesFrame>();
 
@@ -111,7 +111,9 @@ namespace SAPTests.Autofac
 
             builder.RegisterType<ProjectCardFactory>().As<IProjectCardFactory>();
 
-            builder.RegisterType<MembershipFactory>().As<IMembershipFactory>(); 
+            builder.RegisterType<MembershipFactory>().As<IMembershipFactory>();
+
+            builder.RegisterType<SocialNetworkFactory>().As<ISocialNetworkFactory>();
         }
     }
 }

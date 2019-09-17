@@ -173,7 +173,6 @@ namespace SAPTests.OpenSource
 
             //    Assert.IsTrue(membership.Description != "");
             //}
-
         }
     }
 }

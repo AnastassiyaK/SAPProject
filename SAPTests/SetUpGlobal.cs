@@ -39,9 +39,9 @@ namespace SAPTests
 
             configuration.GetSection("WebDriver").Bind(driverConfiguration);
 
-            var appConfiguration = Scope.Resolve<IEnvironmentConfig>();
+            var environmentConfig = Scope.Resolve<IEnvironmentConfig>();
 
-            configuration.GetSection("Links").Bind(appConfiguration);
+            configuration.GetSection("Links").Bind(environmentConfig);
 
         }
 

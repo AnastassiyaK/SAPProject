@@ -7,8 +7,12 @@ namespace SAPBusiness.WEB.PageObjects.Footer.Networks
 {
     public class SocialNetworkSection : BasePageObject, ISocialNetworkSection
     {
-        public SocialNetworkSection(WebDriver driver) : base(driver)
+        private readonly ISocialNetworkFactory _socialNetworkFactory;
+
+        public SocialNetworkSection(WebDriver driver, ISocialNetworkFactory socialNetworkFactory) 
+            : base(driver)
         {
+            _socialNetworkFactory = socialNetworkFactory;
         }
 
         public string HeadLine
@@ -27,15 +31,15 @@ namespace SAPBusiness.WEB.PageObjects.Footer.Networks
             }
         }
 
-        private List<SocialNetwork> _socialNetworks;
+        private List<ISocialNetwork> _socialNetworks;
 
-        private List<SocialNetwork> SocialNetworks
+        private List<ISocialNetwork> SocialNetworks
         {
             get
             {
                 return _socialNetworks ??
                     (_socialNetworks = _driver.FindElements(By.CssSelector(".tutorial-tile"))
-                    .Select(element => new SocialNetwork(element))
+                    .Select(element => _socialNetworkFactory.Create(element))
                     .ToList());
             }
         }
@@ -49,7 +53,7 @@ namespace SAPBusiness.WEB.PageObjects.Footer.Networks
 
         public string GetNetworkLink(NetworkType type)
         {
-            return new SocialNetwork(NetworkList
+            return _socialNetworkFactory.Create(NetworkList
                 .FindElement(By.CssSelector($"a[data-share-channel='{type.ToString().ToLower()}']")))
                 .Link;
         }

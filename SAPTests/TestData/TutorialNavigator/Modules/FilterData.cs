@@ -20,6 +20,7 @@ namespace SAPTests.TestData.TutorialNavigator.Modules
                 return _filterTags.Experience.Tags;
             }
         }
+
         public static IEnumerable<string> TopicTags
         {
             get
