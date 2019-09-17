@@ -22,7 +22,7 @@ namespace Core.DriverFactory
         protected override IWebDriver CreateLocalWebDriver()
         {
             InternetExplorerOptions options = new InternetExplorerOptions();
-            options.AddAdditionalCapability("useAutomationExtension", false);//enable extensions  
+            options.AddAdditionalCapability("useAutomationExtension", false);
             _driver = new InternetExplorerDriver(options);
             return _driver;
         }

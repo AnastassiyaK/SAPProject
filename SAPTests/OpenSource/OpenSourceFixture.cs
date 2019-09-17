@@ -48,7 +48,7 @@ namespace SAPTests.OpenSource
             catch (Exception e)
             {
                 Logger.Error($"Cookies were not accepted! {e.Message}");
-                //Assert.Warn(e.Message);//implement custom exception
+                //Assert.Warn(e.Message);
             }
         }
 

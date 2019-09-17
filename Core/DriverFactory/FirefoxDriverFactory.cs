@@ -22,7 +22,7 @@ namespace Core.DriverFactory
         protected override IWebDriver CreateLocalWebDriver()
         {
             //FirefoxOptions options = new FirefoxOptions();
-            //options.AddAdditionalCapability("useAutomationExtension", false);//enable extensions  
+            //options.AddAdditionalCapability("useAutomationExtension", false);
             _driver = new FirefoxDriver();
             return _driver;
         }

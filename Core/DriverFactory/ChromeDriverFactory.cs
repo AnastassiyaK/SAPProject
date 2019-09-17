@@ -15,8 +15,8 @@ namespace Core.DriverFactory
             get
             {
                 ChromeOptions options = new ChromeOptions();
-                options.AddExcludedArgument("enable-automation");//enable info-bar
-                options.AddAdditionalCapability("useAutomationExtension", false);//enable extensions 
+                options.AddExcludedArgument("enable-automation");
+                options.AddAdditionalCapability("useAutomationExtension", false);
                 return options.ToCapabilities();
             }
         }
@@ -24,8 +24,8 @@ namespace Core.DriverFactory
         protected override IWebDriver CreateLocalWebDriver()
         {
             ChromeOptions options = new ChromeOptions();
-            options.AddExcludedArgument("enable-automation");//enable info-bar
-            options.AddAdditionalCapability("useAutomationExtension", false);//enable extensions  
+            options.AddExcludedArgument("enable-automation");
+            options.AddAdditionalCapability("useAutomationExtension", false);
             _driver = new ChromeDriver(options);
             return _driver;
         }
