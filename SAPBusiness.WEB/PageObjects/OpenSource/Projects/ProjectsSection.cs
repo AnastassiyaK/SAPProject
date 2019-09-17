@@ -78,7 +78,7 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Projects
 
                 }
             }
-            throw new ProjectCardNotFoundException(title;
+            throw new ProjectCardNotFoundException(title);
         }
 
         public List<IProjectCard> GetProjectsBySearchingString(string searchString)
