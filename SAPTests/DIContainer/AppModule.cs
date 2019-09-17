@@ -107,7 +107,11 @@ namespace SAPTests.Autofac
 
             builder.RegisterType<AttributeFactory>().As<IAttributeFactory>();
 
-            builder.RegisterType<Membership>().As<IMembership>(); 
+            builder.RegisterType<Membership>().As<IMembership>();
+
+            builder.RegisterType<ProjectCardFactory>().As<IProjectCardFactory>();
+
+            builder.RegisterType<MembershipFactory>().As<IMembershipFactory>(); 
         }
     }
 }
