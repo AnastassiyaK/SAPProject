@@ -6,5 +6,8 @@ namespace SAPBusiness.Configuration
     {
         [JsonProperty("ProdUrl")]
         public string ProdUrl { get; set; }
+
+        [JsonProperty("QueryTiles")]
+        public string jsonQueryTiles { get; set; }
     }
 }
