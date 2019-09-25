@@ -17,6 +17,7 @@ namespace Core.DriverFactory
                 ChromeOptions options = new ChromeOptions();
                 options.AddExcludedArgument("enable-automation");
                 options.AddAdditionalCapability("useAutomationExtension", false);
+                options.AddArguments("start-maximized");
                 return options.ToCapabilities();
             }
         }

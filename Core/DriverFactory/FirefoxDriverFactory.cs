@@ -15,6 +15,7 @@ namespace Core.DriverFactory
             get
             {
                 FirefoxOptions options = new FirefoxOptions();
+                options.AddArguments("start-maximized");
                 return options.ToCapabilities();
             }
         }

@@ -47,6 +47,32 @@ namespace Core.WebDriver
 
             js.ExecuteScript(script);
         }
+        public string ExecuteScriptOnElementWithResult(string script, IWebElement element)
+        {
+            script = script ?? throw new ArgumentNullException(nameof(script));
+
+            IJavaScriptExecutor js = _driver as IJavaScriptExecutor;
+
+            return js.ExecuteScript(script, element) as string;
+        }
+
+        public string GetPropertyFromPseudoElement(string pseudoElement,string property, IWebElement element)
+        {
+            var script = $"return window.getComputedStyle(arguments[0], ':{pseudoElement}').getPropertyValue('{property}')";
+        
+            IJavaScriptExecutor js = _driver as IJavaScriptExecutor;
+
+            return js.ExecuteScript(script, element) as string;
+        }
+
+        public string ExecuteScriptWithResult(string script)
+        {
+            script = script ?? throw new ArgumentNullException(nameof(script));
+
+            IJavaScriptExecutor js = _driver as IJavaScriptExecutor;
+
+            return js.ExecuteScript(script) as string;
+        }
 
         public IWebElement FindElement(By locator)
         {
@@ -182,6 +208,21 @@ namespace Core.WebDriver
                 try
                 {
                     return _driver.FindElement(locator).Displayed;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            });
+        }
+        public void WaitForElement(IWebElement element)
+        {
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_configuration.TimeOutSearch));
+            wait.Until(driver =>
+            {
+                try
+                {
+                    return element.Displayed;
                 }
                 catch (NoSuchElementException)
                 {

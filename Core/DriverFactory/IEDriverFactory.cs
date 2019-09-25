@@ -15,6 +15,11 @@ namespace Core.DriverFactory
             get
             {
                 InternetExplorerOptions options = new InternetExplorerOptions();
+                options.AddAdditionalCapability("useAutomationExtension", false);
+                options.AddAdditionalCapability("ensureCleanSession", true);
+                //options.AddAdditionalCapability("ignoreZoomSetting", true);
+                //options.AddAdditionalCapability("ignoreProtectedModeSettings", true);
+                options.AddAdditionalCapability("ignore-certificate-error", true);
                 return options.ToCapabilities();
             }
         }
@@ -23,6 +28,8 @@ namespace Core.DriverFactory
         {
             InternetExplorerOptions options = new InternetExplorerOptions();
             options.AddAdditionalCapability("useAutomationExtension", false);
+            options.AddAdditionalCapability("ensureCleanSession", true);
+            options.AddAdditionalCapability("ignore-certificate-error", true);
             _driver = new InternetExplorerDriver(options);
             return _driver;
         }
