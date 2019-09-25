@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using NLog;
 using NUnit.Framework;
+using SAPBusiness.Services.API_Services.TutorialNavigator;
+using SAPBusiness.TilesData;
 using SAPBusiness.UserData;
 using SAPBusiness.WEB.PageObjects;
 using SAPBusiness.WEB.PageObjects.Footer.Networks;
@@ -9,9 +11,11 @@ using SAPBusiness.WEB.PageObjects.Header;
 using SAPBusiness.WEB.PageObjects.LogOn;
 using SAPBusiness.WEB.PageObjects.TutorialNavigator;
 using SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection;
+using SAPBusiness.WEB.PageObjects.TutorialNavigator.Search;
 using SAPTests.Browsers;
 using SAPTests.TestData.TutorialNavigator.Modules;
 using System;
+using System.Linq;
 using System.Threading;
 
 namespace SAPTests.TutorialNavigator
@@ -45,7 +49,7 @@ namespace SAPTests.TutorialNavigator
 
             try
             {
-                PageExtension.WaitForLoading(Scope.Resolve<ICookiesFrame>()).AgreeWithPrivacyPolicy();
+                Scope.Resolve<ICookiesFrame>().WaitForLoading().AgreeWithPrivacyPolicy();
             }
             catch (Exception e)
             {
@@ -60,16 +64,16 @@ namespace SAPTests.TutorialNavigator
         {
             Scope.Resolve<IFacetExperience>().SelectExperience(tag);
 
-            var tutorualNavigator = Scope.Resolve<ITutorialNavigator>();
+            var tutorualNavigator = Scope.Resolve<ITutorialNavigator>().WaitForLoading();
 
-            var tiles = PageExtension.WaitForLoading(tutorualNavigator).GetAllTiles();
+            var tiles = tutorualNavigator.GetAllTiles();
 
             Logger.Info($"--- { tag.ToUpper()}---");
             foreach (var tile in tiles)
             {
-                Logger.Info($"Tile tag was {tile.ExperienceTag}");
+                Logger.Info($"Tile tag was {tile.Experience}");
 
-                Assert.IsTrue(tile.ExperienceTag == tag);
+                Assert.IsTrue(tile.Experience == tag);
             }
         }
 
@@ -77,12 +81,12 @@ namespace SAPTests.TutorialNavigator
         [Order(2)]
         public void CheckTileBookmarks()
         {
-            var pageHeader = Scope.Resolve<IPageHeader>();
-            PageExtension.WaitForLoading(pageHeader).OpenLogonFrame();
+            var pageHeader = Scope.Resolve<IPageHeader>().WaitForLoading();
+            pageHeader.OpenLogonFrame();
 
             logonStrategy.LogOn(UserPool.GetUser());
 
-            var tutorialNavigator = PageExtension.WaitForLoading(Scope.Resolve<ITutorialNavigator>());
+            var tutorialNavigator = Scope.Resolve<ITutorialNavigator>().WaitForLoading();
 
             var tiles = tutorialNavigator.GetAllTiles();
 
@@ -100,13 +104,13 @@ namespace SAPTests.TutorialNavigator
         [Order(3)]
         public void GetJavaTutorialsOnly()
         {
-            var facetTopic = Scope.Resolve<IFacetTopic>();
-            PageExtension.WaitForLoading(facetTopic).SelectTopic("Java");
+            var facetTopic = Scope.Resolve<IFacetTopic>().WaitForLoading();
+            facetTopic.SelectTopic("Java");
 
-            var facetType = Scope.Resolve<IFacetType>();
-            PageExtension.WaitForLoading(facetType).SelectType("Tutorial");
+            var facetType = Scope.Resolve<IFacetType>().WaitForLoading();
+            facetType.SelectType("Tutorial");
 
-            var tutorialNavigator = PageExtension.WaitForLoading(Scope.Resolve<ITutorialNavigator>());
+            var tutorialNavigator = Scope.Resolve<ITutorialNavigator>().WaitForLoading();
 
             var legend = Scope.Resolve<ITileLegend>();
 
@@ -122,7 +126,7 @@ namespace SAPTests.TutorialNavigator
         [TestCaseSource("networks")]
         public void CheckSocialNetworkLinks(NetworkType type)
         {
-            var networkSection = PageExtension.WaitForLoading(Scope.Resolve<ISocialNetworkSection>());
+            var networkSection = Scope.Resolve<ISocialNetworkSection>().WaitForLoading();
 
             var pageLink = networkSection.GetNetworkLink(type);
 
@@ -132,7 +136,36 @@ namespace SAPTests.TutorialNavigator
             Assert.AreEqual(pageLink, BaseDriver.Url);
         }
 
+        [Test, TestCaseSource(typeof(QueryParameters), nameof(QueryParameters.TilesQuery))]
+        [Description("Check tutorial, group and mission where there is a license tag on tutorial navigator page")]
+        [Order(5)]
+        public void CheckLicenseTagInTile(TilesQuery query)
+        {
+            var tiles = Scope.Resolve<ITilesService>().GetTiles(query).Tiles;
+
+            foreach (var tile in tiles)
+            {
+                Scope.Resolve<ISearchSection>().WaitForLoading().Search(tile.Title);
+
+                var tutorials = Scope.Resolve<ITutorialNavigator>().WaitForLoading().GetAllTiles();
+
+                var found = tutorials.SingleOrDefault(t => t.Title == tile.Title);
+
+                if (found != null)
+                {
+                    if (tile.HasLicenseTag)
+                    {
+                        Logger.Info($"{tile.Title} has license key: {found.HasLicenseKey()}");
+                        Assert.That(found.HasLicenseKey(), $"{found.Title} does not have license key");
+                    }
+                }
+                else
+                {
+                    Logger.Info($"{tile.Title} was not found on th tutorial navigator page");
+                }
+            }
+        }
         public static NetworkType[] networks =
-            new NetworkType[] { NetworkType.Facebook, NetworkType.Twitter, NetworkType.Youtube };
+         new NetworkType[] { NetworkType.Facebook, NetworkType.Twitter, NetworkType.Youtube };
     }
 }

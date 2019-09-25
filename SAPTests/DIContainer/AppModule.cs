@@ -5,6 +5,8 @@ using Core.REST_API.Cookies;
 using Core.WebDriver;
 using Microsoft.Extensions.Configuration;
 using SAPBusiness.Configuration;
+using SAPBusiness.Services.API_Services.Tutorial;
+using SAPBusiness.Services.API_Services.TutorialNavigator;
 using SAPBusiness.Services.API_Services.User;
 using SAPBusiness.Services.Interfaces.API_UserService;
 using SAPBusiness.UserData;
@@ -26,8 +28,13 @@ using SAPBusiness.WEB.PageObjects.OpenSource.Projects;
 using SAPBusiness.WEB.PageObjects.OpenSource.Projects.Search;
 using SAPBusiness.WEB.PageObjects.TutorialNavigator;
 using SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection;
+using SAPBusiness.WEB.PageObjects.TutorialNavigator.Mission;
+using SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial;
+using ITNavigatorSearch = SAPBusiness.WEB.PageObjects.TutorialNavigator.Search.ISearchSection;
 using OpenSourcePage = SAPBusiness.WEB.PageObjects.OpenSource.OpenSource;
 using TNavigator = SAPBusiness.WEB.PageObjects.TutorialNavigator.TutorialNavigator;
+using TNavigatorSearch = SAPBusiness.WEB.PageObjects.TutorialNavigator.Search.SearchSection;
+using TutorialPage = SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial.Tutorial;
 
 namespace SAPTests.Autofac
 {
@@ -99,8 +106,6 @@ namespace SAPTests.Autofac
 
             builder.RegisterType<SocialNetworkSection>().As<ISocialNetworkSection>();
 
-            builder.RegisterType<TileElementFactory>().As<ITileElementFactory>();
-
             builder.RegisterType<FeedFactory>().As<IFeedFactory>();
 
             builder.RegisterType<AttributesSection>().As<IAttributesSection>();
@@ -114,6 +119,26 @@ namespace SAPTests.Autofac
             builder.RegisterType<MembershipFactory>().As<IMembershipFactory>();
 
             builder.RegisterType<SocialNetworkFactory>().As<ISocialNetworkFactory>();
+
+            builder.RegisterType<SummarySection>().As<ISummarySection>();
+
+            builder.RegisterType<TNavigatorSearch>().As<ITNavigatorSearch>();
+
+            builder.RegisterType<RestSharpTilesService>().As<ITilesService>();
+
+            builder.RegisterType<TutorialPage>().As<ITutorial>();
+
+            builder.RegisterType<Mission>().As<IMission>();
+
+            builder.RegisterType<MiniNavigator>().As<IMiniNavigator>();
+
+            builder.RegisterType<BreadCrumb>().As<IBreadCrumb>();
+
+            builder.RegisterType<NextStepSection>().As<INextStepSection>();
+
+            builder.RegisterType<ContextService>().As<IContextService>();
+
+            builder.RegisterType<SummaryProgress>().As<ISummaryProgress>(); 
         }
     }
 }

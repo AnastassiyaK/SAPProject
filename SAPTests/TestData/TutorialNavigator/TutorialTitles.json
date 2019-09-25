@@ -1,0 +1,12 @@
+﻿{
+  "Tutorial": {
+    "partialLinks": [
+      "cp-apim-sales-tracker-services-enable",
+      "abap-env-create-comm-arrangement-api",
+      "abap-environment-rfc-custom-entity"
+    ]
+  },
+  "Mission": {
+    "partialLinks": [ "abap-env-connect-onpremise" ]
+  }
+}

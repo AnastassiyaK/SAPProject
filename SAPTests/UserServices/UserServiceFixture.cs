@@ -58,7 +58,7 @@ namespace SAPTests.UserServices
         [Order(1)]
         public void CompareUserProgress()
         {
-            PageExtension.WaitForLoading(Scope.Resolve<IPageHeader>()).OpenLogonFrame();
+            Scope.Resolve<IPageHeader>().WaitForLoading().OpenLogonFrame();
 
             logonStrategy.LogOn(UserPool.GetUser());
 
