@@ -2,9 +2,14 @@
 {
     public interface ITileElement
     {
-        string ExperienceTag { get; }
+        string Description { get; }
+        string Experience { get; }
         string Title { get; }
+        string TagLink { get; }
+        string PrimaryTag { get; }
 
         bool BookMarkDisplayed();
+
+        bool HasLicenseKey();
     }
 }

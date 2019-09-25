@@ -13,4 +13,8 @@
     <ProjectReference Include="..\SAPBusiness\SAPBusiness.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PageObjects\TutorialNavigator\Group\" />
+  </ItemGroup>
+
 </Project>

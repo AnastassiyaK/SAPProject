@@ -1,14 +1,33 @@
-﻿using OpenQA.Selenium;
+﻿using Core.WebDriver;
+using OpenQA.Selenium;
+using SAPBusiness.WEB.PageObjects.CommonElements;
 
 namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 {
-    public class TileElement : ITileElement
+    public class TileElement : BasePageObject, ITileElement
     {
         private readonly IWebElement _element;
 
-        public TileElement(IWebElement element)
+        public TileElement(WebDriver driver, IWebElement element)
+            : base(driver)
         {
             _element = element;
+        }
+
+        public string Description
+        {
+            get
+            {
+                return TileDescription.Text;
+            }
+        }
+
+        private TitleComponent TitleComponent
+        {
+            get
+            {
+                return new TitleComponent(_driver,TileTitle);
+            }
         }
 
         private IWebElement BookMark
@@ -71,7 +90,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
         {
             get
             {
-                return _element.FindElement(By.ClassName("tags"));
+                return _element.FindElement(By.CssSelector(".tags .wrapper a"));
             }
         }
 
@@ -83,20 +102,12 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
             }
         }
 
-        private IWebElement TileLicenseTag
-        {
-            get
-            {
-                return _element.FindElement(By.ClassName("icon-key"));
-            }
-        }
-
         public bool BookMarkDisplayed()
         {
             return BookMark.Displayed;
         }
 
-        public string ExperienceTag
+        public string Experience
         {
             get
             {
@@ -108,7 +119,29 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
         {
             get
             {
-                return TileTitle.Text;
+                return TitleComponent.Text;
+            }
+        }
+
+        public bool HasLicenseKey()
+        {
+           return TitleComponent.HasLicenseKey();
+        }
+
+        public string TagLink
+        {
+            get
+            {
+                string link = TileTag.GetAttribute("href");
+                return link.Substring(link.IndexOf("/tutorial"));
+            }
+        }
+
+        public string PrimaryTag
+        {
+            get
+            {
+                return TileTag.Text;
             }
         }
     }

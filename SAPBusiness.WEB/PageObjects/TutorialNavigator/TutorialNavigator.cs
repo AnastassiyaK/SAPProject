@@ -14,31 +14,28 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 
         private readonly IEnvironmentConfig _appConfiguration;
 
-        private readonly ITileElementFactory _tilesFactory;
+        private List<TileElement> _tiles;
 
-        private List<ITileElement> _tiles;
-
-        public TutorialNavigator(WebDriver driver, ITileElementFactory tilesFactory, IEnvironmentConfig appConfiguration)
+        public TutorialNavigator(WebDriver driver, IEnvironmentConfig appConfiguration)
             : base(driver)
         {
             _appConfiguration = appConfiguration;
-            _tilesFactory = tilesFactory ?? throw new ArgumentNullException(nameof(tilesFactory));
         }
 
-        private List<ITileElement> Tiles
+        private List<TileElement> Tiles
         {
             get
             {
                 return _tiles ??
                     (_tiles = _driver.FindElements(By.CssSelector(".tutorial-tile"))
-                    .Select(element => _tilesFactory.CreateTile(element))
+                    .Select(element => new TileElement(_driver,element))
                     .ToList());
             }
         }
 
         public bool HasTiles() => Tiles.Count > 0;
 
-        public List<ITileElement> GetAllTiles()
+        public List<TileElement> GetAllTiles()
         {
             return Tiles;
         }
