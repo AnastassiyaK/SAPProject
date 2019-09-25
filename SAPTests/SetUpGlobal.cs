@@ -42,7 +42,6 @@ namespace SAPTests
             var environmentConfig = Scope.Resolve<IEnvironmentConfig>();
 
             configuration.GetSection("Links").Bind(environmentConfig);
-
         }
 
         [OneTimeTearDown]
