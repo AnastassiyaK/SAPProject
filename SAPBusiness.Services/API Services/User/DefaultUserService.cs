@@ -12,14 +12,9 @@ namespace SAPBusiness.Services.API_Services.User
 {
     public class DefaultUserService : BaseUserService, IUserService
     {
-        private readonly IEnvironmentConfig _appConfiguration;
-
-        private readonly ICookiesConverter _cookiesConverter;
-
         public DefaultUserService(ICookiesConverter cookiesConverter, IEnvironmentConfig appConfiguration)
+            : base(cookiesConverter, appConfiguration)
         {
-            _cookiesConverter = cookiesConverter;
-            _appConfiguration = appConfiguration;
         }
 
         public UserStatistics GetStatistics(ReadOnlyCollection<SeleniumCookie> cookies)
