@@ -28,7 +28,6 @@ namespace SAPBusiness.WEB.PageObjects.LicenseKey
         public LicenseKeyPopup WaitForPresent()
         {
             base.WaitForPageLoad();
-            _driver.WaitForElement(Popup);
             return this;
         }
     }

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using SAPBusiness.Configuration;
 using SAPTests.Autofac;
+using System.Diagnostics;
 using System.Threading;
 
 namespace SAPTests

@@ -129,7 +129,7 @@ namespace SAPTests.Tutorial
             }
             else
             {
-                Assert.Fail($"{nextStep.Title} was not found on the tutorial page");
+                Assert.Fail($"Next step with title {nextStep.Title} was not found on the tutorial page");
             }
         }
 

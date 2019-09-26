@@ -1,9 +1,9 @@
 ﻿{
   "Tutorial": {
     "partialLinks": [
-      "cp-apim-sales-tracker-services-enable",
+      "haas-dm-deploying-haas",
       "abap-env-create-comm-arrangement-api",
-      "abap-environment-rfc-custom-entity"
+      "haas-dm-connect-sdi"
     ]
   },
   "Mission": {

@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using SAPBusiness.WEB.PageObjects.LicenseKey;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace SAPBusiness.WEB.PageObjects.CommonElements
 {
