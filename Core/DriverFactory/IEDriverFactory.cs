@@ -14,11 +14,13 @@ namespace Core.DriverFactory
         {
             get
             {
-                InternetExplorerOptions options = new InternetExplorerOptions();
+                InternetExplorerOptions options = new InternetExplorerOptions
+                {
+                    EnsureCleanSession = true,
+                    IntroduceInstabilityByIgnoringProtectedModeSettings=true                  
+                };
                 options.AddAdditionalCapability("useAutomationExtension", false);
-                options.AddAdditionalCapability("ensureCleanSession", true);
                 //options.AddAdditionalCapability("ignoreZoomSetting", true);
-                //options.AddAdditionalCapability("ignoreProtectedModeSettings", true);
                 options.AddAdditionalCapability("ignore-certificate-error", true);
                 return options.ToCapabilities();
             }
@@ -26,9 +28,12 @@ namespace Core.DriverFactory
 
         protected override IWebDriver CreateLocalWebDriver()
         {
-            InternetExplorerOptions options = new InternetExplorerOptions();
+            InternetExplorerOptions options = new InternetExplorerOptions
+            {
+                EnsureCleanSession = true,
+                IntroduceInstabilityByIgnoringProtectedModeSettings = false
+            };
             options.AddAdditionalCapability("useAutomationExtension", false);
-            options.AddAdditionalCapability("ensureCleanSession", true);
             options.AddAdditionalCapability("ignore-certificate-error", true);
             _driver = new InternetExplorerDriver(options);
             return _driver;

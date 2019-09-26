@@ -30,6 +30,13 @@ namespace Core.WebDriver
             _driver.Close();
         }
 
+        public void DismissAlert()
+        {
+            var alert = _driver.SwitchTo().Alert();
+            string a = alert.Text;
+            alert.Dismiss();
+        }
+
         public void ExecuteScriptOnElement(string script, IWebElement element)
         {
             script = script ?? throw new ArgumentNullException(nameof(script));
@@ -76,6 +83,7 @@ namespace Core.WebDriver
 
         public IWebElement FindElement(By locator)
         {
+            TryToFindElement(locator);
             return _driver.FindElement(locator);
         }
 
@@ -160,6 +168,22 @@ namespace Core.WebDriver
             _driver.SwitchTo().Window(_driver.WindowHandles.First());
         }
 
+        public void TryToFindElement(By locator)
+        {
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_configuration.TimeOutSearch));
+            wait.Until(driver =>
+            {
+                try
+                {
+                    return _driver.FindElement(locator).Displayed;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            });
+        }
+
         public void WaitForElementDissapear(By locator)
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_configuration.DissapearTime));
@@ -202,19 +226,9 @@ namespace Core.WebDriver
 
         public void WaitForElement(By locator)
         {
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_configuration.TimeOutSearch));
-            wait.Until(driver =>
-            {
-                try
-                {
-                    return _driver.FindElement(locator).Displayed;
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            });
+            TryToFindElement(locator);
         }
+
         public void WaitForElement(IWebElement element)
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_configuration.TimeOutSearch));
