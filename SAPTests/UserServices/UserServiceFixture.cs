@@ -16,6 +16,7 @@ using System.Threading;
 namespace SAPTests.UserServices
 {
     [TestFixtureSource(typeof(BrowserList), "Browsers")]
+    [Category("UserServiceFixture")]
     [Parallelizable(ParallelScope.All)]
     public class UserServiceFixture : BaseTest
     {

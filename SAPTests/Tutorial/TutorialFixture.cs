@@ -19,6 +19,7 @@ using System.Threading;
 namespace SAPTests.Tutorial
 {
     [TestFixtureSource(typeof(BrowserList), "Browsers")]
+    [Category("TutorialFixture")]
     [Parallelizable(ParallelScope.All)]
     public class TutorialFixture : BaseTest
     {

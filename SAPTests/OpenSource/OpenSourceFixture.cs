@@ -18,6 +18,7 @@ using System.Threading;
 namespace SAPTests.OpenSource
 {
     [TestFixtureSource(typeof(BrowserList), "Browsers")]
+    [Category("OpenSourceFixture")]
     [Parallelizable(ParallelScope.All)]
     public class OpenSourceFixture : BaseTest
     {
