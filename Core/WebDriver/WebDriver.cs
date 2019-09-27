@@ -177,7 +177,8 @@ namespace Core.WebDriver
             {
                 try
                 {
-                    return _driver.FindElement(locator).Displayed;
+                   _driver.FindElement(locator);
+                   return true;
                 }
                 catch (NoSuchElementException)
                 {
