@@ -61,7 +61,7 @@ namespace SAPTests.TutorialNavigator
         }
 
         [Test, TestCaseSource(typeof(FilterData), nameof(FilterData.ExperienceTags))]
-        [Critical]
+        [Priority(1)]
         [Order(1)]
         public void CheckExperienceFilterTags(string tag)
         {
@@ -81,7 +81,7 @@ namespace SAPTests.TutorialNavigator
         }
 
         [Test(Description = "Check if all Tiles have book marks")]
-        [Critical]
+        [Priority(1)]
         [Order(2)]
         public void CheckTileBookmarks()
         {
@@ -126,7 +126,7 @@ namespace SAPTests.TutorialNavigator
         }
 
         [Test(Description = "Check if correct tabs in browser are opened with social networks pages")]
-        [Critical]
+        [Priority(1)]
         [Order(4)]
         [TestCaseSource("networks")]
         public void CheckSocialNetworkLinks(NetworkType type)
@@ -143,7 +143,7 @@ namespace SAPTests.TutorialNavigator
 
         [Test, TestCaseSource(typeof(QueryParameters), nameof(QueryParameters.TilesQuery))]
         [Description("Check tutorial, group and mission where there is a license tag on tutorial navigator page")]
-        [Critical]
+        [Priority(1)]
         [Order(5)]
         public void CheckLicenseTagInTile(TilesQuery query)
         {

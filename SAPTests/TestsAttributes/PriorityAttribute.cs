@@ -4,9 +4,9 @@ using System;
 namespace SAPTests.TestsAttributes
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-    public class CriticalAttribute : PropertyAttribute
+    public class PriorityAttribute : PropertyAttribute
     {
-        public CriticalAttribute()
+        public PriorityAttribute(object propertyValue) : base(propertyValue)
         {
         }
     }
