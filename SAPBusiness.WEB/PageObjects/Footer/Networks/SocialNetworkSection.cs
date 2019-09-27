@@ -47,10 +47,8 @@ namespace SAPBusiness.WEB.PageObjects.Footer.Networks
         public void OpenNetwork(NetworkType type)
         {
             NetworkList.FindElement(By.CssSelector($"a[data-share-channel='{type.ToString().ToLower()}']")).Click();
-            //NetworkList.FindElement(By.CssSelector($"a[data-share-channel='{type.ToString().ToLower()}']"))
-            //    .SendKeys(Keys.LeftControl + "t");
             _driver.SwitchToLastTab();
-            _driver.WaitReadyState();
+            _driver.WaitForTabOpen();
         }
 
         public string GetNetworkLink(NetworkType type)

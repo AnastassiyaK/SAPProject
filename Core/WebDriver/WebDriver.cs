@@ -63,10 +63,10 @@ namespace Core.WebDriver
             return js.ExecuteScript(script, element) as string;
         }
 
-        public string GetPropertyFromPseudoElement(string pseudoElement,string property, IWebElement element)
+        public string GetPropertyFromPseudoElement(string pseudoElement, string property, IWebElement element)
         {
             var script = $"return window.getComputedStyle(arguments[0], ':{pseudoElement}').getPropertyValue('{property}')";
-        
+
             IJavaScriptExecutor js = _driver as IJavaScriptExecutor;
 
             return js.ExecuteScript(script, element) as string;
@@ -160,6 +160,8 @@ namespace Core.WebDriver
 
         public void SwitchToLastTab()
         {
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_configuration.TimeOutSearch));
+            wait.Until(driver => _driver.WindowHandles.Count > 1);
             _driver.SwitchTo().Window(_driver.WindowHandles.Last());
         }
 
@@ -259,6 +261,12 @@ namespace Core.WebDriver
                     return false;
                 }
             });
+        }
+
+        public void WaitForTabOpen()
+        {
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_configuration.TimeOutSearch));
+            wait.Until(driver => !_driver.Url.Contains("about:blank"));
         }
 
         public void WaitReadyState()
