@@ -166,6 +166,6 @@ namespace SAPTests.TutorialNavigator
             }
         }
         public static NetworkType[] networks =
-         new NetworkType[] { NetworkType.Facebook, NetworkType.Twitter, NetworkType.Youtube };
+         new NetworkType[] { NetworkType.Facebook, NetworkType.Twitter, NetworkType.Github };
     }
 }
