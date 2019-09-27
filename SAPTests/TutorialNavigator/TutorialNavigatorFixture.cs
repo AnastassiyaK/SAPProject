@@ -14,6 +14,7 @@ using SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection;
 using SAPBusiness.WEB.PageObjects.TutorialNavigator.Search;
 using SAPTests.Browsers;
 using SAPTests.TestData.TutorialNavigator.Modules;
+using SAPTests.TestsAttributes;
 using System;
 using System.Linq;
 using System.Threading;
@@ -60,7 +61,7 @@ namespace SAPTests.TutorialNavigator
         }
 
         [Test, TestCaseSource(typeof(FilterData), nameof(FilterData.ExperienceTags))]
-        [Property("Severity", 2)]
+        [Priority(PriorityLevel.Normal)]
         [Order(1)]
         public void CheckExperienceFilterTags(string tag)
         {
@@ -75,12 +76,12 @@ namespace SAPTests.TutorialNavigator
             {
                 Logger.Info($"Tile tag was {tile.Experience}");
 
-                Assert.That(tile.Experience,Is.EqualTo(tag));
+                Assert.That(tile.Experience, Is.EqualTo(tag));
             }
         }
 
         [Test(Description = "Check if all Tiles have book marks")]
-        [Property("Severity", 1)]
+        [Priority(PriorityLevel.Major)]
         [Order(2)]
         public void CheckTileBookmarks()
         {
@@ -117,7 +118,7 @@ namespace SAPTests.TutorialNavigator
 
             var legend = Scope.Resolve<ITileLegend>();
 
-            Assert.That(legend.Tutorial==tutorialNavigator.GetAllTiles().Count);
+            Assert.That(legend.Tutorial == tutorialNavigator.GetAllTiles().Count);
 
             Assert.AreEqual(legend.Group, 0);
 
@@ -125,7 +126,7 @@ namespace SAPTests.TutorialNavigator
         }
 
         [Test(Description = "Check if correct tabs in browser are opened with social networks pages")]
-        [Property("Severity",1)]
+        [Priority(PriorityLevel.Major)]
         [Order(4)]
         [TestCaseSource("networks")]
         public void CheckSocialNetworkLinks(NetworkType type)
@@ -142,7 +143,7 @@ namespace SAPTests.TutorialNavigator
 
         [Test, TestCaseSource(typeof(QueryParameters), nameof(QueryParameters.TilesQuery))]
         [Description("Check tutorial, group and mission where there is a license tag on tutorial navigator page")]
-        [Property("Severity", 1)]
+        [Priority(PriorityLevel.Major)]
         [Order(5)]
         public void CheckLicenseTagInTile(TilesQuery query)
         {
@@ -161,7 +162,7 @@ namespace SAPTests.TutorialNavigator
                     if (tile.HasLicenseTag)
                     {
                         Logger.Info($"{tile.Title} has license key: {found.HasLicenseKey()}");
-                        Assert.That(found.HasLicenseKey(),Is.True, $"{found.Title} does not have license key");
+                        Assert.That(found.HasLicenseKey(), Is.True, $"{found.Title} does not have license key");
                     }
                 }
                 else
