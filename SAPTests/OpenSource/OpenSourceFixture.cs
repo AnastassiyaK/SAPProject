@@ -106,7 +106,7 @@ namespace SAPTests.OpenSource
             foreach (var project in projects)
             {
                 Logger.Debug($"Project image was {project.Image}," + "\n" + $"Project background image was {project.BackgroundImage}");
-                Assert.IsTrue(project.Image == project.BackgroundImage);
+                Assert.That(project.Image,Is.EqualTo(project.BackgroundImage));
             }
         }
 
@@ -148,7 +148,7 @@ namespace SAPTests.OpenSource
             {
                 Logger.Info($"Membership title ---{membership.Title}---");
 
-                Assert.IsTrue(membership.Title != "");
+                Assert.That(membership.Title,!Is.EqualTo(""));
 
                 Logger.Info($"Membership description ---{membership.Description}---");
 

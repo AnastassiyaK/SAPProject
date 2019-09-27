@@ -73,7 +73,7 @@ namespace SAPTests.TutorialNavigator
             {
                 Logger.Info($"Tile tag was {tile.Experience}");
 
-                Assert.IsTrue(tile.Experience == tag);
+                Assert.That(tile.Experience,Is.EqualTo(tag));
             }
         }
 
@@ -96,7 +96,7 @@ namespace SAPTests.TutorialNavigator
             {
                 Logger.Info($"{tile.Title} {((tile.BookMarkDisplayed()) ? "has" : "does NOT have")} a bookmark");
 
-                Assert.IsTrue(tile.BookMarkDisplayed());
+                Assert.That(tile.BookMarkDisplayed(), Is.True);
             }
         }
 
@@ -114,7 +114,7 @@ namespace SAPTests.TutorialNavigator
 
             var legend = Scope.Resolve<ITileLegend>();
 
-            Assert.AreEqual(legend.Tutorial, tutorialNavigator.GetAllTiles().Count);
+            Assert.That(legend.Tutorial==tutorialNavigator.GetAllTiles().Count);
 
             Assert.AreEqual(legend.Group, 0);
 
@@ -156,7 +156,7 @@ namespace SAPTests.TutorialNavigator
                     if (tile.HasLicenseTag)
                     {
                         Logger.Info($"{tile.Title} has license key: {found.HasLicenseKey()}");
-                        Assert.That(found.HasLicenseKey(), $"{found.Title} does not have license key");
+                        Assert.That(found.HasLicenseKey(),Is.True, $"{found.Title} does not have license key");
                     }
                 }
                 else
