@@ -61,7 +61,7 @@ namespace SAPTests.TutorialNavigator
         }
 
         [Test, TestCaseSource(typeof(FilterData), nameof(FilterData.ExperienceTags))]
-        [Priority(1)]
+        [Priority(2)]
         [Order(1)]
         public void CheckExperienceFilterTags(string tag)
         {
@@ -81,7 +81,7 @@ namespace SAPTests.TutorialNavigator
         }
 
         [Test(Description = "Check if all Tiles have book marks")]
-        [Priority(1)]
+        [Priority(2)]
         [Order(2)]
         public void CheckTileBookmarks()
         {
@@ -143,7 +143,7 @@ namespace SAPTests.TutorialNavigator
 
         [Test, TestCaseSource(typeof(QueryParameters), nameof(QueryParameters.TilesQuery))]
         [Description("Check tutorial, group and mission where there is a license tag on tutorial navigator page")]
-        [Priority(1)]
+        [Priority(2)]
         [Order(5)]
         public void CheckLicenseTagInTile(TilesQuery query)
         {
