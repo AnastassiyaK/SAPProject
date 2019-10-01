@@ -12,7 +12,7 @@
     "name": "SAP Project Tests",
     "description": "Test execution on developers.sap.com",
     "debugMode": false,
-    "tags": [ "t1", "t2" ]
+    "tags": [ "SAP" , "Developers" ]
   },
   "rootNamespaces": [ "SAPTests.dll", "SAPProject", "SAPTests" ]
 }
