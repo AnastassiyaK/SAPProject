@@ -9,8 +9,8 @@
     }
   },
   "launch": {
-    "name": "NUnit 3 Demo Launch",
-    "description": "this is description",
+    "name": "SAP Project Tests",
+    "description": "Test execution on developers.sap.com",
     "debugMode": false,
     "tags": [ "t1", "t2" ]
   },
