@@ -144,5 +144,13 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
                 return TileTag.Text;
             }
         }
+
+        public string Time
+        {
+            get
+            {
+                return TileTime.Text;
+            }
+        }
     }
 }

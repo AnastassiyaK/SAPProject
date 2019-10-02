@@ -7,6 +7,7 @@
         string Title { get; }
         string TagLink { get; }
         string PrimaryTag { get; }
+        string Time { get; }
 
         bool BookMarkDisplayed();
 
