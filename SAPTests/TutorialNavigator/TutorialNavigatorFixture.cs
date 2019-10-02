@@ -187,7 +187,7 @@ namespace SAPTests.TutorialNavigator
 
                 if (found != null)
                 {
-                    Logger.Info($"{found.Time} on the page, {tile.Time} from API Query");
+                    Logger.Info($"Tile with title {found.Title} has time {found.Time} on the page, {tile.Time} from API Query");
                     Assert.That(found.Time, Is.EqualTo(tile.Time), $"{found.Title} has wrong time. Should have {tile.Time}");
                 }
                 else
