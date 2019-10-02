@@ -189,14 +189,19 @@ namespace SAPTests.TutorialNavigator
                 if (found != null)
                 {
                     var tileTime = timeConverter.GetTime(tile.Time);
-                    Logger.Info($"Tile with title {found.Title} has time {found.Time} on the page, {tileTime} from API Query");
+                    Logger.Info($"Tile with title \"{found.Title}\" has time \"{found.Time}\" on the page, \"{tileTime}\" from API Query");
                     Assert.That(found.Time, Is.EqualTo(tileTime),
-                        $"{found.Title} has wrong time. Should have {tile.Time}");
+                        $"{found.Title} has wrong time. Should have {tileTime}");
                 }
                 else
                 {
                     Logger.Info($"{tile.Title} was not found on the tutorial navigator page");
                 }
+            }
+
+            if(tiles.Count==0)
+            {
+                Assert.Fail("There are no tiles on the page");
             }
         }
 
