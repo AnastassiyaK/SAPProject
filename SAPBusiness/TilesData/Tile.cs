@@ -15,37 +15,6 @@ namespace SAPBusiness.TilesData
         public string Type { get; set; }
 
         [JsonProperty("time")]
-        private string TimeString { get; set; }
-
-        public string Time
-        {
-            get
-            {
-                return GetTimeString();
-            }
-        }
-
-        private string GetTimeString()
-        {
-            TimeSpan time = TimeSpan.FromSeconds(int.Parse(TimeString));
-            var hours = time.Hours;
-            var minutes = time.Minutes;
-            string timeFormat = "";
-
-            if (hours != 0 && minutes == 0)
-            {
-                return hours + " hr.";
-            }
-            else if (hours == 0 && minutes != 0)
-            {
-                return minutes + " min.";
-            }
-            else if (hours !=0 && minutes != 0)
-            {
-                timeFormat = hours + " hr. " + minutes + " min.";
-                return timeFormat;
-            }
-            return timeFormat;
-        }
+        public int Time { get; set; }
     }
 }
