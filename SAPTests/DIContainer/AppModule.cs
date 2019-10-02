@@ -9,6 +9,7 @@ using SAPBusiness.Services.API_Services.Tutorial;
 using SAPBusiness.Services.API_Services.TutorialNavigator;
 using SAPBusiness.Services.API_Services.User;
 using SAPBusiness.Services.Interfaces.API_UserService;
+using SAPBusiness.TilesData;
 using SAPBusiness.UserData;
 using SAPBusiness.UserData.DeveloperCenter;
 using SAPBusiness.WEB.PageObjects;
@@ -138,7 +139,9 @@ namespace SAPTests.Autofac
 
             builder.RegisterType<ContextService>().As<IContextService>();
 
-            builder.RegisterType<SummaryProgress>().As<ISummaryProgress>(); 
+            builder.RegisterType<SummaryProgress>().As<ISummaryProgress>();
+
+            builder.RegisterType<TimeConverter>().As<ITimeConverter>(); 
         }
     }
 }

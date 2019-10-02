@@ -178,6 +178,7 @@ namespace SAPTests.TutorialNavigator
         [Order(6)]
         public void CheckTileTime(TilesQuery query)
         {
+            var timeConverter = Scope.Resolve<ITimeConverter>();
             var tiles = Scope.Resolve<ITilesService>().GetTiles(query).Tiles;
 
             foreach (var tile in tiles)
@@ -187,8 +188,10 @@ namespace SAPTests.TutorialNavigator
 
                 if (found != null)
                 {
-                    Logger.Info($"Tile with title {found.Title} has time {found.Time} on the page, {tile.Time} from API Query");
-                    Assert.That(found.Time, Is.EqualTo(tile.Time), $"{found.Title} has wrong time. Should have {tile.Time}");
+                    var tileTime = timeConverter.GetTime(tile.Time);
+                    Logger.Info($"Tile with title {found.Title} has time {found.Time} on the page, {tileTime} from API Query");
+                    Assert.That(found.Time, Is.EqualTo(tileTime),
+                        $"{found.Title} has wrong time. Should have {tile.Time}");
                 }
                 else
                 {
