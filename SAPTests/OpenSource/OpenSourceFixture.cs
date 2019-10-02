@@ -90,7 +90,7 @@ namespace SAPTests.OpenSource
             foreach (var project in projects)
             {
                 Logger.Info($"Project --- {project.Title} --- on the page with description: --- {project.Description} ---");
-                Assert.IsTrue(project.Description.Contains(randomWord) || project.Title.Contains(randomWord));
+                Assert.That(project.Description.Contains(randomWord) || project.Title.Contains(randomWord));
             }
         }
 

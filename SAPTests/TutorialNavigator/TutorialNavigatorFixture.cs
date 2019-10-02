@@ -171,6 +171,32 @@ namespace SAPTests.TutorialNavigator
                 }
             }
         }
+
+        [Test, TestCaseSource(typeof(QueryParameters), nameof(QueryParameters.TilesQuery))]
+        [Description("Check tutorial, group and mission if time is correct on tutorial navigator page")]
+        [Priority(3)]
+        [Order(6)]
+        public void CheckTileTime(TilesQuery query)
+        {
+            var tiles = Scope.Resolve<ITilesService>().GetTiles(query).Tiles;
+
+            foreach (var tile in tiles)
+            {
+                var tutorials = Scope.Resolve<ITutorialNavigator>().WaitForLoading().GetAllTiles();
+                var found = tutorials.SingleOrDefault(t => t.Title == tile.Title);
+
+                if (found != null)
+                {
+                    Logger.Info($"{found.Time} on the page, {tile.Time} from API Query");
+                    Assert.That(found.Time, Is.EqualTo(tile.Time), $"{found.Title} has wrong time. Should have {tile.Time}");
+                }
+                else
+                {
+                    Logger.Info($"{tile.Title} was not found on the tutorial navigator page");
+                }
+            }
+        }
+
         public static NetworkType[] networks =
          new NetworkType[] { NetworkType.Facebook, NetworkType.Twitter, NetworkType.Github };
     }
