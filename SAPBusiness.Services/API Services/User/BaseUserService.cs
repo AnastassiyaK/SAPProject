@@ -17,5 +17,7 @@ namespace SAPBusiness.Services.API_Services.User
 
         protected readonly string resourceUrl =
             "bin/sapdx/v2/developerprogress.json?sourceurl=/content/developers/website/languages/en";
+
+        protected readonly string historyUrl = "bin/sapdx/ims/download.csv?sourceurl=/content/developers/website/languages/en";
     }
 }
