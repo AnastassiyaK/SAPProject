@@ -90,7 +90,7 @@ namespace SAPBusiness.Services.API_Services.User
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 StreamReader stream = new StreamReader(response.GetResponseStream());
-                File.WriteAllText($@"{Directory.GetCurrentDirectory()}\TestData\User\download.csv", stream.ReadToEnd());
+                File.WriteAllText($@"{Directory.GetCurrentDirectory()}\TestData\download.csv", stream.ReadToEnd());
                 stream.Close();
                 response.Close();
             }

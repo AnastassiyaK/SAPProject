@@ -89,7 +89,7 @@ namespace SAPBusiness.Services.API_Services.User
             var result = client.DownloadData(request);
             if (result != null && result.Length > 0)
             {
-                result.SaveAs($@"{Directory.GetCurrentDirectory()}\TestData\User\download.csv");
+                result.SaveAs($@"{Directory.GetCurrentDirectory()}\TestData\download.csv");
             }
             else
             {

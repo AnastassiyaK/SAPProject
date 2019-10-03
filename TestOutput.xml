@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="0f1b8a5c-1172-44e4-b1e7-77825e44688e" name="Nastassia_Karatkova@EPBYGROW0436 2019-10-01 09:32:47" runUser="GRODNO\Nastassia_Karatkova" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2019-10-01T09:32:47.5075111+03:00" queuing="2019-10-01T09:32:47.5075112+03:00" start="2019-10-01T09:32:23.8249307+03:00" finish="2019-10-01T09:33:13.7045624+03:00" />
+  <TestSettings name="default" id="41a5b1a7-c420-43e0-95b8-ab94877c1654">
+    <Deployment runDeploymentRoot="Nastassia_Karatkova_EPBYGROW0436_2019-10-01_09_32_47" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="b030623d-9416-4fa5-959e-48b920cfecec" testId="19bdeb2c-1381-5cd3-031e-1a68a59223c7" testName="CheckSocialNetworkLinks(Facebook)" computerName="EPBYGROW0436" duration="00:00:28.1990000" startTime="2019-10-01T09:32:25.0000000+03:00" endTime="2019-10-01T09:32:54.0000000+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b030623d-9416-4fa5-959e-48b920cfecec" />
+    <UnitTestResult executionId="0cfc1155-f02b-4427-9e7a-e8079f486f4a" testId="a5660020-f8c1-6c1d-2407-1bc92ad2b473" testName="CheckSocialNetworkLinks(Github)" computerName="EPBYGROW0436" duration="00:00:26.1130000" startTime="2019-10-01T09:32:47.0000000+03:00" endTime="2019-10-01T09:33:13.0000000+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0cfc1155-f02b-4427-9e7a-e8079f486f4a" />
+    <UnitTestResult executionId="3b9dec8a-56d4-4596-9462-57cf0e54f1eb" testId="631322c1-5534-673e-2649-ead8a9728204" testName="CheckSocialNetworkLinks(Facebook)" computerName="EPBYGROW0436" duration="00:00:27.8000000" startTime="2019-10-01T09:32:25.0000000+03:00" endTime="2019-10-01T09:32:53.0000000+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3b9dec8a-56d4-4596-9462-57cf0e54f1eb" />
+    <UnitTestResult executionId="1d6d28d9-f91c-4ec7-b5fe-60e60e33adf0" testId="637c11af-eaf8-8c7b-0504-0852bf12b2d3" testName="CheckSocialNetworkLinks(Twitter)" computerName="EPBYGROW0436" duration="00:00:32.9030000" startTime="2019-10-01T09:32:25.0000000+03:00" endTime="2019-10-01T09:32:58.0000000+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1d6d28d9-f91c-4ec7-b5fe-60e60e33adf0" />
+    <UnitTestResult executionId="675acfd9-f90e-4b80-ab66-214880367ee1" testId="d7348548-6c47-51ff-93ed-5d42c5350e30" testName="CheckSocialNetworkLinks(Facebook)" computerName="EPBYGROW0436" duration="00:00:33.6850000" startTime="2019-10-01T09:32:25.0000000+03:00" endTime="2019-10-01T09:32:59.0000000+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="675acfd9-f90e-4b80-ab66-214880367ee1" />
+    <UnitTestResult executionId="31c4621e-26d9-4468-90ac-ffabc399e77b" testId="d6914b14-3570-e6b0-2fa6-bc9ba27adf4f" testName="CheckSocialNetworkLinks(Twitter)" computerName="EPBYGROW0436" duration="00:00:21.4890000" startTime="2019-10-01T09:32:25.0000000+03:00" endTime="2019-10-01T09:32:47.0000000+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="31c4621e-26d9-4468-90ac-ffabc399e77b" />
+    <UnitTestResult executionId="24cdb498-d2ce-4a26-aedc-edea998a45f6" testId="d4b3e540-7322-f315-cc60-0eb819c4d262" testName="CheckSocialNetworkLinks(Github)" computerName="EPBYGROW0436" duration="00:00:23.1550000" startTime="2019-10-01T09:32:25.0000000+03:00" endTime="2019-10-01T09:32:49.0000000+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="24cdb498-d2ce-4a26-aedc-edea998a45f6" />
+    <UnitTestResult executionId="e7190cdf-e533-492b-952b-1691a3ec5d58" testId="07f589e0-d0f4-8a1e-e58b-f9658dae64ba" testName="CheckSocialNetworkLinks(Github)" computerName="EPBYGROW0436" duration="00:00:32.7160000" startTime="2019-10-01T09:32:25.0000000+03:00" endTime="2019-10-01T09:32:58.0000000+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e7190cdf-e533-492b-952b-1691a3ec5d58" />
+    <UnitTestResult executionId="8cc49fa9-7a26-4d04-bcd8-ea08d0d3868d" testId="0e660d25-baae-3489-4612-42aaec956a0e" testName="CheckSocialNetworkLinks(Twitter)" computerName="EPBYGROW0436" duration="00:00:27.0260000" startTime="2019-10-01T09:32:25.0000000+03:00" endTime="2019-10-01T09:32:52.0000000+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8cc49fa9-7a26-4d04-bcd8-ea08d0d3868d" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="CheckSocialNetworkLinks(Facebook)" storage="c:\users\nastassia_karatkova\source\repos\sapproject\saptests\bin\debug\netcoreapp2.1\saptests.dll" priority="1" id="d7348548-6c47-51ff-93ed-5d42c5350e30">
+      <Execution id="675acfd9-f90e-4b80-ab66-214880367ee1" />
+      <TestMethod codeBase="C:\Users\Nastassia_Karatkova\source\repos\SAPProject\SAPTests\bin\Debug\netcoreapp2.1\SAPTests.dll" adapterTypeName="executor://nunit3testexecutor/" className="SAPTests.TutorialNavigator.TutorialNavigatorFixture(IE)" name="CheckSocialNetworkLinks(Facebook)" />
+    </UnitTest>
+    <UnitTest name="CheckSocialNetworkLinks(Github)" storage="c:\users\nastassia_karatkova\source\repos\sapproject\saptests\bin\debug\netcoreapp2.1\saptests.dll" priority="1" id="d4b3e540-7322-f315-cc60-0eb819c4d262">
+      <Execution id="24cdb498-d2ce-4a26-aedc-edea998a45f6" />
+      <TestMethod codeBase="C:\Users\Nastassia_Karatkova\source\repos\SAPProject\SAPTests\bin\Debug\netcoreapp2.1\SAPTests.dll" adapterTypeName="executor://nunit3testexecutor/" className="SAPTests.TutorialNavigator.TutorialNavigatorFixture(Firefox)" name="CheckSocialNetworkLinks(Github)" />
+    </UnitTest>
+    <UnitTest name="CheckSocialNetworkLinks(Twitter)" storage="c:\users\nastassia_karatkova\source\repos\sapproject\saptests\bin\debug\netcoreapp2.1\saptests.dll" priority="1" id="d6914b14-3570-e6b0-2fa6-bc9ba27adf4f">
+      <Execution id="31c4621e-26d9-4468-90ac-ffabc399e77b" />
+      <TestMethod codeBase="C:\Users\Nastassia_Karatkova\source\repos\SAPProject\SAPTests\bin\Debug\netcoreapp2.1\SAPTests.dll" adapterTypeName="executor://nunit3testexecutor/" className="SAPTests.TutorialNavigator.TutorialNavigatorFixture(Firefox)" name="CheckSocialNetworkLinks(Twitter)" />
+    </UnitTest>
+    <UnitTest name="CheckSocialNetworkLinks(Github)" storage="c:\users\nastassia_karatkova\source\repos\sapproject\saptests\bin\debug\netcoreapp2.1\saptests.dll" priority="1" id="a5660020-f8c1-6c1d-2407-1bc92ad2b473">
+      <Execution id="0cfc1155-f02b-4427-9e7a-e8079f486f4a" />
+      <TestMethod codeBase="C:\Users\Nastassia_Karatkova\source\repos\SAPProject\SAPTests\bin\Debug\netcoreapp2.1\SAPTests.dll" adapterTypeName="executor://nunit3testexecutor/" className="SAPTests.TutorialNavigator.TutorialNavigatorFixture(Chrome)" name="CheckSocialNetworkLinks(Github)" />
+    </UnitTest>
+    <UnitTest name="CheckSocialNetworkLinks(Facebook)" storage="c:\users\nastassia_karatkova\source\repos\sapproject\saptests\bin\debug\netcoreapp2.1\saptests.dll" priority="1" id="631322c1-5534-673e-2649-ead8a9728204">
+      <Execution id="3b9dec8a-56d4-4596-9462-57cf0e54f1eb" />
+      <TestMethod codeBase="C:\Users\Nastassia_Karatkova\source\repos\SAPProject\SAPTests\bin\Debug\netcoreapp2.1\SAPTests.dll" adapterTypeName="executor://nunit3testexecutor/" className="SAPTests.TutorialNavigator.TutorialNavigatorFixture(Chrome)" name="CheckSocialNetworkLinks(Facebook)" />
+    </UnitTest>
+    <UnitTest name="CheckSocialNetworkLinks(Facebook)" storage="c:\users\nastassia_karatkova\source\repos\sapproject\saptests\bin\debug\netcoreapp2.1\saptests.dll" priority="1" id="19bdeb2c-1381-5cd3-031e-1a68a59223c7">
+      <Execution id="b030623d-9416-4fa5-959e-48b920cfecec" />
+      <TestMethod codeBase="C:\Users\Nastassia_Karatkova\source\repos\SAPProject\SAPTests\bin\Debug\netcoreapp2.1\SAPTests.dll" adapterTypeName="executor://nunit3testexecutor/" className="SAPTests.TutorialNavigator.TutorialNavigatorFixture(Firefox)" name="CheckSocialNetworkLinks(Facebook)" />
+    </UnitTest>
+    <UnitTest name="CheckSocialNetworkLinks(Twitter)" storage="c:\users\nastassia_karatkova\source\repos\sapproject\saptests\bin\debug\netcoreapp2.1\saptests.dll" priority="1" id="637c11af-eaf8-8c7b-0504-0852bf12b2d3">
+      <Execution id="1d6d28d9-f91c-4ec7-b5fe-60e60e33adf0" />
+      <TestMethod codeBase="C:\Users\Nastassia_Karatkova\source\repos\SAPProject\SAPTests\bin\Debug\netcoreapp2.1\SAPTests.dll" adapterTypeName="executor://nunit3testexecutor/" className="SAPTests.TutorialNavigator.TutorialNavigatorFixture(IE)" name="CheckSocialNetworkLinks(Twitter)" />
+    </UnitTest>
+    <UnitTest name="CheckSocialNetworkLinks(Twitter)" storage="c:\users\nastassia_karatkova\source\repos\sapproject\saptests\bin\debug\netcoreapp2.1\saptests.dll" priority="1" id="0e660d25-baae-3489-4612-42aaec956a0e">
+      <Execution id="8cc49fa9-7a26-4d04-bcd8-ea08d0d3868d" />
+      <TestMethod codeBase="C:\Users\Nastassia_Karatkova\source\repos\SAPProject\SAPTests\bin\Debug\netcoreapp2.1\SAPTests.dll" adapterTypeName="executor://nunit3testexecutor/" className="SAPTests.TutorialNavigator.TutorialNavigatorFixture(Chrome)" name="CheckSocialNetworkLinks(Twitter)" />
+    </UnitTest>
+    <UnitTest name="CheckSocialNetworkLinks(Github)" storage="c:\users\nastassia_karatkova\source\repos\sapproject\saptests\bin\debug\netcoreapp2.1\saptests.dll" priority="1" id="07f589e0-d0f4-8a1e-e58b-f9658dae64ba">
+      <Execution id="e7190cdf-e533-492b-952b-1691a3ec5d58" />
+      <TestMethod codeBase="C:\Users\Nastassia_Karatkova\source\repos\SAPProject\SAPTests\bin\Debug\netcoreapp2.1\SAPTests.dll" adapterTypeName="executor://nunit3testexecutor/" className="SAPTests.TutorialNavigator.TutorialNavigatorFixture(IE)" name="CheckSocialNetworkLinks(Github)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="19bdeb2c-1381-5cd3-031e-1a68a59223c7" executionId="b030623d-9416-4fa5-959e-48b920cfecec" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a5660020-f8c1-6c1d-2407-1bc92ad2b473" executionId="0cfc1155-f02b-4427-9e7a-e8079f486f4a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="631322c1-5534-673e-2649-ead8a9728204" executionId="3b9dec8a-56d4-4596-9462-57cf0e54f1eb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="637c11af-eaf8-8c7b-0504-0852bf12b2d3" executionId="1d6d28d9-f91c-4ec7-b5fe-60e60e33adf0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d7348548-6c47-51ff-93ed-5d42c5350e30" executionId="675acfd9-f90e-4b80-ab66-214880367ee1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d6914b14-3570-e6b0-2fa6-bc9ba27adf4f" executionId="31c4621e-26d9-4468-90ac-ffabc399e77b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d4b3e540-7322-f315-cc60-0eb819c4d262" executionId="24cdb498-d2ce-4a26-aedc-edea998a45f6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="07f589e0-d0f4-8a1e-e58b-f9658dae64ba" executionId="e7190cdf-e533-492b-952b-1691a3ec5d58" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0e660d25-baae-3489-4612-42aaec956a0e" executionId="8cc49fa9-7a26-4d04-bcd8-ea08d0d3868d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="9" executed="9" passed="9" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 3.15.1.0: Test execution started&#xD;
+Running all tests in C:\Users\Nastassia_Karatkova\source\repos\SAPProject\SAPTests\bin\Debug\netcoreapp2.1\SAPTests.dll&#xD;
+   NUnit3TestExecutor converted 117 of 117 NUnit test cases&#xD;
+NUnit Adapter 3.15.1.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
