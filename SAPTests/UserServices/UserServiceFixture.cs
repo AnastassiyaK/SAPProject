@@ -109,7 +109,7 @@ namespace SAPTests.UserServices
 
         //[Test, TestCaseSource(typeof(UserHistoryData), nameof(UserHistoryData.UserHistory))]
         [Test]
-        [Priority(1)]
+        [Priority(0)]
         [Description("Compare user history from file and on the page")]
         [Order(2)]
         public void CompareUserHistory()
