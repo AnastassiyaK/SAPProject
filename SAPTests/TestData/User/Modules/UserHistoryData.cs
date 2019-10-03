@@ -10,7 +10,7 @@ namespace SAPTests.TestData.User.Modules
     {
         static UserHistoryData()
         {
-            var reader = File.OpenText($@"{Directory.GetCurrentDirectory()}\TestData\User\download.csv");
+            var reader = File.OpenText($@"{Directory.GetCurrentDirectory()}\TestData\download.csv");
             var csv = new CsvReader(reader);
             UserHistory = csv.GetRecords<DeveloperHistory>().ToList();
             //UserHistory = new [] { history };
