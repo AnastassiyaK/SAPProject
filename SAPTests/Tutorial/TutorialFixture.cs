@@ -13,6 +13,7 @@ using SAPBusiness.WEB.PageObjects.TutorialNavigator.Mission;
 using SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial;
 using SAPTests.Browsers;
 using SAPTests.TestData.TutorialNavigator.Modules;
+using SAPTests.TestsAttributes;
 using System.Linq;
 using System.Threading;
 
@@ -52,6 +53,7 @@ namespace SAPTests.Tutorial
         }
 
         [Test, TestCaseSource(typeof(TutorialsPath), nameof(TutorialsPath.TutorialLinks))]
+        [Priority(1)]
         [Description("Check tutorial where there is a license tag")]
         [Order(1)]
         public void CheckTutorialLicenseTag(string partialLink)

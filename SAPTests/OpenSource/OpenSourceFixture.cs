@@ -10,6 +10,7 @@ using SAPBusiness.WEB.PageObjects.OpenSource.Memberships;
 using SAPBusiness.WEB.PageObjects.OpenSource.Projects;
 using SAPBusiness.WEB.PageObjects.OpenSource.Projects.Search;
 using SAPTests.Browsers;
+using SAPTests.TestsAttributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -112,6 +113,7 @@ namespace SAPTests.OpenSource
         }
 
         [Test(Description = "Check blog post are sorted by date (Desc)")]
+        [Priority(2)]
         [Order(3)]
         public void CheckBlogPostSortByDate()
         {
