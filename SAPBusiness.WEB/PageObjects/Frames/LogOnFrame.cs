@@ -14,8 +14,16 @@ namespace SAPBusiness.WEB.PageObjects.Frames
             _logOnSection = logOnSection;
         }
 
+        private IWebElement ElementLogOn
+        {
+            get
+            {
+                return _driver.FindElement(By.CssSelector(".authentication-wrapper"));
+            }
+        }
         public void LogOn(User user)
         {
+            Open();
             _driver.WaitForElement(By.Id("IDS_UI_Window"));
 
             _driver.SwitchToFrame(_driver.FindElement(By.Id("IDS_UI_Window")));
@@ -28,6 +36,11 @@ namespace SAPBusiness.WEB.PageObjects.Frames
 
             WaitForProcessing();
 
+        }
+
+        private void Open()
+        {
+            ElementLogOn.Click();
         }
 
         public void WaitForProcessing()

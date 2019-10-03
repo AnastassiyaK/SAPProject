@@ -16,5 +16,10 @@ namespace SAPBusiness.WEB.PageObjects.MainPage
         {
             _driver.Navigate(_appConfiguration.ProdUrl);
         }
+
+        public void WaitForLoad()
+        {
+            base.WaitForPageLoad();
+        }
     }
 }

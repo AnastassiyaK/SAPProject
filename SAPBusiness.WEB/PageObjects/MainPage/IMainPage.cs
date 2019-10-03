@@ -1,6 +1,6 @@
 ﻿namespace SAPBusiness.WEB.PageObjects.MainPage
 {
-    public interface IMainPage
+    public interface IMainPage : IPageObject
     {
         void Open();
     }
