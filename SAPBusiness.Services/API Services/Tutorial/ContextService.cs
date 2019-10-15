@@ -9,9 +9,10 @@ namespace SAPBusiness.Services.API_Services.Tutorial
 {
     public class ContextService : IContextService
     {
-        private static string resourseUrl = "/bin/sapdxc/tutorial/miniNavigator";
+        private static readonly string resourseUrlBefore = "/bin/sapdxc/tutorial/miniNavigator";
+        private static readonly string resourseUrlAfter = "/content/developers/website/languages/en/tutorials/cp-apim-openconnectors-enable.json";
 
-        private IEnvironmentConfig _appConfiguration;
+        private readonly IEnvironmentConfig _appConfiguration;
 
         public ContextService(IEnvironmentConfig appConfiguration)
         {
@@ -21,7 +22,7 @@ namespace SAPBusiness.Services.API_Services.Tutorial
         private TutorialResponse GetMiniNavigatorContext(TutorialQuery tutorialQuery)
         {
             string requestUrl = string
-                .Concat(resourseUrl, $".{tutorialQuery.TutorialId}.mission.{tutorialQuery.MissionId}.json");
+                .Concat(resourseUrlBefore, $".{tutorialQuery.TutorialId}.mission.{tutorialQuery.MissionId}.json", resourseUrlAfter);
 
             var client = new RestClient(_appConfiguration.ProdUrl);
 

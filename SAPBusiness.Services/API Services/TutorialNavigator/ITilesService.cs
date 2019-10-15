@@ -4,6 +4,8 @@ namespace SAPBusiness.Services.API_Services.TutorialNavigator
 {
     public interface ITilesService
     {
-         TilesList GetTiles(TilesQuery tilesQuery);
+        TilesList GetTiles(TilesQuery tilesQuery);
+
+        int GetTutorialsAmount(TilesQuery tilesQuery);
     }
 }
