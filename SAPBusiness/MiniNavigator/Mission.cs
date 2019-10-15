@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace SAPBusiness.MiniNavigator
 {
@@ -11,7 +12,8 @@ namespace SAPBusiness.MiniNavigator
         public string Description { get; set; }
 
         [JsonProperty("experience")]
-        public string Experience { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Experience Experience { get; set; }
 
         [JsonProperty("primaryTag")]
         public string PrimaryTag { get; set; }
