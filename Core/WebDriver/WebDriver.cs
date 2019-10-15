@@ -54,6 +54,7 @@ namespace Core.WebDriver
 
             js.ExecuteScript(script);
         }
+
         public string ExecuteScriptOnElementWithResult(string script, IWebElement element)
         {
             script = script ?? throw new ArgumentNullException(nameof(script));
@@ -80,7 +81,6 @@ namespace Core.WebDriver
 
             return js.ExecuteScript(script) as string;
         }
-
         public IWebElement FindElement(By locator)
         {
             TryToFindElement(locator);
