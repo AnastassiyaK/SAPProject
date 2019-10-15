@@ -1,6 +1,7 @@
 ﻿using Core.WebDriver;
 using OpenQA.Selenium;
 using SAPBusiness.WEB.PageObjects.CommonElements;
+using System;
 
 namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 {
@@ -107,11 +108,11 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
             return BookMark.Displayed;
         }
 
-        public string Experience
+        public Experience Experience
         {
             get
             {
-                return TileLevel.Text;
+                return (Experience)Enum.Parse(typeof(Experience),TileLevel.Text);
             }
         }
 

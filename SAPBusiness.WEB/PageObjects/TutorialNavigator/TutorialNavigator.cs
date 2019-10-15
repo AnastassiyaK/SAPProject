@@ -2,9 +2,9 @@
 using Core.WebDriver;
 using OpenQA.Selenium;
 using SAPBusiness.Configuration;
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using Pagination = SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection.PaginationSection;
 
 namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 {
@@ -28,8 +28,16 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
             {
                 return _tiles ??
                     (_tiles = _driver.FindElements(By.CssSelector(".tutorial-tile"))
-                    .Select(element => new TileElement(_driver,element))
+                    .Select(element => new TileElement(_driver, element))
                     .ToList());
+            }
+        }
+
+        private Pagination PaginationSection
+        {
+            get
+            {
+                return new Pagination(_driver);
             }
         }
 
@@ -55,10 +63,21 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
                 _driver.WaitForElement(By.CssSelector(".tutorial-tile"));
             }
         }
+       
+        public bool HasPagination()
+        {
+            WaitForLoad();
+            return PaginationSection.IsVisible();
+        }
 
         public void Open()
         {
             _driver.NavigateToPage(string.Concat(_appConfiguration.ProdUrl + relativeUrl));
+        }
+
+        public void OpenWithTilesOnPage(int tileAmmount)
+        {
+            _driver.Navigate(string.Concat(_driver.Url, $"?tiles={tileAmmount}"));
         }
     }
 }

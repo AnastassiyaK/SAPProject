@@ -22,9 +22,10 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
             return Facet.FindElement(By.CssSelector($"div[data-id='tutorial:experience/{tag.ToLower()}']"));
         }
 
-        public void SelectExperience(string experience)
+        public void SelectExperience(Experience experience)
         {
-            GetTag(experience).Click();
+            GetTag(experience.ToString()).Click();
+            WaitForLoad();
         }
 
         public void WaitForLoad()

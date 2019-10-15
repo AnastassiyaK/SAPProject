@@ -7,6 +7,9 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
         List<TileElement> GetAllTiles();
 
         void Open();
+        void OpenWithTilesOnPage(int tileAmmount);
         bool HasTiles();
+
+        bool HasPagination();
     }
 }

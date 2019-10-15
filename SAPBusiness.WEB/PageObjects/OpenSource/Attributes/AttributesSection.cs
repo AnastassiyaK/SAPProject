@@ -41,7 +41,6 @@ namespace SAPBusiness.WEB.PageObjects.OpenSource.Attributes
                 if (attribute.Title == title)
                 {
                     return attribute;
-
                 }
             }
             throw new AttributeNotFoundException(title);
