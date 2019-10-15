@@ -30,7 +30,9 @@ using SAPBusiness.WEB.PageObjects.OpenSource.Projects.Search;
 using SAPBusiness.WEB.PageObjects.TutorialNavigator;
 using SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection;
 using SAPBusiness.WEB.PageObjects.TutorialNavigator.Mission;
+using SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection;
 using SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial;
+using SAPTests.TestData.TutorialNavigator;
 using ITNavigatorSearch = SAPBusiness.WEB.PageObjects.TutorialNavigator.Search.ISearchSection;
 using OpenSourcePage = SAPBusiness.WEB.PageObjects.OpenSource.OpenSource;
 using TNavigator = SAPBusiness.WEB.PageObjects.TutorialNavigator.TutorialNavigator;
@@ -141,7 +143,11 @@ namespace SAPTests.Autofac
 
             builder.RegisterType<SummaryProgress>().As<ISummaryProgress>();
 
-            builder.RegisterType<TimeConverter>().As<ITimeConverter>(); 
+            builder.RegisterType<TimeConverter>().As<ITimeConverter>();
+
+            builder.RegisterType<PaginationSection>().As<IPaginationSection>();
+
+            builder.RegisterType<TutorialNavigatorConfiguration>().AsSelf().SingleInstance(); 
         }
     }
 }

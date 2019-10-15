@@ -36,6 +36,9 @@
     <None Update="TestData\TutorialNavigator\TilesQuery.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\TutorialNavigator\TutorialNavigatorConfiguration.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestData\TutorialNavigator\TutorialTitles.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

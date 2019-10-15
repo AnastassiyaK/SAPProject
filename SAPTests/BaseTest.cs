@@ -50,6 +50,12 @@ namespace SAPTests
             });
         }
 
+        [OneTimeSetUp]
+        public void SetUpScope()
+        {
+            Scope = SetUpGlobal.Container.BeginLifetimeScope();
+        }
+
         [SetUp]
         public void Setup()
         {

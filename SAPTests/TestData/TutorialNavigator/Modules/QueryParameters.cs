@@ -2,6 +2,7 @@
 using SAPBusiness.TilesData;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace SAPTests.TestData.TutorialNavigator.Modules
 {
@@ -14,7 +15,7 @@ namespace SAPTests.TestData.TutorialNavigator.Modules
             _tilesQueryList = JsonConvert.DeserializeObject<TilesQueryList>(GetJSONString());
         }
 
-        public static IList<TilesQuery> TilesQuery
+        public static IList<TilesQuery> TilesQueries
         {
             get
             {
@@ -22,6 +23,19 @@ namespace SAPTests.TestData.TutorialNavigator.Modules
             }
         }
 
+        public static TilesQuery TilesQuery
+        {
+            get
+            {
+                return TilesQueries.FirstOrDefault();
+            }
+        }
+
+        public static TilesQuery AddExperienceFilter(Experience experience)
+        {
+            TilesQuery.Filter.Add($"/tutorial/experience/{experience.ToString().ToLower()}/solrTagId");
+            return TilesQuery;
+        }
         private static string GetJSONString()
         {
             return File.ReadAllText($@"{Directory.GetCurrentDirectory()}\TestData\TutorialNavigator\TilesQuery.json");

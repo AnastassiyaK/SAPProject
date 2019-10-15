@@ -6,7 +6,7 @@ namespace SAPTests.TestData.TutorialNavigator.Modules
 {
     public class TutorialsPath
     {
-        private static TutorialLinksType _tutorialLinksType;
+        private static readonly TutorialLinksType _tutorialLinksType;
 
         static TutorialsPath()
         {

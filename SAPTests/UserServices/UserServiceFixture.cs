@@ -107,13 +107,12 @@ namespace SAPTests.UserServices
             });
         }
 
-        //[Test, TestCaseSource(typeof(UserHistoryData), nameof(UserHistoryData.UserHistory))]
         [Test]
         [Priority(0)]
         [Description("Compare user history from file and on the page")]
         [Order(2)]
         public void CompareUserHistory()
-        {            
+        {
             logonStrategy.LogOn(UserPool.GetUser());
 
             var cookies = BaseDriver.GetBrowserCookies();
@@ -124,7 +123,7 @@ namespace SAPTests.UserServices
 
             var userFileHistory = UserHistoryData.UserHistory;
 
-            var userHistory =userService.GetUserHistory(cookies);
+            var userHistory = userService.GetUserHistory(cookies);
 
             CollectionAssert.IsNotEmpty(userHistory);
 

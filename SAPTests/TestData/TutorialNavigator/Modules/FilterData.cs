@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -13,11 +14,16 @@ namespace SAPTests.TestData.TutorialNavigator.Modules
             _filterTags = JsonConvert.DeserializeObject<FilterTags>(GetJSONString());
         }
 
-        public static IEnumerable<string> ExperienceTags
+        public static IEnumerable<Experience> ExperienceTags
         {
             get
             {
-                return _filterTags.Experience.Tags;
+                var experience = new List<Experience>();
+                foreach(var tag in _filterTags.Experience.Tags)
+                {
+                    experience.Add((Experience)Enum.Parse(typeof(Experience),tag));
+                }
+                return experience;
             }
         }
 
