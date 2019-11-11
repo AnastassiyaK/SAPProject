@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
-
-namespace SAPBusiness.TilesData
+﻿namespace SAPBusiness.TilesData
 {
+    using System;
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+
     public class TutorialNavigatorScope
     {
         [JsonProperty("group")]
@@ -11,18 +13,21 @@ namespace SAPBusiness.TilesData
         public string Mission { get; set; }
 
         [JsonProperty("tutorialsNewFrom")]
-        public string TutorialsNewFrom { get; set; }
+        public DateTime TutorialsNewFrom { get; set; }
 
         [JsonProperty("numFound")]
         public int TotalTutorialCount { get; set; }
 
         [JsonProperty("countGroups")]
-        public int CountGroups { get; set; }
+        public int GroupsCount { get; set; }
 
         [JsonProperty("countMissions")]
-        public int CountMissions { get; set; }
+        public int MissionsCount { get; set; }
 
         [JsonProperty("countTutorials")]
-        public int CountTutorials { get; set; }
+        public int TutorialsCount { get; set; }
+
+        [JsonProperty("result")]
+        public IList<Tile> Tiles { get; set; }
     }
 }

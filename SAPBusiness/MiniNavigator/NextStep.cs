@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-
-namespace SAPBusiness.MiniNavigator
+﻿namespace SAPBusiness.MiniNavigator
 {
+    using Newtonsoft.Json;
+
     public class NextStep
     {
         [JsonProperty("title")]

@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
-namespace SAPBusiness.MiniNavigator
+﻿namespace SAPBusiness.MiniNavigator
 {
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
+
     public class Mission
     {
         [JsonProperty("title")]

@@ -2,7 +2,8 @@
 {
     public class AccordionReference : AccordionBaseText
     {
-        public AccordionReference(string text) : base(text)
+        public AccordionReference(string text)
+            : base(text)
         {
         }
 

@@ -1,10 +1,13 @@
-﻿/// <summary>
-/// Filters on TutorialNavigator page
-/// </summary>
-public enum FilterType
+﻿namespace SAPBusiness.Enums
 {
-    Topic,
-    Products,
-    Experience,
-    Type
+    /// <summary>
+    /// Filters on TutorialNavigator page.
+    /// </summary>
+    public enum FilterType
+    {
+        Topic,
+        Products,
+        Experience,
+        Type
+    }
 }

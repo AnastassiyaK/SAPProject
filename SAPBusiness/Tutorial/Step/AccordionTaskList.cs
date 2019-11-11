@@ -1,21 +1,31 @@
-﻿using System;
-
-namespace SAPBusiness.Tutorial.Step
+﻿namespace SAPBusiness.Tutorial.Step
 {
-    public class AccordionTaskList : AccordionComponent, IAccordion
-    {
-        public AccordionTaskList(int tasks)
-        {
+    using System.Collections.Generic;
 
-        }
-        public void AddComponent(AccordionComponent component)
+    public class AccordionTaskList : AccordionComponent
+    {
+        private List<AccordionTask> _tasks;
+
+        public AccordionTaskList()
         {
-            
+            _tasks = new List<AccordionTask>();
+        }
+
+        public AccordionComponent AddTask(AccordionTask component)
+        {
+            _tasks.Add(component);
+            return this;
         }
 
         public override string FormatView()
         {
-            throw new NotImplementedException();
+            string result = "";
+            foreach (var task in _tasks)
+            {
+                result += $"{task.FormatView()}\n\n";
+            }
+
+            return result;
         }
     }
 }

@@ -3,13 +3,9 @@
     /// <summary>
     /// Types of Tiles.
     /// </summary>
-    public enum HeaderType
+    public enum AccordionTaskType
     {
-        H1,
-        H2,
-        H3,
-        H4,
-        H5,
-        H6
+        Complete,
+        Incomplete
     }
 }

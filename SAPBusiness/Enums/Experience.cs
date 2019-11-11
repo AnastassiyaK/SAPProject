@@ -1,5 +1,5 @@
 ﻿/// <summary>
-///Types of Experiences for Tutorials
+/// Types of Experiences for Tutorials.
 /// </summary>
 public enum Experience
 {

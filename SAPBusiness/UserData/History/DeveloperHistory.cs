@@ -1,14 +1,14 @@
-﻿using Newtonsoft.Json;
-
-namespace SAPBusiness.UserData.History
+﻿namespace SAPBusiness.UserData.History
 {
+    using Newtonsoft.Json;
+
     public class DeveloperHistory
     {
         [JsonProperty("completionDate")]
         [CsvHelper.Configuration.Attributes.Name("Date Time")]
         public string CompletionDate { get; set; }
 
-        [JsonProperty("completionTime")]        
+        [JsonProperty("completionTime")]
         [CsvHelper.Configuration.Attributes.Name("Time spent")]
         public string CompletionTime { get; set; }
 

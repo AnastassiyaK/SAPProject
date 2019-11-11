@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-
-namespace SAPBusiness.Tutorial.Step
+﻿namespace SAPBusiness.Tutorial.Step
 {
+    using System.Collections.Generic;
+
     public class AccordionNestedList : AccordionList
     {
-        public AccordionNestedList(List<string> list) : base(list)
+        public AccordionNestedList(List<string> list)
+            : base(list)
         {
         }
     }

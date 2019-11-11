@@ -1,9 +1,12 @@
-﻿/// <summary>
-/// Types of Tiles 
-/// </summary>
-public enum Language
+﻿namespace SAPBusiness.Enums
 {
-    JavaScript,
-    CSharp,
-    Java
+    /// <summary>
+    /// Types of Tiles.
+    /// </summary>
+    public enum Language
+    {
+        JavaScript,
+        CSharp,
+        Java
+    }
 }

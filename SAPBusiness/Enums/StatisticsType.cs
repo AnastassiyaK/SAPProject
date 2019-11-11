@@ -1,9 +1,12 @@
-﻿/// <summary>
-/// User statistics on the main page when user logged in
-/// </summary>
-public enum StatisticsType
+﻿namespace SAPBusiness.Enums
 {
-    Tutorials,
-    Missions,
-    Groups
+    /// <summary>
+    /// User statistics on the main page when user logged in.
+    /// </summary>
+    public enum StatisticsType
+    {
+        Tutorials,
+        Missions,
+        Groups
+    }
 }

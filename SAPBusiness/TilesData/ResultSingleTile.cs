@@ -1,15 +1,15 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-
-namespace SAPBusiness.TilesData
+﻿namespace SAPBusiness.TilesData
 {
-    public class TilesQuery
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+
+    public class ResultSingleTile
     {
         [JsonProperty("start")]
-        public string StartIndex { get; set; }
+        public int StartIndex { get; set; }
 
         [JsonProperty("rows")]
-        public string EndIndex { get; set; }
+        public int EndIndex { get; set; }
 
         [JsonProperty("searchField")]
         public string Search { get; set; }

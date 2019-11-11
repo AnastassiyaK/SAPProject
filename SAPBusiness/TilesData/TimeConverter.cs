@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace SAPBusiness.TilesData
+﻿namespace SAPBusiness.TilesData
 {
+    using System;
+
     public class TimeConverter : ITimeConverter
     {
         public string GetTime(int seconds)
@@ -24,8 +24,8 @@ namespace SAPBusiness.TilesData
                 timeFormat = hours + " hr. " + minutes + " min.";
                 return timeFormat;
             }
-            return timeFormat;
 
+            return timeFormat;
         }
     }
 }

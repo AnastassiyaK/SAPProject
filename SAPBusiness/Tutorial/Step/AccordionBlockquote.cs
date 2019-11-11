@@ -1,15 +1,15 @@
 ﻿namespace SAPBusiness.Tutorial.Step
 {
-    public class AccordionBullet : AccordionBaseText
+    public class AccordionBlockquote : AccordionBaseText
     {
-        public AccordionBullet(string text)
+        public AccordionBlockquote(string text)
             : base(text)
         {
         }
 
         public override string FormatView()
         {
-            return $"* {_text}\n";
+            return $">{_text}";
         }
     }
 }

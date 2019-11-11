@@ -2,7 +2,8 @@
 {
     public class AccordionTag : AccordionBaseText
     {
-        public AccordionTag(string text) : base(text)
+        public AccordionTag(string text)
+            : base(text)
         {
         }
 

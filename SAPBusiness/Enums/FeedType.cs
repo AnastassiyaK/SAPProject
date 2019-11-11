@@ -1,10 +1,12 @@
-﻿/// <summary>
-/// Feeds on the page OpenSuorce
-/// </summary>
-public enum FeedType
+﻿namespace SAPBusiness.Enums
 {
-    Trending,
-    Latest,
-    MostLiked
+    /// <summary>
+    /// Feeds on the page OpenSuorce.
+    /// </summary>
+    public enum FeedType
+    {
+        Trending,
+        Latest,
+        MostLiked
+    }
 }
-

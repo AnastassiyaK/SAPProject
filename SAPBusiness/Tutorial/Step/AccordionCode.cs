@@ -1,8 +1,11 @@
 ﻿namespace SAPBusiness.Tutorial.Step
 {
-    public class AccordionCode : AccordionComponent
+    using SAPBusiness.Enums;
+
+    public class AccordionCode : AccordionCompositeComponent, IAccordion
     {
         private Language _language;
+
         private string _body;
 
         public AccordionCode(Language language, string body)

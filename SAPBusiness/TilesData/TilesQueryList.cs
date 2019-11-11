@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-
-namespace SAPBusiness.TilesData
+﻿namespace SAPBusiness.TilesData
 {
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+
     public class TilesQueryList
     {
         [JsonProperty("TilesQueries")]
-        public IList<TilesQuery> Parameters { get; set; }
+        public IList<ResultSingleTile> Parameters { get; set; }
     }
 }

@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-
-namespace SAPBusiness.UserData.History
+﻿namespace SAPBusiness.UserData.History
 {
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+
     public class UserHistory
     {
         [JsonProperty("developerHistory")]

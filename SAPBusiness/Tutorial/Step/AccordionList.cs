@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SAPBusiness.Tutorial.Step
+﻿namespace SAPBusiness.Tutorial.Step
 {
+    using System;
+    using System.Collections.Generic;
+
     public class AccordionList : AccordionComponent
     {
         private List<string> _list;
