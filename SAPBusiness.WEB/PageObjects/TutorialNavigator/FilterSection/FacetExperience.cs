@@ -1,11 +1,13 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 {
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
+
     public class FacetExperience : BasePageObject, IFacetExperience
     {
-        public FacetExperience(WebDriver driver) : base(driver)
+        public FacetExperience(WebDriver driver, ILogger logger)
+            : base(driver, logger)
         {
         }
 
@@ -17,11 +19,6 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
             }
         }
 
-        private IWebElement GetTag(string tag)
-        {
-            return Facet.FindElement(By.CssSelector($"div[data-id='tutorial:experience/{tag.ToLower()}']"));
-        }
-
         public void SelectExperience(Experience experience)
         {
             GetTag(experience.ToString()).Click();
@@ -31,6 +28,11 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
         public void WaitForLoad()
         {
             _driver.WaitForElementDissapear(By.CssSelector(".loader"));
+        }
+
+        private IWebElement GetTag(string tag)
+        {
+            return Facet.FindElement(By.CssSelector($"div[data-id='tutorial:experience/{tag.ToLower()}']"));
         }
     }
 }

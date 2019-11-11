@@ -1,9 +1,8 @@
-﻿
-using SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial;
-using System.Collections.Generic;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 {
+    using System.Collections.Generic;
+    using SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial;
+
     public interface ISummarySection : IPageObject
     {
         string Title { get; }

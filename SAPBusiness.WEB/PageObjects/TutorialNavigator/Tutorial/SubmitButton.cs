@@ -1,11 +1,13 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
 {
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
+
     public class SubmitButton : StepButton
     {
-        public SubmitButton(WebDriver driver, IWebElement element) : base(driver, element)
+        public SubmitButton(WebDriver driver, IWebElement element, ILogger logger)
+            : base(driver, element, logger)
         {
         }
 

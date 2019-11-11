@@ -1,17 +1,34 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-using System.Text.RegularExpressions;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
 {
-    public class SummaryStep : BasePageObject
-    {
-        private static readonly char completedSign = '\uf00c';
+    using System.Text.RegularExpressions;
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
 
-        private IWebElement _element;
-        public SummaryStep(WebDriver driver, IWebElement element) : base(driver)
+    public class SummaryStep : BaseDependentOnElementObject
+    {
+        private static readonly char _completedSign = '\uf00c';
+
+        public SummaryStep(WebDriver driver, IWebElement element, ILogger logger)
+            : base(driver, element, logger)
         {
-            _element = element;
+        }
+
+        public string Id
+        {
+            get
+            {
+                var link = StepElement.GetAttribute("href");
+                return link.Substring(link.IndexOf("#") + 1);
+            }
+        }
+
+        public int Number
+        {
+            get
+            {
+                return int.Parse(StepElement.Text);
+            }
         }
 
         private IWebElement ElementCompleted
@@ -30,36 +47,20 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
             }
         }
 
-        public int Number
-        {
-            get
-            {
-                return int.Parse(StepElement.Text);
-            }
-        }
-
         public bool Completed()
         {
-            var content =_driver.GetPropertyFromPseudoElement("before", "content", ElementCompleted);
+            var content = _driver.GetPropertyFromPseudoElement("before", "content", ElementCompleted);
 
             Regex regex = new Regex(@"[^\\\""\w]");
             Match match = regex.Match(content);
 
-            string expectedContent = char.ToString(completedSign);
+            string expectedContent = char.ToString(_completedSign);
             if (match.Value == expectedContent)
             {
                 return true;
             }
-            return false;           
-        }
 
-        public string Id
-        {
-            get
-            {
-                var link = StepElement.GetAttribute("href");
-                return link.Substring(link.IndexOf("#")+1);
-            }
+            return false;
         }
     }
 }

@@ -1,11 +1,13 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 {
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
+
     public class FacetTopic : BasePageObject, IFacetTopic
     {
-        public FacetTopic(WebDriver driver) : base(driver)
+        public FacetTopic(WebDriver driver, ILogger logger)
+            : base(driver, logger)
         {
         }
 

@@ -1,11 +1,13 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
 {
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
+
     public abstract class CollapsedRange : BasePageLink
     {
-        public CollapsedRange(IWebElement element, WebDriver driver) : base(element, driver)
+        public CollapsedRange(WebDriver driver, IWebElement element, ILogger logger)
+            : base(driver, element, logger)
         {
         }
 
@@ -23,6 +25,15 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
                 }
             }
         }
+
+        public int EndValue
+        {
+            get
+            {
+                return int.Parse(End);
+            }
+        }
+
         public int StartValue
         {
             get
@@ -39,15 +50,8 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
                 {
                     return Text.Substring(Text.IndexOf("-") + 2);
                 }
-                return "0";
-            }
-        }
 
-        public int EndValue
-        {
-            get
-            {
-                return int.Parse(End);
+                return "0";
             }
         }
 
@@ -65,6 +69,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
             {
                 return true;
             }
+
             return false;
         }
     }

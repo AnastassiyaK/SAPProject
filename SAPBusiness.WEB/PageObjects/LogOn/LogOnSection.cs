@@ -1,13 +1,14 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-
-namespace SAPBusiness.WEB.PageObjects.LogOn
+﻿namespace SAPBusiness.WEB.PageObjects.LogOn
 {
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
+
     public class LogOnSection : BasePageObject, ILogOnSection
     {
-        public LogOnSection(WebDriver driver) : base(driver)
+        public LogOnSection(WebDriver driver, ILogger logger)
+            : base(driver, logger)
         {
-
         }
 
         public IWebElement UserNameInput

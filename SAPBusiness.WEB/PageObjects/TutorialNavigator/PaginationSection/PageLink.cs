@@ -1,11 +1,13 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
 {
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
+
     public class PageLink : BasePageLink
     {
-        public PageLink(IWebElement element, WebDriver driver) : base(element, driver)
+        public PageLink(WebDriver driver, IWebElement element, ILogger logger)
+            : base(driver, element, logger)
         {
         }
 
@@ -16,12 +18,14 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
                 return int.Parse(Text);
             }
         }
+
         public bool IsActive()
         {
             if (_element.GetCssValue("background-color") == "")
             {
                 return true;
             }
+
             return false;
         }
 

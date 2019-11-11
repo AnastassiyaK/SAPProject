@@ -1,18 +1,20 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-using SAPBusiness.WEB.Exceptions;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
+    using SAPBusiness.WEB.Exceptions;
+
     public class NextStepSection : BasePageObject, INextStepSection
     {
-        public NextStepSection(WebDriver driver) : base(driver)
+        private List<NextStep> _nextSteps;
+
+        public NextStepSection(WebDriver driver, ILogger logger)
+            : base(driver, logger)
         {
         }
-
-        private List<NextStep> _nextSteps;
 
         private List<NextStep> NextSteps
         {
@@ -20,7 +22,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
             {
                 return _nextSteps ??
                     (_nextSteps = _driver.FindElements(By.CssSelector("#list-of-tiles .main-tile__tutorials"))
-                    .Select(element => new NextStep(_driver, element))
+                    .Select(element => new NextStep(_driver, element, _logger))
                     .ToList());
             }
         }
@@ -36,6 +38,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
             {
                 return NextSteps[0];
             }
+
             throw new NextStepNotFoundException("Tutorial does not have any next steps");
         }
     }

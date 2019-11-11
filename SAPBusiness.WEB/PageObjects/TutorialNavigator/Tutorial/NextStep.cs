@@ -1,16 +1,15 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-using SAPBusiness.WEB.PageObjects.CommonElements;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
 {
-    public class NextStep : BasePageObject
-    {
-        private IWebElement _element;
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
+    using SAPBusiness.WEB.PageObjects.Developers.CommonElements;
 
-        public NextStep(WebDriver driver, IWebElement element) : base(driver)
+    public class NextStep : BaseDependentOnElementObject
+    {
+        public NextStep(WebDriver driver, IWebElement element, ILogger logger)
+            : base(driver, element, logger)
         {
-            _element = element;
         }
 
         public string Description
@@ -18,6 +17,31 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
             get
             {
                 return ElementDescription.Text;
+            }
+        }
+
+        public string Link
+        {
+            get
+            {
+                return ElementTitle.GetAttribute("href");
+            }
+        }
+
+        public string PublicUrl
+        {
+            get
+            {
+                string link = ElementTitle.GetAttribute("href");
+                return link.Substring(link.IndexOf("/tutorial"));
+            }
+        }
+
+        public string Title
+        {
+            get
+            {
+                return ElementTitle.Text;
             }
         }
 
@@ -37,42 +61,17 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
             }
         }
 
-        public string Title
-        {
-            get
-            {
-                return ElementTitle.Text;
-            }
-        }
-
         private TitleComponent TitleComponent
         {
             get
             {
-                return new TitleComponent(_driver, ElementTitle);
+                return new TitleComponent(_driver, ElementTitle, _logger);
             }
         }
 
         public bool HasLicenseKey()
         {
             return TitleComponent.HasLicenseKey();
-        }
-
-        public string Link
-        {
-            get
-            {
-                return ElementTitle.GetAttribute("href");
-            }
-        }
-
-        public string PublicUrl
-        {
-            get
-            {
-                string link = ElementTitle.GetAttribute("href");
-                return link.Substring(link.IndexOf("/tutorial"));
-            }
         }
     }
 }

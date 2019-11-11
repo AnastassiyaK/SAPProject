@@ -1,17 +1,15 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
 {
-    public abstract class BasePageLink : BasePageObject
-    {
-        protected readonly IWebElement _element;
-        public BasePageLink(IWebElement element,WebDriver driver) : base(driver)
-        {
-            _element = element;
-        }
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
 
-        public abstract void Click();
+    public abstract class BasePageLink : BaseDependentOnElementObject
+    {
+        public BasePageLink(WebDriver driver, IWebElement element, ILogger logger)
+            : base(driver, element, logger)
+        {
+        }
 
         public virtual string Link
         {
@@ -29,6 +27,8 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
             }
         }
 
+        public abstract void Click();
+
         public virtual bool ContainsPage(int number)
         {
             if (Link.Contains(number.ToString()))
@@ -40,6 +40,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
                 return false;
             }
         }
+
         protected void WaitForLoad()
         {
             _driver.WaitForElementDissapear(By.CssSelector(".loader"));

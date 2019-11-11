@@ -3,8 +3,11 @@
     public interface ISearchSection : IPageObject
     {
         void ClearInput();
+
         string GetSearchingString();
+
         bool IsEmpty();
+
         void Search(string searchString);
     }
 }

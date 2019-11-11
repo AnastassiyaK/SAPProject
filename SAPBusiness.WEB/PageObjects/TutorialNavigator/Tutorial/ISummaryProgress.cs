@@ -5,6 +5,7 @@
         int Value { get; }
 
         double GetBarProgress();
+
         double GetProgress();
     }
 }

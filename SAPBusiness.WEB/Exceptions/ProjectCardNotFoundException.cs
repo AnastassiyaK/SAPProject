@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace SAPBusiness.WEB.Exceptions
+﻿namespace SAPBusiness.WEB.Exceptions
 {
+    using System;
+
     public class ProjectCardNotFoundException : Exception
     {
         public ProjectCardNotFoundException(string message)

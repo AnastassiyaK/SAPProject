@@ -1,6 +1,4 @@
-﻿using OpenQA.Selenium;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 {
     public interface IFacetTopic : IPageObject
     {

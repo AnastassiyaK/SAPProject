@@ -1,14 +1,24 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-using System;
-using System.Text.RegularExpressions;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
 {
+    using System;
+    using System.Text.RegularExpressions;
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
+
     public class SummaryProgress : BasePageObject, ISummaryProgress
     {
-        public SummaryProgress(WebDriver driver) : base(driver)
+        public SummaryProgress(WebDriver driver, ILogger logger)
+            : base(driver, logger)
         {
+        }
+
+        public int Value
+        {
+            get
+            {
+                return int.Parse(ElementPercentage.Text);
+            }
         }
 
         private IWebElement ElementPercentage
@@ -16,13 +26,6 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
             get
             {
                 return _driver.FindElement(By.CssSelector(".tutorialSummary .value"));
-            }
-        }
-        public int Value
-        {
-            get
-            {
-                return int.Parse(ElementPercentage.Text);
             }
         }
 

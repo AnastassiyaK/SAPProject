@@ -1,11 +1,13 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
 {
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
+
     public class EndCollapsedRange : CollapsedRange
     {
-        public EndCollapsedRange(IWebElement element, WebDriver driver) : base(element, driver)
+        public EndCollapsedRange(WebDriver driver, IWebElement element, ILogger logger)
+            : base(driver, element, logger)
         {
         }
 

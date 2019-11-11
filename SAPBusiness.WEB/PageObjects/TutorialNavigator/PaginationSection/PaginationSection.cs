@@ -1,15 +1,45 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-using SAPBusiness.WEB.Exceptions;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
+    using SAPBusiness.WEB.Exceptions;
+
     public class PaginationSection : BasePageObject, IPaginationSection
     {
-        public PaginationSection(WebDriver driver) : base(driver)
+        public PaginationSection(WebDriver driver, ILogger logger)
+            : base(driver, logger)
         {
+        }
+
+        public List<CollapsedRange> CollapsedRanges
+        {
+            get
+            {
+                var allCollapsed = new List<CollapsedRange>(CollapsedStartElements);
+
+                // allCollapsed.AddRange(CollapsedStartElements);
+                allCollapsed.AddRange(CollapsedEndElements);
+                return allCollapsed;
+            }
+        }
+
+        public PageLink CurrentPage
+        {
+            get
+            {
+                return new PageLink(_driver, Pagination.FindElement(By.ClassName("active")), _logger);
+            }
+        }
+
+        public List<BasePageLink> PageLinks
+        {
+            get
+            {
+                return CollectPageLinks();
+            }
         }
 
         private IWebElement Pagination
@@ -28,24 +58,12 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
             }
         }
 
-        public PageLink CurrentPage
-        {
-            get
-            {
-                return new PageLink(Pagination.FindElement(By.ClassName("active")), _driver);
-            }
-        }
-
-        //private List<PageLink> GetPageLinks()
-        //{
-
-        //}
         private List<PageLink> ExpandedRange
         {
             get
             {
                 return Pagination.FindElements(By.ClassName("main-part"))
-                    .Select(element => new PageLink(element, _driver))
+                    .Select(element => new PageLink(_driver, element, _logger))
                     .ToList();
             }
         }
@@ -55,7 +73,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
             get
             {
                 return Pagination.FindElements(By.ClassName("start-part"))
-                    .Select(element => new StartCollapsedRange(element, _driver))
+                    .Select(element => new StartCollapsedRange(_driver, element, _logger))
                     .ToList();
             }
         }
@@ -65,19 +83,8 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
             get
             {
                 return Pagination.FindElements(By.ClassName("end-part"))
-                    .Select(element => new EndCollapsedRange(element, _driver))
+                    .Select(element => new EndCollapsedRange(_driver, element, _logger))
                     .ToList();
-            }
-        }
-
-        public List<CollapsedRange> CollapsedRanges
-        {
-            get
-            {
-                var allCollapsed = new List<CollapsedRange>(CollapsedStartElements);
-                //allCollapsed.AddRange(CollapsedStartElements);
-                allCollapsed.AddRange(CollapsedEndElements);
-                return allCollapsed;
             }
         }
 
@@ -136,25 +143,8 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
 
         public void WaitForLoad()
         {
-            base.WaitForPageLoad();
+            this.WaitForPageLoad();
             _driver.WaitForElementDissapear(By.CssSelector(".loader"));
-        }
-
-        public List<BasePageLink> PageLinks
-        {
-            get
-            {
-                return CollectPageLinks();
-            }
-        }
-
-        private List<BasePageLink> CollectPageLinks()
-        {
-            var links = new List<BasePageLink>();
-            links.AddRange(ExpandedRange);
-            links.AddRange(CollapsedStartElements);
-            links.AddRange(CollapsedEndElements);
-            return links;
         }
 
         public List<PageLink> GetExpandedRange()
@@ -178,6 +168,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
             {
                 return CollapsedEndElements.FirstOrDefault();
             }
+
             throw new CollapsedRangeNotFoundException();
         }
 
@@ -185,12 +176,22 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
         {
             var link = GetPageLinkForNumber(pageNumber);
 
-            if(link is CollapsedRange collapsedRange)
+            if (link is CollapsedRange collapsedRange)
             {
                 collapsedRange.Click();
                 link = GetPageLinkForNumber(pageNumber);
             }
+
             link.Click();
+        }
+
+        private List<BasePageLink> CollectPageLinks()
+        {
+            var links = new List<BasePageLink>();
+            links.AddRange(ExpandedRange);
+            links.AddRange(CollapsedStartElements);
+            links.AddRange(CollapsedEndElements);
+            return links;
         }
 
         private BasePageLink GetPageLinkForNumber(int pageNumber)
@@ -202,6 +203,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
                     return link;
                 }
             }
+
             throw new PageIsNotAccessibleException(pageNumber.ToString());
         }
     }

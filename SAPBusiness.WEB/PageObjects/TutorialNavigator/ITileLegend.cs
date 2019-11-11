@@ -3,7 +3,9 @@
     public interface ITileLegend : IPageObject
     {
         int Group { get; }
+
         int Mission { get; }
+
         int Tutorial { get; }
     }
 }

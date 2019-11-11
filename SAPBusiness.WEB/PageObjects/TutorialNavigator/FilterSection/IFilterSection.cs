@@ -2,6 +2,8 @@
 {
     public interface IFilterSection : IPageObject
     {
+        void ClearAll();
+
         FilterSection SelectTagByTitle(string title);
     }
 }

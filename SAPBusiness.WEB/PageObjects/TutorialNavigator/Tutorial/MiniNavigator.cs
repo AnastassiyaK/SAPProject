@@ -1,32 +1,26 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
+
     public class MiniNavigator : BasePageObject, IMiniNavigator
     {
-        public MiniNavigator(WebDriver driver) : base(driver)
+        private List<MiniNavigatorLink> _links;
+
+        public MiniNavigator(WebDriver driver, ILogger logger)
+            : base(driver, logger)
         {
         }
 
-        private List<MiniNavigatorLink> _links;
-
-        private List<MiniNavigatorLink> Links
+        public string NextStepLink
         {
             get
             {
-                return _links ??
-                    (_links = _driver.FindElements(By.CssSelector(".miniNavigator section .tutorial-miniNavigator__links-item"))
-                    .Select(element => new MiniNavigatorLink(_driver, element))
-                    .ToList());
+                return NextButton.GetAttribute("href");
             }
-        }
-
-        public List<MiniNavigatorLink> GetLinks()
-        {
-            return Links;
         }
 
         private IWebElement NextButton
@@ -37,12 +31,20 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
             }
         }
 
-        public string NextStepLink
+        private List<MiniNavigatorLink> Links
         {
             get
             {
-                return NextButton.GetAttribute("href");
+                return _links ??
+                    (_links = _driver.FindElements(By.CssSelector(".miniNavigator section .tutorial-miniNavigator__links-item"))
+                    .Select(element => new MiniNavigatorLink(_driver, element, _logger))
+                    .ToList());
             }
+        }
+
+        public List<MiniNavigatorLink> GetLinks()
+        {
+            return Links;
         }
     }
 }

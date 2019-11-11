@@ -1,15 +1,14 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
 {
-    public abstract class StepButton : BasePageObject, IStepButton
-    {
-        protected IWebElement _element;
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
 
-        public StepButton(WebDriver driver, IWebElement element) : base(driver)
+    public abstract class StepButton : BaseDependentOnElementObject, IStepButton
+    {
+        public StepButton(WebDriver driver, IWebElement element, ILogger logger)
+            : base(driver, element, logger)
         {
-            _element = element;
         }
 
         protected abstract IWebElement Button { get; }
@@ -21,13 +20,13 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
             {
                 Button.Click();
                 i--;
-                if(i==0)
+                if (i == 0)
                 {
                     break;
                 }
             }
             while (!_element.FindElement(By.CssSelector(".done-button .link-button"))
-            .GetAttribute("class").Contains("answer-success"));            
+            .GetAttribute("class").Contains("answer-success"));
         }
     }
 }

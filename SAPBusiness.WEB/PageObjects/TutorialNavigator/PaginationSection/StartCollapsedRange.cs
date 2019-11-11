@@ -1,11 +1,13 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection
 {
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
+
     public class StartCollapsedRange : CollapsedRange
     {
-        public StartCollapsedRange(IWebElement element, WebDriver driver) : base(element, driver)
+        public StartCollapsedRange(WebDriver driver, IWebElement element, ILogger logger)
+            : base(driver, element, logger)
         {
         }
 

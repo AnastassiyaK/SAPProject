@@ -1,13 +1,15 @@
-﻿using Core.WebDriver;
-using SAPBusiness.UserData;
-
-namespace SAPBusiness.WEB.PageObjects.LogOn
+﻿namespace SAPBusiness.WEB.PageObjects.LogOn
 {
+    using Core.WebDriver;
+    using NLog;
+    using SAPBusiness.UserData;
+
     public class LogOnPage : BasePageObject, ILogOnStrategy
     {
         private readonly ILogOnSection _logOnSection;
 
-        public LogOnPage(WebDriver driver, ILogOnSection logOnSection) : base(driver)
+        public LogOnPage(WebDriver driver, ILogger logger, ILogOnSection logOnSection)
+            : base(driver, logger)
         {
             _logOnSection = logOnSection;
         }

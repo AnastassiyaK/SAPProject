@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
 {
+    using System.Collections.Generic;
+
     public interface INextStepSection
     {
         List<NextStep> GetNextSteps();

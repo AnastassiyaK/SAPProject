@@ -1,15 +1,14 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-using System;
-using System.Text.RegularExpressions;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Search
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Search
 {
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
+
     public class SearchSection : BasePageObject, ISearchSection
     {
-        public SearchSection(WebDriver driver) : base(driver)
+        public SearchSection(WebDriver driver, ILogger logger)
+            : base(driver, logger)
         {
-
         }
 
         private IWebElement SearchInput
@@ -39,6 +38,8 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Search
 
             _driver.FindElement(By.CssSelector("form[id='search-form'] .search__button"))
                 .Click();
+
+            WaitForLoad();
         }
 
         public string GetSearchingString()

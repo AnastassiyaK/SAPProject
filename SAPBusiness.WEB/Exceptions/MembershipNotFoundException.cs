@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace SAPBusiness.WEB.Exceptions
+﻿namespace SAPBusiness.WEB.Exceptions
 {
+    using System;
+
     public class MembershipNotFoundException : Exception
     {
         public MembershipNotFoundException(string message)

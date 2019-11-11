@@ -1,35 +1,32 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 {
-    public class FacetType : BasePageObject, IFacetType
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
+
+    public class FacetType : BaseFacet, IFacetType
     {
-        public FacetType(WebDriver driver) : base(driver)
+        public FacetType(WebDriver driver, ILogger logger)
+            : base(driver, logger)
         {
         }
 
-        private IWebElement Facet
+        protected override By Selector
         {
             get
             {
-                return _driver.FindElement(By.CssSelector(".facet-type"));
+                return By.CssSelector(".facet-type");
             }
+        }
+
+        public override void SelectTag(string tag)
+        {
+            GetTag(tag).Click();
         }
 
         private IWebElement GetTag(string tag)
         {
             return Facet.FindElement(By.CssSelector($"div[data-id='tutorial:type/{tag.ToLower()}']"));
-        }
-
-        public void SelectType(string type)
-        {
-            GetTag(type).Click();
-        }
-
-        public void WaitForLoad()
-        {
-            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
         }
     }
 }

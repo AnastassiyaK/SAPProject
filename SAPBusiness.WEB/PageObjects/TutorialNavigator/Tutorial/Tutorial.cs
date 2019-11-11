@@ -1,15 +1,16 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-using SAPBusiness.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
+    using SAPBusiness.Configuration;
+
     public class Tutorial : BaseTutorialPage, ITutorial
     {
-        private readonly static string tutorialUrl = "/tutorials/";
+        private static readonly string _tutorialUrl = "/tutorials/";
 
         private List<TileElement> _tiles;
 
@@ -17,14 +18,25 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
 
         private List<Step> _steps;
 
-        public Tutorial(WebDriver driver, IEnvironmentConfig appConfiguration)
-            : base(driver, appConfiguration)
+        public Tutorial(WebDriver driver, ILogger logger, EnvironmentConfig appConfiguration)
+            : base(driver, logger, appConfiguration)
         {
         }
 
-        public override void Open(string url)
+        public string Title
         {
-            _driver.NavigateToPage(string.Concat(_appConfiguration.ProdUrl, tutorialUrl, url));
+            get
+            {
+                return SummarySection.Title;
+            }
+        }
+
+        private TutorialSummary SummarySection
+        {
+            get
+            {
+                return new TutorialSummary(_driver, _logger, _appConfiguration);
+            }
         }
 
         private List<TileElement> Tiles
@@ -33,7 +45,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
             {
                 return _tiles ??
                     (_tiles = _driver.FindElements(By.CssSelector(".tutorial-tile"))
-                    .Select(element => new TileElement(_driver, element))
+                    .Select(element => new TileElement(_driver, element, _logger, _appConfiguration))
                     .ToList());
             }
         }
@@ -55,7 +67,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
                             return false;
                         }
                     })
-                    .Select(element => new Step(_driver, element, new DoneButton(_driver, element)))
+                    .Select(element => new Step(_driver, element, _logger, new DoneButton(_driver, element, _logger)))
                     .ToList());
             }
         }
@@ -66,8 +78,21 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
             {
                 return _steps ??
                     (_steps = _driver.FindElements(By.CssSelector(".accordion"))
-                    .Select(element => new Step(_driver, element, null))
+                    .Select(element => new Step(_driver, element, _logger, null))
                     .ToList());
+            }
+        }
+
+        public void AddBookmark()
+        {
+            SummarySection.AddBookmark();
+        }
+
+        public void FinishDoneSteps()
+        {
+            foreach (var step in DoneSteps)
+            {
+                step.Finish();
             }
         }
 
@@ -87,12 +112,9 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
             return (int)Math.Round(value);
         }
 
-        public void FinishDoneSteps()
+        public override void Open(string url)
         {
-            foreach (var step in DoneSteps)
-            {
-                step.Finish();
-            }
-        }       
+            _driver.NavigateToPage(string.Concat(_appConfiguration.ProdUrl, _tutorialUrl, url));
+        }
     }
 }

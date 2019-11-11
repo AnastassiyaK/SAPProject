@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SAPBusiness.WEB.Exceptions
+﻿namespace SAPBusiness.WEB.Exceptions
 {
+    using System;
+
     public class PageIsNotAccessibleException : Exception
     {
         public PageIsNotAccessibleException(string message)

@@ -1,15 +1,14 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
 {
-    public class MiniNavigatorLink : BasePageObject
-    {
-        private readonly IWebElement _element;
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
 
-        public MiniNavigatorLink(WebDriver driver,IWebElement element) : base(driver)
+    public class MiniNavigatorLink : BaseDependentOnElementObject
+    {
+        public MiniNavigatorLink(WebDriver driver, IWebElement element, ILogger logger)
+            : base(driver, element, logger)
         {
-            _element = element;
         }
 
         public string Title

@@ -1,13 +1,14 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 {
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
+
     public class TileLegend : BasePageObject, ITileLegend
     {
-        public TileLegend(WebDriver driver) : base(driver)
+        public TileLegend(WebDriver driver, ILogger logger)
+            : base(driver, logger)
         {
-
         }
 
         public int Mission

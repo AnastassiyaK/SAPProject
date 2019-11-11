@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial
 {
+    using System.Collections.Generic;
+
     public interface IMiniNavigator
     {
-        List<MiniNavigatorLink> GetLinks();
-
         string NextStepLink { get; }
+
+        List<MiniNavigatorLink> GetLinks();
     }
 }
