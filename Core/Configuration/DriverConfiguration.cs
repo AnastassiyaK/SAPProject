@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-
-namespace Core.Configuration
+﻿namespace Core.Configuration
 {
-    public class DriverConfiguration : IDriverConfiguration
+    using Newtonsoft.Json;
+
+    public class DriverConfiguration
     {
         [JsonProperty("DissapearTime")]
         public int DissapearTime { get; set; }

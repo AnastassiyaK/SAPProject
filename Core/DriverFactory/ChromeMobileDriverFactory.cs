@@ -4,14 +4,14 @@
     using OpenQA.Selenium;
     using OpenQA.Selenium.Chrome;
 
-    public class ChromeDriverFactory : WebDriverFactory
+    public class ChromeMobileDriverFactory : WebDriverFactory
     {
-        public ChromeDriverFactory(DriverConfiguration configuration)
+        public ChromeMobileDriverFactory(DriverConfiguration configuration)
             : base(configuration)
         {
         }
 
-        public override Browser Name { get; } = Browser.Chrome;
+        public override Browser Name { get; } = Browser.ChromeMobile;
 
         protected override ICapabilities Capabilities
         {
@@ -22,6 +22,7 @@
                 options.AddExcludedArgument("enable-automation");
                 options.AddAdditionalCapability("useAutomationExtension", false);
                 options.AddArguments("start-maximized");
+                options.EnableMobileEmulation("iPhone 6");
                 return options.ToCapabilities();
             }
         }
