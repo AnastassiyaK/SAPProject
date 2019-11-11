@@ -365,7 +365,7 @@
         [Test]
         [TestCaseSource("tiles")]
         [Description("Perform some filtering and check pagination")]
-        [Priority(2)]
+        [Priority(4)]
         [Order(12)]
         public void CheckPaginationAfterFiltering(int tilesAmmount)
         {
@@ -408,7 +408,7 @@
 
         [Test]
         [Description("All tiles on the page should be sorted by title and in corresponding order: Mission, Group, Tutorial")]
-        [Priority(4)]
+        [Priority(3)]
         [Order(13)]
         public void CheckTilesSort()
         {
