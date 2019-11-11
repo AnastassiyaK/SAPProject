@@ -1,28 +1,39 @@
-﻿using Newtonsoft.Json;
-using RestSharp;
-using SAPBusiness.Configuration;
-using SAPBusiness.MiniNavigator;
-using SAPBusiness.TutorialData;
-using System.Net;
-
-namespace SAPBusiness.Services.API_Services.Tutorial
+﻿namespace SAPBusiness.Services.API_Services.Tutorial
 {
+    using System.Net;
+    using Newtonsoft.Json;
+    using RestSharp;
+    using SAPBusiness.Configuration;
+    using SAPBusiness.MiniNavigator;
+    using SAPBusiness.TutorialData;
+
     public class ContextService : IContextService
     {
-        private static readonly string resourseUrlBefore = "/bin/sapdxc/tutorial/miniNavigator";
-        private static readonly string resourseUrlAfter = "/content/developers/website/languages/en/tutorials/cp-apim-openconnectors-enable.json";
+        private static readonly string ResourseUrlBefore = "/bin/sapdxc/tutorial/miniNavigator";
 
-        private readonly IEnvironmentConfig _appConfiguration;
+        private static readonly string ResourseUrlAfter = "/content/developers/website/languages/en/tutorials/cp-apim-openconnectors-enable.json";
 
-        public ContextService(IEnvironmentConfig appConfiguration)
+        private readonly EnvironmentConfig _appConfiguration;
+
+        public ContextService(EnvironmentConfig appConfiguration)
         {
             _appConfiguration = appConfiguration;
+        }
+
+        public Mission GetMission(TutorialQuery tutorialQuery)
+        {
+            return GetMiniNavigatorContext(tutorialQuery).Context.Mission;
+        }
+
+        public NextStep GetNextStep(TutorialQuery tutorialQuery)
+        {
+            return GetMiniNavigatorContext(tutorialQuery).Steps.NextStep;
         }
 
         private TutorialResponse GetMiniNavigatorContext(TutorialQuery tutorialQuery)
         {
             string requestUrl = string
-                .Concat(resourseUrlBefore, $".{tutorialQuery.TutorialId}.mission.{tutorialQuery.MissionId}.json", resourseUrlAfter);
+                .Concat(ResourseUrlBefore, $".{tutorialQuery.TutorialId}.mission.{tutorialQuery.MissionId}.json", ResourseUrlAfter);
 
             var client = new RestClient(_appConfiguration.ProdUrl);
 
@@ -38,16 +49,6 @@ namespace SAPBusiness.Services.API_Services.Tutorial
             {
                 throw new WebException($"Mission was not recieved. HttpStatusCode: {response.StatusCode}");
             }
-        }
-
-        public Mission GetMission(TutorialQuery tutorialQuery)
-        {
-            return GetMiniNavigatorContext(tutorialQuery).Context.Mission;
-        }
-
-        public NextStep GetNextStep(TutorialQuery tutorialQuery)
-        {
-            return GetMiniNavigatorContext(tutorialQuery).Steps.NextStep;
         }
     }
 }

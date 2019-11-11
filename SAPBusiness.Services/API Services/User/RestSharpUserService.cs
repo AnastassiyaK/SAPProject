@@ -1,46 +1,25 @@
-﻿using Core.REST_API.Cookies;
-using Newtonsoft.Json;
-using RestSharp;
-using RestSharp.Extensions;
-using SAPBusiness.Configuration;
-using SAPBusiness.Services.Exceptions;
-using SAPBusiness.Services.Interfaces.API_UserService;
-using SAPBusiness.UserData.DeveloperCenter;
-using SAPBusiness.UserData.History;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Net;
-using SeleniumCookie = OpenQA.Selenium.Cookie;
-
-namespace SAPBusiness.Services.API_Services.User
+﻿namespace SAPBusiness.Services.API_Services.User
 {
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.IO;
+    using System.Net;
+    using Core.REST_API.Cookies;
+    using Newtonsoft.Json;
+    using RestSharp;
+    using RestSharp.Extensions;
+    using SAPBusiness.Configuration;
+    using SAPBusiness.Services.Exceptions;
+    using SAPBusiness.Services.Interfaces.API_UserService;
+    using SAPBusiness.UserData.DeveloperCenter;
+    using SAPBusiness.UserData.History;
+    using SeleniumCookie = OpenQA.Selenium.Cookie;
+
     public class RestSharpUserService : BaseUserService, IUserService
     {
-        public RestSharpUserService(ICookiesConverter cookiesConverter, IEnvironmentConfig appConfiguration)
+        public RestSharpUserService(ICookiesConverter cookiesConverter, EnvironmentConfig appConfiguration)
             : base(cookiesConverter, appConfiguration)
         {
-        }
-
-        private IRestResponse GetDeveloperProgressJson(ReadOnlyCollection<SeleniumCookie> cookies)
-        {
-            RestClient client = GetClient();
-            var defaultCookies = _cookiesConverter.ExtractCookies(cookies);
-
-            var request = new RestRequest(resourceUrl, Method.GET);
-
-            if (defaultCookies.Count != 0)
-            {
-                client.CookieContainer = defaultCookies;
-            }
-
-            var response = client.Execute(request);
-            return response;
-        }
-
-        private RestClient GetClient()
-        {
-            return new RestClient(_appConfiguration.ProdUrl);
         }
 
         public UserStatistics GetStatistics(ReadOnlyCollection<SeleniumCookie> cookies)
@@ -68,6 +47,7 @@ namespace SAPBusiness.Services.API_Services.User
                 {
                     item.TaskUrl = item.TaskUrl.Insert(0, _appConfiguration.ProdUrl);
                 }
+
                 return history;
             }
             else
@@ -76,7 +56,7 @@ namespace SAPBusiness.Services.API_Services.User
             }
         }
 
-        public void DownloadHistory(ReadOnlyCollection<SeleniumCookie> cookies)
+        public void DownloadHistory(ReadOnlyCollection<SeleniumCookie> cookies, string path)
         {
             RestClient client = GetClient();
 
@@ -85,16 +65,38 @@ namespace SAPBusiness.Services.API_Services.User
             {
                 client.CookieContainer = defaultCookies;
             }
+
             var request = new RestRequest(historyUrl, Method.GET);
             var result = client.DownloadData(request);
             if (result != null && result.Length > 0)
             {
-                result.SaveAs($@"{Directory.GetCurrentDirectory()}\TestData\download.csv");
+                result.SaveAs($@"{Directory.GetCurrentDirectory()}\TestData\{path}.csv");
             }
             else
             {
                 throw new FileDownloadException("User History was not downloaded");
             }
+        }
+
+        private IRestResponse GetDeveloperProgressJson(ReadOnlyCollection<SeleniumCookie> cookies)
+        {
+            RestClient client = GetClient();
+            var defaultCookies = _cookiesConverter.ExtractCookies(cookies);
+
+            var request = new RestRequest(resourceUrl, Method.GET);
+
+            if (defaultCookies.Count != 0)
+            {
+                client.CookieContainer = defaultCookies;
+            }
+
+            var response = client.Execute(request);
+            return response;
+        }
+
+        private RestClient GetClient()
+        {
+            return new RestClient(_appConfiguration.ProdUrl);
         }
     }
 }

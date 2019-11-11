@@ -1,25 +1,65 @@
-﻿using Newtonsoft.Json;
-using RestSharp;
-using SAPBusiness.Configuration;
-using SAPBusiness.TilesData;
-using System.Net;
-
-namespace SAPBusiness.Services.API_Services.TutorialNavigator
+﻿namespace SAPBusiness.Services.API_Services.TutorialNavigator
 {
-    public class RestSharpTilesService : BaseTilesService,  ITilesService
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using Newtonsoft.Json;
+    using RestSharp;
+    using SAPBusiness.Configuration;
+    using SAPBusiness.TilesData;
+
+    public class RestSharpTilesService : BaseTilesService, ITilesService
     {
-        public RestSharpTilesService(IEnvironmentConfig appConfiguration)
+        public RestSharpTilesService(EnvironmentConfig appConfiguration)
             : base(appConfiguration)
         {
         }
 
-        public TilesList GetTiles(TilesQuery tilesQuery)
+        public IList<Tile> GetTiles(ResultSingleTile tilesQuery)
+        {
+            return GetContext(tilesQuery).Tiles;
+        }
+
+        public int GetAllTutorialTypesAmount(ResultSingleTile tilesQuery)
+        {
+            return GetContext(tilesQuery).TotalTutorialCount;
+        }
+
+        public int GetMissionsAmount(ResultSingleTile tilesQuery)
+        {
+            return GetContext(tilesQuery).MissionsCount;
+        }
+
+        public int GetGroupsAmount(ResultSingleTile tilesQuery)
+        {
+            return GetContext(tilesQuery).GroupsCount;
+        }
+
+        public int GetTutorialsAmount(ResultSingleTile tilesQuery)
+        {
+            return GetContext(tilesQuery).TutorialsCount;
+        }
+
+        public TutorialNavigatorLegend GetPageLegend(ResultSingleTile tilesQuery)
+        {
+            TutorialNavigatorScope context = GetContext(tilesQuery);
+
+            var legend = new TutorialNavigatorLegend
+            {
+                CountGroups = context.GroupsCount,
+                CountMissions = context.MissionsCount,
+                CountTutorials = context.TutorialsCount
+            };
+
+            return legend;
+        }
+
+        public TutorialNavigatorScope GetContext(ResultSingleTile tilesQuery)
         {
             IRestResponse response = GetSerachTilesJSON(tilesQuery);
-
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                return JsonConvert.DeserializeObject<TilesList>(response.Content);
+                return JsonConvert.DeserializeObject<TutorialNavigatorScope>(response.Content);
             }
             else
             {
@@ -27,7 +67,13 @@ namespace SAPBusiness.Services.API_Services.TutorialNavigator
             }
         }
 
-        private IRestResponse GetSerachTilesJSON(TilesQuery tilesQuery)
+        public IList<Tile> GetNewTiles(ResultSingleTile tilesQuery)
+        {
+            var context = GetContext(tilesQuery);
+            return context.Tiles.Where(t => t.CreationDate > context.TutorialsNewFrom).ToList();
+        }
+
+        private IRestResponse GetSerachTilesJSON(ResultSingleTile tilesQuery)
         {
             var jsonQuery = JsonConvert.SerializeObject(tilesQuery);
             var query = WebUtility.UrlEncode(jsonQuery);
@@ -39,20 +85,6 @@ namespace SAPBusiness.Services.API_Services.TutorialNavigator
 
             var response = client.Execute(request);
             return response;
-        }
-
-        public int GetTutorialsAmount(TilesQuery tilesQuery)
-        {
-            IRestResponse response = GetSerachTilesJSON(tilesQuery);
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                return JsonConvert.DeserializeObject<TutorialNavigatorScope>(response.Content).TotalTutorialCount;
-            }
-            else
-            {
-                throw new WebException($"{response.StatusCode}");
-            }
         }
     }
 }

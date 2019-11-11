@@ -1,8 +1,8 @@
-﻿using SAPBusiness.MiniNavigator;
-using SAPBusiness.TutorialData;
-
-namespace SAPBusiness.Services.API_Services.Tutorial
+﻿namespace SAPBusiness.Services.API_Services.Tutorial
 {
+    using SAPBusiness.MiniNavigator;
+    using SAPBusiness.TutorialData;
+
     public interface IContextService
     {
         NextStep GetNextStep(TutorialQuery tutorialQuery);

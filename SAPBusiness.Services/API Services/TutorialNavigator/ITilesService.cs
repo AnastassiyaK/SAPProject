@@ -1,11 +1,24 @@
-﻿using SAPBusiness.TilesData;
-
-namespace SAPBusiness.Services.API_Services.TutorialNavigator
+﻿namespace SAPBusiness.Services.API_Services.TutorialNavigator
 {
+    using System.Collections.Generic;
+    using SAPBusiness.TilesData;
+
     public interface ITilesService
     {
-        TilesList GetTiles(TilesQuery tilesQuery);
+        TutorialNavigatorScope GetContext(ResultSingleTile tilesQuery);
 
-        int GetTutorialsAmount(TilesQuery tilesQuery);
+        TutorialNavigatorLegend GetPageLegend(ResultSingleTile tilesQuery);
+
+        IList<Tile> GetTiles(ResultSingleTile tilesQuery);
+
+        IList<Tile> GetNewTiles(ResultSingleTile tilesQuery);
+
+        int GetAllTutorialTypesAmount(ResultSingleTile tilesQuery);
+
+        int GetMissionsAmount(ResultSingleTile tilesQuery);
+
+        int GetGroupsAmount(ResultSingleTile tilesQuery);
+
+        int GetTutorialsAmount(ResultSingleTile tilesQuery);
     }
 }
