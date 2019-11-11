@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-
-namespace SAPTests.TestData.TutorialNavigator.Modules
+﻿namespace SAPTests.TestData.TutorialNavigator.Modules
 {
+    using Newtonsoft.Json;
+
     public class TutorialLinksType
     {
         [JsonProperty("Tutorial")]

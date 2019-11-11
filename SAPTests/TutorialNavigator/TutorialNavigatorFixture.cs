@@ -1,71 +1,62 @@
-﻿using Autofac;
-using Microsoft.Extensions.Configuration;
-using NLog;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using SAPBusiness.Services.API_Services.TutorialNavigator;
-using SAPBusiness.TilesData;
-using SAPBusiness.UserData;
-using SAPBusiness.WEB.Exceptions;
-using SAPBusiness.WEB.PageObjects;
-using SAPBusiness.WEB.PageObjects.Footer.Networks;
-using SAPBusiness.WEB.PageObjects.Frames;
-using SAPBusiness.WEB.PageObjects.Header;
-using SAPBusiness.WEB.PageObjects.LogOn;
-using SAPBusiness.WEB.PageObjects.TutorialNavigator;
-using SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection;
-using SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection;
-using SAPBusiness.WEB.PageObjects.TutorialNavigator.Search;
-using SAPTests.Browsers;
-using SAPTests.TestData.TutorialNavigator;
-using SAPTests.TestData.TutorialNavigator.Models;
-using SAPTests.TestData.TutorialNavigator.Modules;
-using SAPTests.TestsAttributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-
-namespace SAPTests.TutorialNavigator
+﻿namespace SAPTests.TutorialNavigator
 {
-    [TestFixtureSource(typeof(BrowserList), "Browsers")]
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using FluentAssertions;
+    using global::Autofac;
+    using Newtonsoft.Json;
+    using NUnit.Framework;
+    using OpenQA.Selenium;
+    using SAPBusiness.Enums;
+    using SAPBusiness.Services.API_Services.TutorialNavigator;
+    using SAPBusiness.TilesData;
+    using SAPBusiness.UserData;
+    using SAPBusiness.WEB.Exceptions;
+    using SAPBusiness.WEB.PageObjects;
+    using SAPBusiness.WEB.PageObjects.Developers.Footer.Networks;
+    using SAPBusiness.WEB.PageObjects.Developers.Frames;
+    using SAPBusiness.WEB.PageObjects.Developers.Header;
+    using SAPBusiness.WEB.PageObjects.LogOn;
+    using SAPBusiness.WEB.PageObjects.TutorialNavigator;
+    using SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection;
+    using SAPBusiness.WEB.PageObjects.TutorialNavigator.Mission;
+    using SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection;
+    using SAPBusiness.WEB.PageObjects.TutorialNavigator.Search;
+    using SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial;
+    using SAPBusiness.WEB.TutorialNavigator;
+    using SAPTests.Browsers;
+    using SAPTests.Models;
+    using SAPTests.TestData.TutorialNavigator;
+    using SAPTests.TestData.TutorialNavigator.Models;
+    using SAPTests.TestData.TutorialNavigator.Modules;
+    using SAPTests.TestsAttributes;
+
+    [TestFixtureSource(typeof(BrowsersList), nameof(BrowsersList.DefaultModeBrowsers))]
     [Category("TutorialNavigatorFixture")]
     [Parallelizable(ParallelScope.All)]
     public class TutorialNavigatorFixture : BaseTest
     {
-        private TutorialNavigatorConfiguration tutorialNavigatorConfig;
+        public static NetworkType[] networks =
+         new NetworkType[] { NetworkType.Facebook, NetworkType.Twitter, NetworkType.Github };
 
-        private readonly ThreadLocal<Logger> _log = new ThreadLocal<Logger>();
+        public static int[] tiles =
+        new int[] { 4, 34, 58, 118, 500 };
 
-        ILogOnStrategy logonStrategy;
+        private static TutorialNavigatorConfiguration tutorialNavigatorConfig;
 
-        private Logger Logger
+        private ILogOnStrategy logonStrategy;
+
+        public TutorialNavigatorFixture(Browser browser)
+            : base(browser)
         {
-            get => _log.Value;
-            set => _log.Value = value;
+            var json = File.ReadAllText($@"{Directory.GetCurrentDirectory()}\TestData\TutorialNavigator\TutorialNavigatorConfiguration.json");
+            tutorialNavigatorConfig = JsonConvert.DeserializeObject<TutorialNavigatorConfiguration>(json);
         }
 
-        public TutorialNavigatorFixture(Browser browser) : base(browser)
+        public void TestSetUp()
         {
-        }
-
-        [OneTimeSetUp]
-        public void SetUpTutorialNavigatorConfig()
-        {
-            var configuration = Scope.Resolve<IConfigurationBuilder>()
-              .AddJsonFile(@"TestData\TutorialNavigator\TutorialNavigatorConfiguration.json")
-              .Build();
-
-            tutorialNavigatorConfig = Scope.Resolve<TutorialNavigatorConfiguration>();
-
-            configuration.GetSection("TutorialNavigator").Bind(tutorialNavigatorConfig);
-        }
-
-        [SetUp]
-        public void SetUp()
-        {
-            Logger = LogManager.GetLogger($"{TestContext.CurrentContext.Test.Name}");
-
             logonStrategy = Scope.Resolve<LogOnFrame>();
 
             Scope.Resolve<ITutorialNavigator>().Open();
@@ -77,11 +68,11 @@ namespace SAPTests.TutorialNavigator
             catch (Exception e)
             {
                 Logger.Error($"Cookies were not accepted! {e.Message}");
-                //Assert.Warn(e.Message);//implement custom exception
             }
         }
 
-        [Test, TestCaseSource(typeof(FilterData), nameof(FilterData.ExperienceTags))]
+        [Test]
+        [TestCaseSource(typeof(FilterData), nameof(FilterData.ExperienceTags))]
         [Priority(2)]
         [Order(1)]
         public void CheckExperienceFilterTags(Experience experience)
@@ -90,9 +81,9 @@ namespace SAPTests.TutorialNavigator
 
             var tutorualNavigator = Scope.Resolve<ITutorialNavigator>().WaitForLoading();
 
-            var tiles = tutorualNavigator.GetAllTiles();
+            var tiles = tutorualNavigator.GetAllTilesCache();
 
-            Logger.Info($"--- { experience.ToString()}---");
+            Logger.Info($"--- {experience.ToString()}---");
             foreach (var tile in tiles)
             {
                 Logger.Info($"Tile tag was {tile.Experience}");
@@ -113,13 +104,13 @@ namespace SAPTests.TutorialNavigator
 
             var tutorialNavigator = Scope.Resolve<ITutorialNavigator>().WaitForLoading();
 
-            var tiles = tutorialNavigator.GetAllTiles();
+            var tiles = tutorialNavigator.GetAllTilesCache();
 
             CollectionAssert.IsNotEmpty(tiles);
 
             foreach (var tile in tiles)
             {
-                Logger.Info($"{tile.Title} {((tile.BookMarkDisplayed()) ? "has" : "does NOT have")} a bookmark");
+                Logger.Info($"{tile.Title} {(tile.BookMarkDisplayed() ? "has" : "does NOT have")} a bookmark");
 
                 Assert.That(tile.BookMarkDisplayed(), Is.True);
             }
@@ -133,13 +124,13 @@ namespace SAPTests.TutorialNavigator
             facetTopic.SelectTopic("Java");
 
             var facetType = Scope.Resolve<IFacetType>().WaitForLoading();
-            facetType.SelectType("Tutorial");
+            facetType.SelectTag("Tutorial");
 
             var tutorialNavigator = Scope.Resolve<ITutorialNavigator>().WaitForLoading();
 
             var legend = Scope.Resolve<ITileLegend>();
 
-            Assert.That(legend.Tutorial == tutorialNavigator.GetAllTiles().Count);
+            Assert.That(legend.Tutorial == tutorialNavigator.GetAllTilesCache().Count);
 
             Assert.AreEqual(legend.Group, 0);
 
@@ -162,19 +153,20 @@ namespace SAPTests.TutorialNavigator
             Assert.AreEqual(pageLink, BaseDriver.Url);
         }
 
-        [Test, TestCaseSource(typeof(QueryParameters), nameof(QueryParameters.TilesQueries))]
+        [Test]
+        [TestCaseSource(typeof(TilesQueries), nameof(TilesQueries.Queries))]
         [Description("Check tutorial, group and mission where there is a license tag on tutorial navigator page")]
         [Priority(2)]
         [Order(5)]
-        public void CheckLicenseTagInTile(TilesQuery query)
+        public void CheckLicenseTagInTile(ResultSingleTile query)
         {
-            var tiles = Scope.Resolve<ITilesService>().GetTiles(query).Tiles;
+            var tiles = Scope.Resolve<ITilesService>().GetTiles(query);
 
             foreach (var tile in tiles)
             {
                 Scope.Resolve<ISearchSection>().WaitForLoading().Search(tile.Title);
 
-                var tutorials = Scope.Resolve<ITutorialNavigator>().WaitForLoading().GetAllTiles();
+                var tutorials = Scope.Resolve<ITutorialNavigator>().WaitForLoading().GetAllTilesCache();
 
                 var found = tutorials.SingleOrDefault(t => t.Title == tile.Title);
 
@@ -193,25 +185,28 @@ namespace SAPTests.TutorialNavigator
             }
         }
 
-        [Test, TestCaseSource(typeof(QueryParameters), nameof(QueryParameters.TilesQueries))]
+        [Test]
+        [TestCaseSource(typeof(TilesQueries), nameof(TilesQueries.Queries))]
         [Description("Check tutorial, group and mission if time is correct on tutorial navigator page")]
         [Priority(3)]
         [Order(6)]
-        public void CheckTileTime(TilesQuery query)
+        public void CheckTileTime(ResultSingleTile query)
         {
             var timeConverter = Scope.Resolve<ITimeConverter>();
-            var tiles = Scope.Resolve<ITilesService>().GetTiles(query).Tiles;
+            var tiles = Scope.Resolve<ITilesService>().GetTiles(query);
 
             foreach (var tile in tiles)
             {
-                var tutorials = Scope.Resolve<ITutorialNavigator>().WaitForLoading().GetAllTiles();
+                var tutorials = Scope.Resolve<ITutorialNavigator>().WaitForLoading().GetAllTilesCache();
                 var found = tutorials.SingleOrDefault(t => t.Title == tile.Title);
 
                 if (found != null)
                 {
                     var tileTime = timeConverter.GetTime(tile.Time);
                     Logger.Info($"Tile with title \"{found.Title}\" has time \"{found.Time}\" on the page, \"{tileTime}\" from API Query");
-                    Assert.That(found.Time, Is.EqualTo(tileTime),
+                    Assert.That(
+                        found.Time,
+                        Is.EqualTo(tileTime),
                         $"{found.Title} has wrong time. Should have {tileTime}");
                 }
                 else
@@ -235,14 +230,16 @@ namespace SAPTests.TutorialNavigator
         {
             CheckTutorialNavigatorPagination(tilesAmmount);
 
-            int tutorials = Scope.Resolve<ITilesService>().GetTutorialsAmount(QueryParameters.TilesQuery);
+            int tutorials = Scope.Resolve<ITilesService>().GetAllTutorialTypesAmount(TilesQueries.Query);
             var paginationSection = Scope.Resolve<IPaginationSection>();
             int totalPages = paginationSection.GetTotalNumberOfPages();
             int expectedPages = CalculateAmount(tutorials, tilesAmmount);
 
             Logger.Info($"Tutorial navigator has {totalPages} pages with tiles. Should have {expectedPages}");
 
-            Assert.That(totalPages, Is.EqualTo(expectedPages),
+            Assert.That(
+                totalPages,
+                Is.EqualTo(expectedPages),
                 $"Tutorial navigator has {totalPages} pages with tiles. Should have {expectedPages}");
         }
 
@@ -262,7 +259,7 @@ namespace SAPTests.TutorialNavigator
 
             var currentPage = paginationSection.CurrentPage.Number;
 
-            int tutorials = Scope.Resolve<ITilesService>().GetTutorialsAmount(QueryParameters.TilesQuery);
+            int tutorials = Scope.Resolve<ITilesService>().GetAllTutorialTypesAmount(TilesQueries.Query);
 
             var expectedPagePagination = GetExpectedPagination(tilesAmmount, tutorials, currentPage);
 
@@ -271,7 +268,6 @@ namespace SAPTests.TutorialNavigator
             Logger.Info($"Checking tutorial with {tilesAmmount} tiles on each page. Current page is {currentPage}");
 
             CheckPaginationEquality(expectedPagePagination, currentPagination);
-
         }
 
         [Test]
@@ -285,7 +281,8 @@ namespace SAPTests.TutorialNavigator
 
             var paginationSection = Scope.Resolve<IPaginationSection>();
 
-            Assert.That(paginationSection.GetNumberOfPagesInExpandedArea(),
+            Assert.That(
+                paginationSection.GetNumberOfPagesInExpandedArea(),
                 Is.LessThanOrEqualTo(tutorialNavigatorConfig.PagesInMainPagination),
                 "Expanded area has wrong amount of pages");
 
@@ -293,7 +290,7 @@ namespace SAPTests.TutorialNavigator
 
             OpenRandomPage(1, totalPages, paginationSection);
 
-            int tutorials = Scope.Resolve<ITilesService>().GetTutorialsAmount(QueryParameters.TilesQuery);
+            int tutorials = Scope.Resolve<ITilesService>().GetAllTutorialTypesAmount(TilesQueries.Query);
 
             var currentPage = paginationSection.CurrentPage.Number;
 
@@ -329,11 +326,10 @@ namespace SAPTests.TutorialNavigator
                 collapsedRange.Click();
 
                 Logger.Info($"{paginationSection.CurrentPage.Number} is an active page");
-                Assert.That(paginationSection.CurrentPage.Number, Is.EqualTo(startPage),
-                    $"Number of current page should be {startPage}");
+                Assert.That(paginationSection.CurrentPage.Number, Is.EqualTo(startPage), $"Number of current page should be {startPage}");
 
-                int tutorials = Scope.Resolve<ITilesService>().GetTutorialsAmount(QueryParameters.TilesQuery);
-                
+                int tutorials = Scope.Resolve<ITilesService>().GetAllTutorialTypesAmount(TilesQueries.Query);
+
                 var currentPage = paginationSection.CurrentPage.Number;
 
                 var expectedPagePagination = GetExpectedPagination(tilesAmmount, tutorials, currentPage);
@@ -361,9 +357,9 @@ namespace SAPTests.TutorialNavigator
 
             var currentPage = paginationSection.CurrentPage;
 
-            bool IsClickable = CheckPageNotClickable(paginationSection, currentPage);
+            bool isClickable = CheckPageClickable(paginationSection, currentPage);
 
-            Assert.IsFalse(IsClickable, "Current page is clickable");
+            Assert.IsFalse(isClickable, "Current page is clickable");
         }
 
         [Test]
@@ -387,9 +383,9 @@ namespace SAPTests.TutorialNavigator
 
             var paginationSection = Scope.Resolve<IPaginationSection>();
 
-            var query = QueryParameters.AddExperienceFilter(filterExperience);
+            var query = TilesQueries.AddExperienceFilter(filterExperience);
 
-            int tutorials = Scope.Resolve<ITilesService>().GetTutorialsAmount(query);
+            int tutorials = Scope.Resolve<ITilesService>().GetAllTutorialTypesAmount(query);
 
             Logger.Info($"Checking tutorial navigator with filter, total amount of tutorials should be {tutorials}");
 
@@ -403,20 +399,230 @@ namespace SAPTests.TutorialNavigator
 
                 CheckPaginationEquality(expectedPagePagination, currentPagination);
             }
-
             else
             {
-                Assert.That(string.IsNullOrEmpty(expectedPagePagination),
-                    $"The page does not have pagination section. But should have {expectedPagePagination}");
+                Assert.That(
+                    string.IsNullOrEmpty(expectedPagePagination), $"The page does not have pagination section. But should have {expectedPagePagination}");
             }
         }
 
-        private bool CheckPageNotClickable(IPaginationSection paginationSection, PageLink Page)
+        [Test]
+        [Description("All tiles on the page should be sorted by title and in corresponding order: Mission, Group, Tutorial")]
+        [Priority(4)]
+        [Order(13)]
+        public void CheckTilesSort()
         {
-            paginationSection.OpenPage(Page.Number);
+            var tutorialNavigator = Scope.Resolve<ITutorialNavigator>();
+
+            var pagination = Scope.Resolve<IPaginationSection>();
+
+            int totalPages = pagination.GetTotalNumberOfPages();
+
+            List<ShortTile> tilesToCompare = new List<ShortTile>();
+
+            for (int i = 1; i <= totalPages; i++)
+            {
+                pagination.OpenPage(i);
+                var tiles = tutorialNavigator.GetAllTiles();
+                tilesToCompare.AddRange(tiles.Select(t => new ShortTile(t.Type, t.Title)).ToList());
+            }
+
+            var expected = new List<ShortTile>(tilesToCompare);
+
+            TilesTypeComparer comparer = new TilesTypeComparer();
+
+            expected.Sort(comparer);
+
+            tilesToCompare.Should().ContainInOrder(expected);
+        }
+
+        [Test]
+        [Description("All tiles that was created before the certain date should have NEW label")]
+        [Priority(3)]
+        [Order(14)]
+        public void CheckTilesNewLabel()
+        {
+            var newTiles = Scope.Resolve<ITilesService>().GetNewTiles(TilesQueries.Query);
+
+            var tutorialNavigator = Scope.Resolve<ITutorialNavigator>().WaitForLoading();
+            var searchSection = Scope.Resolve<ISearchSection>();
+
+            // foreach (var tile in newTiles)
+            // {
+            //    searchSection.Search(tile.Title);
+
+            // var tileOnPage = tutorialNavigator
+            //    .GetAllTiles()
+            //    .Where(t => t.Id == tile.Id)
+            //    .FirstOrDefault();
+            //    tileOnPage.HasNewLabel().Should().BeTrue($"Tile with title\"{ tileOnPage.Title}\" should have label NEW");
+            // }
+            tutorialNavigator.OpenWithTilesOnPage(TilesQueries.Query.EndIndex);
+            tutorialNavigator.WaitForLoading();
+
+            var newTilesOnPage = newTiles.Join(
+                tutorialNavigator.GetAllTiles(),
+                newTile => newTile.Id,
+                pageTile => pageTile.Id,
+                (newTile, pageTile) => pageTile)
+                .ToList();
+
+            foreach (var tile in newTilesOnPage)
+            {
+                tile.HasNewLabel().Should().BeTrue($"Tile with title\"{tile.Title}\" should have label NEW");
+            }
+        }
+
+        [Test]
+        [Description("Add bookmark on each tile type and check if exists in side menu")]
+        [Priority(3)]
+        [Order(15)]
+        public void CheckBookmarkInEachTileType([Values]TutorialType type)
+        {
+            var tutorialNavigator = GetFilteredTutorialNavigatorByTileType(type);
+            var tile = GetRandomTile(tutorialNavigator.GetAllTiles());
+            tile.AddBookmark();
+
+            var tileLink = tile.Link;
+            var tileTitle = tile.Title;
+
+            CompareBookmarks(tileLink, tileTitle);
+        }
+
+        [Test]
+        [Description("")]
+        [Priority(3)]
+        [Order(16)]
+        public void CheckBookmarkOnTutorialPage()
+        {
+            var tutorialNavigator = GetFilteredTutorialNavigatorByTileType(TutorialType.Tutorial);
+            var tile = GetRandomTile(tutorialNavigator.GetAllTiles());
+
+            var tileLink = tile.Link;
+            var tileTitle = tile.Title;
+            tile.Open();
+
+            var tutorial = Scope.Resolve<ITutorial>();
+            tutorial.WaitForLoading();
+
+            tutorial.AddBookmark();
+
+            CompareBookmarks(tileLink, tileTitle);
+        }
+
+        [Test]
+        [Description("")]
+        [Priority(3)]
+        [Order(17)]
+        public void CheckBookmarkOnMissionPage()
+        {
+            var tutorialNavigator = GetFilteredTutorialNavigatorByTileType(TutorialType.Mission);
+            var tile = GetRandomTile(tutorialNavigator.GetAllTiles());
+
+            var tileLink = tile.Link;
+            var tileTitle = MenuLinksProcessor.GetMissionTitle(tile.Title);
+            tile.Open();
+
+            var tutorial = Scope.Resolve<ITutorial>();
+            tutorial.WaitForLoading();
+
+            tutorial.AddBookmark();
+
+            CompareBookmarks(tileLink, tileTitle);
+        }
+
+        [Test]
+        [Description("")]
+        [Priority(3)]
+        [Order(18)]
+        public void CheckBookmarkOnGroupPage()
+        {
+            var tutorialNavigator = GetFilteredTutorialNavigatorByTileType(TutorialType.Group);
+            var tile = GetRandomTile(tutorialNavigator.GetAllTiles());
+
+            var tileLink = tile.Link;
+            var tileTitle = MenuLinksProcessor.GetGroupTitle(tile.Title);
+            tile.Open();
+
+            var mission = Scope.Resolve<IMission>();
+            mission.WaitForLoading();
+
+            mission.AddBookmark();
+
+            CompareBookmarks(tileLink, tileTitle);
+        }
+
+        [SetUp]
+        protected override void SetUp()
+        {
+            base.SetUp();
+            TestSetUp();
+        }
+
+        private ITutorialNavigator GetFilteredTutorialNavigatorByTileType(TutorialType type)
+        {
+            LogIn();
+            var facet = Scope.Resolve<FacetType>();
+            var tutorialNavigator = Scope.Resolve<ITutorialNavigator>();
+            tutorialNavigator.WaitForLoading();
+            tutorialNavigator = GetFilteredTutorialNavigator(tutorialNavigator, facet, type.ToString());
+            return tutorialNavigator;
+        }
+
+        private void CompareBookmarks(string link, string title)
+        {
+            var sideMenu = Scope.Resolve<ISideBreadCrumbMenu>();
+            sideMenu.OpenBookmarkTab();
+
+            var bookmarks = sideMenu.Bookmarks;
+
+            var found = bookmarks.Where(b => b.Title == title).FirstOrDefault();
+
+            if (found != null)
+            {
+                found.Link.Should().BeEquivalentTo(link);
+            }
+            else
+            {
+                Assert.Fail($"Link with title'{title}' does not exist.");
+            }
+        }
+
+        private void LogIn()
+        {
+            logonStrategy = Scope.Resolve<LogOnFrame>();
+
+            var user = UserPool.GetUser();
+            logonStrategy.LogOn(user);
+
+            Logger.Info($"User {user.Login} is logged in.");
+        }
+
+        private ITileElement GetRandomTile(List<TileElement> tiles)
+        {
+            var random = new Random();
+            int index = random.Next(tiles.Count);
+            return tiles[index];
+        }
+
+        private ITutorialNavigator GetFilteredTutorialNavigator(ITutorialNavigator tutorialNavigator, BaseFacet facet, string tag)
+        {
+            var filterSection = Scope.Resolve<IFilterSection>();
+            filterSection.ClearAll();
+            filterSection.WaitForLoad();
+
+            Logger.Info($"Performing search by {tag} tag");
+            facet.SelectTag(tag);
+            tutorialNavigator.WaitForLoad();
+            return tutorialNavigator;
+        }
+
+        private bool CheckPageClickable(IPaginationSection paginationSection, PageLink page)
+        {
+            paginationSection.OpenPage(page.Number);
             try
             {
-                var value = Page.Number;
+                var value = page.Number;
                 return false;
             }
             catch (StaleElementReferenceException)
@@ -461,6 +667,7 @@ namespace SAPTests.TutorialNavigator
                         {
                             collapsedPagination.End = pages;
                         }
+
                         expectedSplits.Add(collapsedPagination);
                     }
 
@@ -474,7 +681,6 @@ namespace SAPTests.TutorialNavigator
                         var found = expectedSplits.Find(c => c.Start == 1);
                         expectedSplits.Remove(found);
                     }
-
                     else
                     {
                         foreach (var item in expectedSplits)
@@ -509,8 +715,9 @@ namespace SAPTests.TutorialNavigator
                 {
                     pagePagination.Expanded += $"{page} ";
                 }
+
                 Logger.Info($"Page doesn't have collapsed elements.");
-                return pagePagination.ToString();              
+                return pagePagination.ToString();
             }
         }
 
@@ -525,26 +732,20 @@ namespace SAPTests.TutorialNavigator
             paginationSection.WaitForLoading();
         }
 
-        private void DeleteOpenPage(IPaginationSection paginationSection)
-        {
-            paginationSection.OpenPage(13);
-            paginationSection.WaitForLoading();
-        }
-
         private void CheckTutorialNavigatorPagination(int tilesAmmount)
         {
             var tutorialNavigator = Scope.Resolve<ITutorialNavigator>();
             tutorialNavigator.OpenWithTilesOnPage(tilesAmmount);
             tutorialNavigator.WaitForLoading();
-            Assert.
-                That(tutorialNavigator.HasPagination(),
+            Assert.That(
+                tutorialNavigator.HasPagination(),
                 Is.True,
                 $"There is no pagination on tutorial navigator page with set tile ammount in {tilesAmmount}");
         }
 
         private int CalculateAmount(int divisible, int devider)
         {
-            //var result = (double)divisible / devider;
+            // var result = (double)divisible / devider;
             if (divisible < devider)
             {
                 return 0;
@@ -555,11 +756,5 @@ namespace SAPTests.TutorialNavigator
                 return (int)count;
             }
         }
-
-        public static NetworkType[] networks =
-         new NetworkType[] { NetworkType.Facebook, NetworkType.Twitter, NetworkType.Github };
-
-        public static int[] tiles =
-        new int[] { 4, 34, 58, 118, 500 };
     }
 }

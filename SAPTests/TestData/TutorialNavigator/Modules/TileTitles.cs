@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-
-namespace SAPTests.TestData.TutorialNavigator.Modules
+﻿namespace SAPTests.TestData.TutorialNavigator.Modules
 {
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+
     public class TileTitles
     {
         [JsonProperty("titles")]

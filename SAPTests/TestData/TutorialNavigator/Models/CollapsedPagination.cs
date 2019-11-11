@@ -3,6 +3,7 @@
     public class CollapsedPagination
     {
         public int Start { get; set; }
+
         public int End { get; set; }
 
         public override string ToString()

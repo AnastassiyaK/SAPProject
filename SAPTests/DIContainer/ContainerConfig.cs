@@ -1,9 +1,11 @@
-﻿using Autofac;
-
-namespace SAPTests.Autofac
+﻿namespace SAPTests.Autofac
 {
-    class ContainerConfig
+    using global::Autofac;
+    using SpecFlow.Autofac;
+
+    public class ContainerConfig
     {
+        [ScenarioDependencies]
         public static ContainerBuilder Configure()
         {
             var containerBuilder = new ContainerBuilder();

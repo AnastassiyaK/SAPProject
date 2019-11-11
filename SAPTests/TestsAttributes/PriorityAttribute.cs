@@ -1,12 +1,13 @@
-﻿using NUnit.Framework;
-using System;
-
-namespace SAPTests.TestsAttributes
+﻿namespace SAPTests.TestsAttributes
 {
+    using System;
+    using NUnit.Framework;
+
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class PriorityAttribute : PropertyAttribute
     {
-        public PriorityAttribute(object propertyValue) : base(propertyValue)
+        public PriorityAttribute(object propertyValue)
+            : base(propertyValue)
         {
         }
     }

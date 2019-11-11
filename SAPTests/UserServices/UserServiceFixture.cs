@@ -1,50 +1,41 @@
-﻿using Autofac;
-using NLog;
-using NUnit.Framework;
-using SAPBusiness.Services.Interfaces.API_UserService;
-using SAPBusiness.UserData;
-using SAPBusiness.UserData.History;
-using SAPBusiness.WEB.PageObjects;
-using SAPBusiness.WEB.PageObjects.Frames;
-using SAPBusiness.WEB.PageObjects.Header;
-using SAPBusiness.WEB.PageObjects.LogOn;
-using SAPBusiness.WEB.PageObjects.MainPage;
-using SAPBusiness.WEB.PageObjects.MainPage.Statistics;
-using SAPTests.Browsers;
-using SAPTests.TestData.User.Modules;
-using SAPTests.TestsAttributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-
-namespace SAPTests.UserServices
+﻿namespace SAPTests.UserServices
 {
-    [TestFixtureSource(typeof(BrowserList), "Browsers")]
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+    using global::Autofac;
+    using NLog;
+    using NUnit.Framework;
+    using SAPBusiness.Enums;
+    using SAPBusiness.Services.Interfaces.API_UserService;
+    using SAPBusiness.UserData;
+    using SAPBusiness.UserData.History;
+    using SAPBusiness.WEB.PageObjects;
+    using SAPBusiness.WEB.PageObjects.Developers.Frames;
+    using SAPBusiness.WEB.PageObjects.Developers.MainPage;
+    using SAPBusiness.WEB.PageObjects.Developers.MainPage.Statistics;
+    using SAPBusiness.WEB.PageObjects.LogOn;
+    using SAPTests.Browsers;
+    using SAPTests.TestData.User.Modules;
+    using SAPTests.TestsAttributes;
+
+    [TestFixtureSource(typeof(BrowsersList), nameof(BrowsersList.DefaultModeBrowsers))]
+    [TestFixtureSource(typeof(BrowsersList), nameof(BrowsersList.MobileModeBrowsers))]
     [Category("UserServiceFixture")]
     [Parallelizable(ParallelScope.All)]
     public class UserServiceFixture : BaseTest
     {
-        private readonly ThreadLocal<Logger> _log = new ThreadLocal<Logger>();
+        private ILogOnStrategy logonStrategy;
 
-        ILogOnStrategy logonStrategy;
-
-        private Logger Logger
+        public UserServiceFixture(Browser browser)
+            : base(browser)
         {
-            get => _log.Value;
-            set => _log.Value = value;
-        }
-
-        public UserServiceFixture(Browser browser) : base(browser)
-        {
-
         }
 
         [SetUp]
-        public void SetUp()
+        public void TestSetUp()
         {
-            Logger = LogManager.GetLogger($"{TestContext.CurrentContext.Test.Name}");
-
             logonStrategy = Scope.Resolve<LogOnFrame>();
 
             var mainPage = Scope.Resolve<IMainPage>();
@@ -58,7 +49,8 @@ namespace SAPTests.UserServices
             catch (Exception e)
             {
                 Logger.Error($"Cookies were not accepted! {e.Message}");
-                //Assert.Warn(e.Message);//implement custom exception
+
+                // Assert.Warn(e.Message);//implement custom exception
             }
         }
 
@@ -67,8 +59,6 @@ namespace SAPTests.UserServices
         [Order(1)]
         public void CompareUserProgress()
         {
-            Scope.Resolve<IPageHeader>().WaitForLoading().OpenLogonFrame();
-
             logonStrategy.LogOn(UserPool.GetUser());
 
             var progress = Scope.Resolve<IUserService>().GetStatistics(BaseDriver.GetBrowserCookies()).UserProgress;
@@ -82,28 +72,28 @@ namespace SAPTests.UserServices
             Assert.Multiple(() =>
             {
                 Logger.Info($"From User service {progress.GroupsTotal}, from the main page {groups.Total}");
-                Assert.That(progress.GroupsTotal.Equals(groups.Total),
-                    $"{progress.GroupsTotal} not equals to {groups.Total}");
+                Assert.That(
+                    progress.GroupsTotal.Equals(groups.Total), $"{progress.GroupsTotal} not equals to {groups.Total}");
 
                 Logger.Info($"From User service {progress.GroupsCompleted}, from the main page {groups.Completed}");
-                Assert.That(progress.GroupsCompleted.Equals(groups.Completed),
-                   $"{progress.GroupsCompleted} not equals to { groups.Completed}");
+                Assert.That(
+                    progress.GroupsCompleted.Equals(groups.Completed), $"{progress.GroupsCompleted} not equals to {groups.Completed}");
 
                 Logger.Info($"From User service {progress.MissionsTotal}, from the main page {missions.Total}");
-                Assert.That(progress.MissionsTotal.Equals(missions.Total),
-                   $"{progress.MissionsTotal} not equals to {missions.Total}");
+                Assert.That(
+                    progress.MissionsTotal.Equals(missions.Total), $"{progress.MissionsTotal} not equals to {missions.Total}");
 
                 Logger.Info($"From User service {progress.MissionsCompleted}, from the main page {missions.Completed}");
-                Assert.That(progress.MissionsCompleted.Equals(missions.Completed),
-                   $"{progress.MissionsCompleted} not equals to {missions.Completed}");
+                Assert.That(
+                    progress.MissionsCompleted.Equals(missions.Completed), $"{progress.MissionsCompleted} not equals to {missions.Completed}");
 
                 Logger.Info($"From User service {progress.TutorialTotal}, from the main page {tutorials.Total}");
-                Assert.That(progress.TutorialTotal.Equals(tutorials.Total),
-                   $"{progress.TutorialTotal} not equals to {tutorials.Total}");
+                Assert.That(
+                    progress.TutorialTotal.Equals(tutorials.Total), $"{progress.TutorialTotal} not equals to {tutorials.Total}");
 
                 Logger.Info($"From User service {progress.TutorialCompleted}, from the main page {tutorials.Completed}");
-                Assert.That(progress.TutorialCompleted.Equals(tutorials.Completed),
-                   $"{progress.TutorialCompleted} not equals to {tutorials.Completed}");
+                Assert.That(
+                    progress.TutorialCompleted.Equals(tutorials.Completed), $"{progress.TutorialCompleted} not equals to {tutorials.Completed}");
             });
         }
 
@@ -119,9 +109,10 @@ namespace SAPTests.UserServices
 
             var userService = Scope.Resolve<IUserService>();
 
-            userService.DownloadHistory(cookies);
+            string path = $"{TestContext.CurrentContext.Test.Name} ({_browser})";
+            userService.DownloadHistory(cookies, path);
 
-            var userFileHistory = UserHistoryData.UserHistory;
+            var userFileHistory = UserHistoryData.GetUserHistory(path);
 
             var userHistory = userService.GetUserHistory(cookies);
 

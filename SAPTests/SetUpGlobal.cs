@@ -1,24 +1,16 @@
-﻿using Autofac;
-using Core.Configuration;
-using Microsoft.Extensions.Configuration;
-using NUnit.Framework;
-using SAPBusiness.Configuration;
-using SAPTests.Autofac;
-using System.Diagnostics;
-using System.Threading;
-
-namespace SAPTests
+﻿namespace SAPTests
 {
+    using Core.Configuration;
+    using global::Autofac;
+    using Microsoft.Extensions.Configuration;
+    using NUnit.Framework;
+    using SAPBusiness.Configuration;
+    using SAPTests.Autofac;
+
     [SetUpFixture]
     public static class SetUpGlobal
     {
-        private static readonly ThreadLocal<ILifetimeScope> _scope = new ThreadLocal<ILifetimeScope>();
-
-        public static ILifetimeScope Scope
-        {
-            get => _scope.Value;
-            set => _scope.Value = value;
-        }
+        private static ILifetimeScope scope;
 
         public static IContainer Container { get; private set; }
 
@@ -29,18 +21,19 @@ namespace SAPTests
 
             Container = builder.Build();
 
-            Scope = Container.BeginLifetimeScope();
+            scope = Container.BeginLifetimeScope();
 
-            var configuration = Scope.Resolve<IConfigurationBuilder>()
+            var configuration = scope.Resolve<IConfigurationBuilder>()
               .AddJsonFile(@"Configuration\appSettingsWebDriver.json")
               .AddJsonFile(@"Configuration\appSettingsSAPBusiness.json")
+              .AddJsonFile(@"Configuration\ChromeConfiguration.json")
               .Build();
 
-            var driverConfiguration = Scope.Resolve<IDriverConfiguration>();
+            var driverConfiguration = scope.Resolve<DriverConfiguration>();
 
             configuration.GetSection("WebDriver").Bind(driverConfiguration);
 
-            var environmentConfig = Scope.Resolve<IEnvironmentConfig>();
+            var environmentConfig = scope.Resolve<EnvironmentConfig>();
 
             configuration.GetSection("Links").Bind(environmentConfig);
         }
@@ -48,7 +41,7 @@ namespace SAPTests
         [OneTimeTearDown]
         public static void GlobalTeardown()
         {
-            Scope.Dispose();
+            scope.Dispose();
             Container.Dispose();
         }
     }

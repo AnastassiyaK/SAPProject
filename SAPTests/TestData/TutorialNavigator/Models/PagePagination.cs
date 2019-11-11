@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SAPTests.TestData.TutorialNavigator.Models
+﻿namespace SAPTests.TestData.TutorialNavigator.Models
 {
+    using System.Collections.Generic;
+    using System.Text;
+
     public class PagePagination
     {
         public List<CollapsedPagination> Collapsed { get; set; }
@@ -12,8 +11,6 @@ namespace SAPTests.TestData.TutorialNavigator.Models
 
         public override string ToString()
         {
-            // string pagination = "";
-
             int firstInExpanded = int.Parse(Expanded.Split(" ")[0]);
 
             StringBuilder stringBuilder = new StringBuilder();
@@ -25,13 +22,11 @@ namespace SAPTests.TestData.TutorialNavigator.Models
                 {
                     if (firstInExpanded > item.End)
                     {
-                        //pagination += item.ToString() + "|";
                         stringBuilder.Append($"{item.ToString()}|");
                         copyCollapsed.Remove(item);
                     }
                     else
                     {
-                        //pagination += Expanded;
                         stringBuilder.Append(Expanded);
                         break;
                     }
@@ -41,13 +36,11 @@ namespace SAPTests.TestData.TutorialNavigator.Models
                 {
                     foreach (var item in copyCollapsed)
                     {
-                        //pagination += "|" + item.ToString();
                         stringBuilder.Append($"|{item.ToString()}");
                     }
                 }
                 else
                 {
-                    //pagination += Expanded;
                     stringBuilder.Append(Expanded);
                 }
             }
@@ -57,7 +50,6 @@ namespace SAPTests.TestData.TutorialNavigator.Models
             }
 
             return stringBuilder.ToString();
-            //return pagination;
         }
     }
 }

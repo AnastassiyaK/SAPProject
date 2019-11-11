@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-
-namespace SAPTests.TestData.TutorialNavigator
+﻿namespace SAPTests.TestData.TutorialNavigator
 {
+    using Newtonsoft.Json;
+
     public class TutorialNavigatorConfiguration
     {
         [JsonProperty("TilesOnThePage")]

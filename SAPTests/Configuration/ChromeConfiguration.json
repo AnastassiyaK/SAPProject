@@ -1,0 +1,22 @@
+﻿{
+  "Chrome": {
+    "ChromeSettings": [
+      {
+        "Mode": "Default",
+        "ExcludedArguments": [ "enable-automation" ],
+        "AdditionalCapabilities": {
+          "useAutomationExtension": false
+        },
+        "Arguments": [ "start-maximized" ]
+      },
+      {
+        "Mode": "Mobile",
+        "ExcludedArguments": [ "enable-automation" ],
+        "AdditionalCapabilities": {
+          "useAutomationExtension": false
+        },
+        "Arguments": [ "start-maximized" ]
+      }
+    ]
+  }
+}

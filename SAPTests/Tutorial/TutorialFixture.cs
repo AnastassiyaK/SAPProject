@@ -1,41 +1,34 @@
-﻿using Autofac;
-using NLog;
-using NUnit.Framework;
-using SAPBusiness.Services.API_Services.Tutorial;
-using SAPBusiness.TutorialData;
-using SAPBusiness.UserData;
-using SAPBusiness.WEB.PageObjects;
-using SAPBusiness.WEB.PageObjects.Frames;
-using SAPBusiness.WEB.PageObjects.Header;
-using SAPBusiness.WEB.PageObjects.LogOn;
-using SAPBusiness.WEB.PageObjects.TutorialNavigator;
-using SAPBusiness.WEB.PageObjects.TutorialNavigator.Mission;
-using SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial;
-using SAPTests.Browsers;
-using SAPTests.TestData.TutorialNavigator.Modules;
-using SAPTests.TestsAttributes;
-using System.Linq;
-using System.Threading;
-
-namespace SAPTests.Tutorial
+﻿namespace SAPTests.Tutorial
 {
-    [TestFixtureSource(typeof(BrowserList), "Browsers")]
+    using System.Linq;
+    using System.Threading;
+    using global::Autofac;
+    using NLog;
+    using NUnit.Framework;
+    using SAPBusiness.Services.API_Services.Tutorial;
+    using SAPBusiness.TutorialData;
+    using SAPBusiness.UserData;
+    using SAPBusiness.WEB.PageObjects;
+    using SAPBusiness.WEB.PageObjects.Developers.Frames;
+    using SAPBusiness.WEB.PageObjects.Developers.Header;
+    using SAPBusiness.WEB.PageObjects.LogOn;
+    using SAPBusiness.WEB.PageObjects.TutorialNavigator;
+    using SAPBusiness.WEB.PageObjects.TutorialNavigator.Mission;
+    using SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial;
+    using SAPTests.Browsers;
+    using SAPTests.TestData.TutorialNavigator.Modules;
+    using SAPTests.TestsAttributes;
+
+    [TestFixtureSource(typeof(BrowsersList), nameof(BrowsersList.DefaultModeBrowsers))]
     [Category("TutorialFixture")]
     [Parallelizable(ParallelScope.All)]
     public class TutorialFixture : BaseTest
     {
-        private readonly ThreadLocal<Logger> _log = new ThreadLocal<Logger>();
-
         private readonly ThreadLocal<ILogOnStrategy> _logonStrategy = new ThreadLocal<ILogOnStrategy>();
 
-        public TutorialFixture(Browser browser) : base(browser)
+        public TutorialFixture(Browser browser)
+            : base(browser)
         {
-        }
-
-        private Logger Logger
-        {
-            get => _log.Value;
-            set => _log.Value = value;
         }
 
         private ILogOnStrategy LogonStrategy
@@ -45,14 +38,13 @@ namespace SAPTests.Tutorial
         }
 
         [SetUp]
-        public void SetUp()
+        public void TestSetUp()
         {
             LogonStrategy = Scope.Resolve<LogOnFrame>();
-
-            Logger = LogManager.GetLogger($"{TestContext.CurrentContext.Test.Name}");
         }
 
-        [Test, TestCaseSource(typeof(TutorialsPath), nameof(TutorialsPath.TutorialLinks))]
+        [Test]
+        [TestCaseSource(typeof(TutorialsPath), nameof(TutorialsPath.TutorialLinks))]
         [Priority(1)]
         [Description("Check tutorial where there is a license tag")]
         [Order(1)]
@@ -62,7 +54,8 @@ namespace SAPTests.Tutorial
             CheckLicenseTag();
         }
 
-        [Test, TestCaseSource(typeof(TutorialsPath), nameof(TutorialsPath.MissionLinks))]
+        [Test]
+        [TestCaseSource(typeof(TutorialsPath), nameof(TutorialsPath.MissionLinks))]
         [Description("Check mission where there is a license tag")]
         [Order(2)]
         public void CheckMissionLicenseTag(string partialLink)
@@ -71,7 +64,8 @@ namespace SAPTests.Tutorial
             CheckLicenseTag();
         }
 
-        [Test, TestCaseSource(typeof(TutorialsPath), nameof(TutorialsPath.MissionLinks))]
+        [Test]
+        [TestCaseSource(typeof(TutorialsPath), nameof(TutorialsPath.MissionLinks))]
         [Description("Check if popup has correct text")]
         [Order(3)]
         public void CheckPopUpLicenseTag(string partialLink)
@@ -79,10 +73,12 @@ namespace SAPTests.Tutorial
             Scope.Resolve<IMission>().Open(partialLink);
             var summarySection = Scope.Resolve<ISummarySection>().WaitForLoading();
 
+            string licenseKeyText = "Requires Customer/Partner License";
             Assert.That(summarySection.GetLicensePopupText() == licenseKeyText, $"{summarySection.Title} does not have license key");
         }
 
-        [Test, TestCaseSource(typeof(TutorialsPath), nameof(TutorialsPath.TutorialLinks))]
+        [Test]
+        [TestCaseSource(typeof(TutorialsPath), nameof(TutorialsPath.TutorialLinks))]
         [Description("Check if mini navigator has the same link as breadcrumb")]
         [Order(4)]
         public void CheckLinkInMiniNavigator(string partialLink)
@@ -95,7 +91,8 @@ namespace SAPTests.Tutorial
             Assert.That(miniNavigatorLink.Value == breadCrumbLink, $"Expected:{breadCrumbLink}, was:{miniNavigatorLink}");
         }
 
-        [Test, TestCaseSource(typeof(TutorialsPath), nameof(TutorialsPath.TutorialLinks))]
+        [Test]
+        [TestCaseSource(typeof(TutorialsPath), nameof(TutorialsPath.TutorialLinks))]
         [Description("Check if mini navigator has the same link as next step")]
         [Order(5)]
         public void CheckLinkInNextStep(string partialLink)
@@ -107,7 +104,8 @@ namespace SAPTests.Tutorial
             Assert.That(nextStep == nextStepMiniNavigator, $"Expected:{nextStep}, was:{nextStepMiniNavigator}");
         }
 
-        [Test, TestCaseSource(typeof(TutorialData), nameof(TutorialData.TutorialQueries))]
+        [Test]
+        [TestCaseSource(typeof(TutorialData), nameof(TutorialData.TutorialQueries))]
         [Description("Check if next step displays the same info as from geting service")]
         [Order(6)]
         public void CheckAttributesOfNextStep(TutorialQuery tutorialQuery)
@@ -123,11 +121,11 @@ namespace SAPTests.Tutorial
             {
                 Assert.Multiple(() =>
                 {
-                    Assert.That(nextStep.Description == foundStep.Description);
+                    Assert.That(nextStep.Description, Is.EqualTo(foundStep.Description));
 
-                    Assert.That(nextStep.IsRequiredLicense == foundStep.HasLicenseKey());
+                    Assert.That(nextStep.IsRequiredLicense, Is.EqualTo(foundStep.HasLicenseKey()));
 
-                    Assert.That(nextStep.PublicUrl == foundStep.PublicUrl);
+                    Assert.That(nextStep.PublicUrl, Is.EqualTo(foundStep.PublicUrl));
                 });
             }
             else
@@ -136,7 +134,8 @@ namespace SAPTests.Tutorial
             }
         }
 
-        [Test, TestCaseSource(typeof(TutorialData), nameof(TutorialData.TutorialQueries))]
+        [Test]
+        [TestCaseSource(typeof(TutorialData), nameof(TutorialData.TutorialQueries))]
         [Description("Check if next step displays the same info as from geting service")]
         [Order(7)]
         public void CheckAttributesOfMission(TutorialQuery tutorialQuery)
@@ -169,7 +168,8 @@ namespace SAPTests.Tutorial
             }
         }
 
-        [Test, TestCaseSource(typeof(TutorialsPath), nameof(TutorialsPath.TutorialLinks))]
+        [Test]
+        [TestCaseSource(typeof(TutorialsPath), nameof(TutorialsPath.TutorialLinks))]
         [Description("Check if completed steps are equal in summary and on the tutorial page")]
         [Order(8)]
         public void CheckCompletedSteps(string partialLink)
@@ -204,7 +204,8 @@ namespace SAPTests.Tutorial
             }
         }
 
-        [Test, TestCaseSource(typeof(TutorialsPath), nameof(TutorialsPath.TutorialLinks))]
+        [Test]
+        [TestCaseSource(typeof(TutorialsPath), nameof(TutorialsPath.TutorialLinks))]
         [Description("Check if completed steps show correct percentage")]
         [Order(9)]
         public void CompareProgressInSummary(string partialLink)
@@ -227,7 +228,8 @@ namespace SAPTests.Tutorial
             Assert.That(progress, Is.EqualTo(summaryProgress));
         }
 
-        [Test, TestCaseSource(typeof(TutorialsPath), nameof(TutorialsPath.TutorialLinks))]
+        [Test]
+        [TestCaseSource(typeof(TutorialsPath), nameof(TutorialsPath.TutorialLinks))]
         [Description("Check if completed steps show correct percentage")]
         [Order(10)]
         public void CheckProgressInCircle(string partialLink)
@@ -257,7 +259,5 @@ namespace SAPTests.Tutorial
 
             Assert.That(summarySection.HasLicenseKey(), $"{summarySection.Title} does not have license key");
         }
-
-        public static string licenseKeyText = "Requires Customer/Partner License";
     }
 }

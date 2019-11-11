@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.IO;
-
-namespace SAPTests.TestData.TutorialNavigator.Modules
+﻿namespace SAPTests.TestData.TutorialNavigator.Modules
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using Newtonsoft.Json;
+
     public class TutorialsPath
     {
         private static readonly TutorialLinksType _tutorialLinksType;

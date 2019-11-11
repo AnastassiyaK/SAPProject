@@ -1,8 +1,8 @@
-﻿using SAPBusiness.TutorialData;
-using System.Collections.Generic;
-
-namespace SAPTests.TestData.TutorialNavigator.Modules
+﻿namespace SAPTests.TestData.TutorialNavigator.Modules
 {
+    using System.Collections.Generic;
+    using SAPBusiness.TutorialData;
+
     public class TutorialData
     {
         static TutorialData()
@@ -16,6 +16,7 @@ namespace SAPTests.TestData.TutorialNavigator.Modules
             };
             TutorialQueries.Add(query);
         }
+
         public static IList<TutorialQuery> TutorialQueries { get; private set; }
     }
 }

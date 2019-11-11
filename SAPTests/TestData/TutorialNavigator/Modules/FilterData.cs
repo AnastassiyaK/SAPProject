@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-
-namespace SAPTests.TestData.TutorialNavigator.Modules
+﻿namespace SAPTests.TestData.TutorialNavigator.Modules
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using Newtonsoft.Json;
+
     public class FilterData
     {
         private static readonly FilterTags _filterTags;
@@ -19,10 +19,11 @@ namespace SAPTests.TestData.TutorialNavigator.Modules
             get
             {
                 var experience = new List<Experience>();
-                foreach(var tag in _filterTags.Experience.Tags)
+                foreach (var tag in _filterTags.Experience.Tags)
                 {
-                    experience.Add((Experience)Enum.Parse(typeof(Experience),tag));
+                    experience.Add((Experience)Enum.Parse(typeof(Experience), tag));
                 }
+
                 return experience;
             }
         }

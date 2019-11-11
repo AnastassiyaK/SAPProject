@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace SAPTests.TestData.TutorialNavigator.Models
+﻿namespace SAPTests.TestData.TutorialNavigator.Models
 {
+    using System;
+    using SAPBusiness.Enums;
+
     public class FilterQuery
     {
         static FilterQuery()
@@ -9,11 +10,10 @@ namespace SAPTests.TestData.TutorialNavigator.Models
             Array experience = Enum.GetValues(typeof(Experience));
             Random random = new Random();
             Experience = (Experience)experience.GetValue(random.Next(experience.Length));
-
         }
 
         public static Experience Experience { get; set; }
 
-        public TileType TileType { get; set; }
+        public TutorialType TileType { get; set; }
     }
 }

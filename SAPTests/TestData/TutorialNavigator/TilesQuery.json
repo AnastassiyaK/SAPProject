@@ -1,24 +1,24 @@
 ﻿{
   "TilesQueries": [
     {
-      "start": "0",
-      "rows": "10",
+      "start": 0,
+      "rows": 32000,
       "searchField": "",
       "filters": [],
       "pagePath": "/content/developers/website/languages/en/tutorial-navigator",
       "language": "en_us"
     },
     {
-      "start": "0",
-      "rows": "2",
+      "start": 0,
+      "rows": 2,
       "searchField": "",
       "filters": [],
       "pagePath": "/content/developers/website/languages/en/tutorial-navigator",
       "language": "en_us"
     },
     {
-      "start": "0",
-      "rows": "7",
+      "start": 0,
+      "rows": 7,
       "searchField": "",
       "filters": [],
       "pagePath": "/content/developers/website/languages/en/tutorial-navigator",
