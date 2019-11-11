@@ -96,7 +96,7 @@
         }
 
         [Test(Description = "Check blog post are sorted by date (Desc)")]
-        [Priority(2)]
+        [Priority(5)]
         [Order(3)]
         public void CheckBlogPostSortByDate()
         {

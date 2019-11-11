@@ -34,7 +34,6 @@
     using SAPBusiness.WEB.PageObjects.TutorialNavigator.Mission;
     using SAPBusiness.WEB.PageObjects.TutorialNavigator.PaginationSection;
     using SAPBusiness.WEB.PageObjects.TutorialNavigator.Tutorial;
-    using SAPTests.BDD;
     using SAPTests.TestData.TutorialNavigator;
     using ISearchSectionDevelopers = SAPBusiness.WEB.PageObjects.Developers.OpenSource.Projects.Search.ISearchSection;
     using ISearchSectionPeople = SAPBusiness.WEB.PageObjects.People.Dashboard.Bookmarks.ISearchSection;
@@ -51,8 +50,7 @@
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterAssemblyTypes(typeof(CheckTutorialNavigatorSearchFeature).Assembly).SingleInstance();
-
+            // builder.RegisterAssemblyTypes(typeof(CheckTutorialNavigatorSearchFeature).Assembly).SingleInstance();
             builder.RegisterType<ConfigurationBuilder>().As<IConfigurationBuilder>().SingleInstance();
 
             RegisterDriverConfiguration(builder);
