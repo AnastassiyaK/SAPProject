@@ -206,7 +206,7 @@
         public void SwitchToLastTab()
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_configuration.TimeOutSearch));
-            wait.Until(driver => _driver.WindowHandles.Count > 1);
+            wait.Until(driver => driver.WindowHandles.Count > 1);
             _driver.SwitchTo().Window(_driver.WindowHandles.Last());
             _logger.Debug("Driver switched to the last tab.");
         }
@@ -225,7 +225,7 @@
             {
                 try
                 {
-                    _driver.FindElement(locator);
+                    driver.FindElement(locator);
                     return true;
                 }
                 catch (NoSuchElementException)
@@ -233,6 +233,7 @@
                     return false;
                 }
             });
+
             _logger.Debug($"Requested element was displayed.");
         }
 
@@ -244,7 +245,7 @@
             {
                 try
                 {
-                    var displayed = _driver.FindElement(locator).Displayed;
+                    var displayed = driver.FindElement(locator).Displayed;
                     return false;
                 }
                 catch (StaleElementReferenceException)
@@ -256,6 +257,7 @@
                     return true;
                 }
             });
+
             _logger.Trace($"Requested element was hidden.");
         }
 
@@ -349,7 +351,7 @@
             {
                 try
                 {
-                    count = _driver.FindElements(locator).Count;
+                    count = driver.FindElements(locator).Count;
                     return count > 0 ? true : false;
                 }
                 catch (NoSuchElementException)
@@ -363,7 +365,7 @@
         public void WaitForTabOpen()
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_configuration.TimeOutSearch));
-            wait.Until(driver => !_driver.Url.Contains("about:blank"));
+            wait.Until(driver => !driver.Url.Contains("about:blank"));
             _logger.Debug($"New tab was opened.");
         }
 
