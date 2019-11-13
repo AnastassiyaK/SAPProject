@@ -1,14 +1,14 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-
-namespace SAPBusiness.UserData
+﻿namespace SAPBusiness.UserData
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Runtime.CompilerServices;
+    using Newtonsoft.Json;
+
     public class UserPool
     {
-        private static IList<User> _users;
+        private static readonly IList<User> _users;
 
         static UserPool()
         {
@@ -25,7 +25,6 @@ namespace SAPBusiness.UserData
             }
 
             var user = _users.First();
-            _users.Remove(user);
 
             return user;
         }

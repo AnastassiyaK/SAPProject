@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-
-namespace SAPBusiness.UserData
+﻿namespace SAPBusiness.UserData
 {
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+
     public class UserList
     {
         [JsonProperty("Users")]

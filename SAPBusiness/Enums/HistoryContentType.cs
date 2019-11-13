@@ -1,10 +1,13 @@
-﻿/// <summary>
-///Types for history on the BookMarkHistory page 
-/// </summary>
-public enum ContentType
+﻿namespace SAPBusiness.Enums
 {
-    Step,
-    Tutorial,
-    Mission,
-    Group
+    /// <summary>
+    /// Types for history on the BookMarkHistory page.
+    /// </summary>
+    public enum ContentType
+    {
+        Step,
+        Tutorial,
+        Mission,
+        Group
+    }
 }

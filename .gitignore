@@ -329,5 +329,3 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 
-# ignore a file with creds
-users.json

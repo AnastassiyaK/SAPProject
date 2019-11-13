@@ -1,13 +1,14 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 {
-    public class TileLegend : BasePageObject<TileLegend>, ITileLegend
-    {
-        public TileLegend(BaseWebDriver driver) : base(driver)
-        {
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
 
+    public class TileLegend : BasePageObject, ITileLegend
+    {
+        public TileLegend(WebDriver driver, ILogger logger)
+            : base(driver, logger)
+        {
         }
 
         public int Mission
@@ -58,14 +59,9 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
             }
         }
 
-        protected override TileLegend WaitForLoad()
+        public void WaitForLoad()
         {
-            return this;
-        }
-
-        public new ITileLegend WaitForPageLoad()
-        {
-            return base.WaitForPageLoad();
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
         }
     }
 }

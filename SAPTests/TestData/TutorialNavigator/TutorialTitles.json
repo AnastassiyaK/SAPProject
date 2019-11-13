@@ -1,0 +1,12 @@
+﻿{
+  "Tutorial": {
+    "partialLinks": [
+      "haas-dm-deploying-haas",
+      "abap-env-create-comm-arrangement-api",
+      "haas-dm-connect-sdi"
+    ]
+  },
+  "Mission": {
+    "partialLinks": [ "abap-env-connect-onpremise" ]
+  }
+}

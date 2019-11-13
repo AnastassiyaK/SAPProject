@@ -1,0 +1,29 @@
+﻿{
+  "Header": {
+    "title": "autotest Regression Tutorial with all components",
+    "description": "example",
+    "tags": [ "products>sap-hana", "products>sap-leonardo", "tutorial:experience/beginner" ],
+    "primary_tag": "tutorial:product/mobile",
+    "time": 600,
+    "author_profile": "https//github.com/ksAutotests",
+    "author_name": "ksAutotests"
+  },
+  "Steps": {
+    "Image": {
+      "title": "Step 1",
+      "link": "https://octodex.github.com/images/yaktocat.png",
+      "button": "done"
+    },
+    "Links": {
+      "title": "Step 2",
+      "text": "Select a tutorial from the [Tutorial Navigator]",
+      "link": "https://developers.sap.com/tutorial-navigator.html",
+      "button": "done"
+    },
+    "Table": {
+      "title": "Step 3",
+      "columns": [ "Left-Aligned", "Center Aligned", "Right Aligned" ],
+      "button": "done"
+    }
+  }
+}

@@ -1,13 +1,14 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
 {
-    public class FacetTopic : BasePageObject<FacetTopic>, IFacetTopic
-    {
-        public FacetTopic(BaseWebDriver driver) : base(driver)
-        {
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
 
+    public class FacetTopic : BasePageObject, IFacetTopic
+    {
+        public FacetTopic(WebDriver driver, ILogger logger)
+            : base(driver, logger)
+        {
         }
 
         private IWebElement Facet
@@ -16,7 +17,7 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
             {
                 return _driver.FindElement(By.CssSelector(".facet-topic"));
             }
-        }              
+        }
 
         public void SelectTopic(string topic)
         {
@@ -29,9 +30,9 @@ namespace SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection
             _driver.ExecuteScriptOnElement($"arguments[0].click()", elementTitle);
         }
 
-        protected override FacetTopic WaitForLoad()
+        public void WaitForLoad()
         {
-            return this;
+            _driver.WaitForElementDissapear(By.CssSelector(".loader"));
         }
     }
 }

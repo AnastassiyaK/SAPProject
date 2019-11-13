@@ -1,0 +1,18 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/reportportal/agent-net-nunit/master/src/ReportPortal.NUnitExtension/ReportPortal.config.schema",
+  "enabled": false,
+  "server": {
+    "url": "https://rp.epam.com/api/v1/",
+    "project": "nastassia_karatkova_personal",
+    "authentication": {
+      "uuid": "1531a11c-7981-44e5-8533-42d2205d2b08"
+    }
+  },
+  "launch": {
+    "name": "SAP Project Tests",
+    "description": "Test execution on developers.sap.com",
+    "debugMode": false,
+    "tags": [ "SAP" , "Developers" ]
+  },
+  "rootNamespaces": [ "SAPTests.dll", "SAPProject", "SAPTests" ]
+}

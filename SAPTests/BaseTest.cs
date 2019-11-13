@@ -1,21 +1,33 @@
-﻿using Autofac;
-using NUnit.Framework;
-using SAPTests.Autofac;
-using System.Threading;
-using Core.WebDriver;
-using Core.DriverFactory;
-using Core.Configuration;
-using Microsoft.Extensions.Configuration;
-
-namespace SAPTests
+﻿namespace SAPTests
 {
-    public class BaseTest /*: IDisposable*/
+    using System.Collections;
+    using System.Threading;
+    using Core.DriverFactory;
+    using Core.WebDriver;
+    using global::Autofac;
+    using NLog;
+    using NUnit.Framework;
+
+    public class BaseTest
     {
         protected Browser _browser;
 
-        private readonly ThreadLocal<BaseWebDriver> _driver = new ThreadLocal<BaseWebDriver>();
+        private readonly ThreadLocal<ILogger> _log = new ThreadLocal<ILogger>();
+
+        private readonly ThreadLocal<WebDriver> _driver = new ThreadLocal<WebDriver>();
 
         private readonly ThreadLocal<ILifetimeScope> _scope = new ThreadLocal<ILifetimeScope>();
+
+        public BaseTest(Browser browser)
+        {
+            _browser = browser;
+        }
+
+        protected ILogger Logger
+        {
+            get => _log.Value;
+            set => _log.Value = value;
+        }
 
         protected ILifetimeScope Scope
         {
@@ -23,88 +35,75 @@ namespace SAPTests
             set => _scope.Value = value;
         }
 
-        protected IContainer Container
-        {
-            get; private set;
-        }
-
-        public BaseTest(Browser browser)
-        {
-            _browser = browser;
-        }
-
-        protected BaseWebDriver BaseDriver
+        protected WebDriver BaseDriver
         {
             get => _driver.Value;
             set => _driver.Value = value;
         }
 
-        private void RegisterBrowser(ContainerBuilder builder)
-        {
-            if (_browser == Browser.Chrome)
-            {
-                builder.RegisterType<ChromeDriverFactory>().As<IDriverFactory>();
-            }
-            if (_browser == Browser.Firefox)
-            {
-                builder.RegisterType<FirefoxDriverFactory>().As<IDriverFactory>();
-            }
-            if (_browser == Browser.IE)
-            {
-                builder.RegisterType<IEDriverFactory>().As<IDriverFactory>();
-            }
-        }
-
-        [OneTimeSetUp]
-        public void Configure()
-        {
-            var builder = ContainerConfig.Configure();
-            RegisterBrowser(builder);
-
-            Container = builder.Build();
-        }
-
         [SetUp]
-        public void Setup()
+        protected virtual void SetUp()
         {
-            Scope = Container.BeginLifetimeScope(container =>
-            {
-                if (_browser == Browser.Chrome)
-                {
-                    container.RegisterType<ChromeDriverFactory>().As<IDriverFactory>();
-                }
-                if (_browser == Browser.Firefox)
-                {
-                    container.RegisterType<FirefoxDriverFactory>().As<IDriverFactory>();
-                }
-                if (_browser == Browser.IE)
-                {
-                    container.RegisterType<IEDriverFactory>().As<IDriverFactory>();
-                }
-            });
+            RegisterTypesForTests();
 
-
-            BaseDriver = Scope.Resolve<BaseWebDriver>();
-
-            BaseDriver.InitDriver();
+            InitDriver();
         }
 
         [TearDown]
-        public void Teardown()
+        protected virtual void Teardown()
         {
             BaseDriver.Quit();
 
             Scope.Dispose();
         }
 
-        [OneTimeTearDown]
-        public void CleanUp()
+        protected virtual bool MobileSetup()
         {
-            Container.Dispose();
+            IList categories = (IList)TestContext.CurrentContext.Test.Properties["Category"];
+
+            bool useMobileSetup = categories != null && categories.Contains("Mobile");
+            return useMobileSetup;
         }
-        //public void Dispose()
-        //{
-        //    throw new NotImplementedException();
-        //}
+
+        private void RegisterTypesForTests()
+        {
+            Logger = LogManager.GetLogger($"{TestContext.CurrentContext.Test.Name}");
+
+            Scope = SetUpGlobal.Container.BeginLifetimeScope(container =>
+            {
+                ApplyBrowserType(container);
+                container.RegisterInstance(Logger).As<ILogger>().SingleInstance();
+            });
+        }
+
+        private void ApplyBrowserType(ContainerBuilder container)
+        {
+            if (_browser == Browser.Chrome)
+            {
+                container.RegisterType<ChromeDriverFactory>().As<IDriverFactory>();
+            }
+
+            if (_browser == Browser.ChromeMobile)
+            {
+                container.RegisterType<ChromeMobileDriverFactory>().As<IDriverFactory>();
+            }
+
+            if (_browser == Browser.Firefox)
+            {
+                container.RegisterType<FirefoxDriverFactory>().As<IDriverFactory>();
+            }
+
+            if (_browser == Browser.IE)
+            {
+                container.RegisterType<IEDriverFactory>().As<IDriverFactory>();
+            }
+        }
+
+        private void InitDriver()
+        {
+            BaseDriver = Scope.Resolve<WebDriver>();
+
+            BaseDriver.InitDriver();
+        }
     }
 }

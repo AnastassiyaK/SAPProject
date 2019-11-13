@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-
-namespace SAPBusiness.UserData.DeveloperCenter
+﻿namespace SAPBusiness.UserData.DeveloperCenter
 {
+    using Newtonsoft.Json;
+
     public class UserProgress
     {
         [JsonProperty("groupsAmount")]
@@ -9,10 +9,10 @@ namespace SAPBusiness.UserData.DeveloperCenter
 
         [JsonProperty("groupsCompleted")]
         public int GroupsCompleted { get; set; }
-        
+
         [JsonProperty("missionsAmount")]
         public int MissionsTotal { get; set; }
-        
+
         [JsonProperty("missionsCompleted")]
         public int MissionsCompleted { get; set; }
 

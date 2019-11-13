@@ -1,13 +1,15 @@
-﻿using Core.WebDriver;
-using SAPBusiness.UserData;
-
-namespace SAPBusiness.WEB.PageObjects.LogOn
+﻿namespace SAPBusiness.WEB.PageObjects.LogOn
 {
-    public class LogOnPage : BasePageObject<LogOnPage>, ILogOnStrategy
+    using Core.WebDriver;
+    using NLog;
+    using SAPBusiness.UserData;
+
+    public class LogOnPage : BasePageObject, ILogOnStrategy
     {
         private readonly ILogOnSection _logOnSection;
 
-        public LogOnPage(BaseWebDriver driver,ILogOnSection logOnSection) : base(driver)
+        public LogOnPage(WebDriver driver, ILogger logger, ILogOnSection logOnSection)
+            : base(driver, logger)
         {
             _logOnSection = logOnSection;
         }
@@ -18,11 +20,6 @@ namespace SAPBusiness.WEB.PageObjects.LogOn
             _logOnSection.PasswordInput.SendKeys(user.Password);
 
             _logOnSection.LogOnButton.Click();
-        }
-
-        protected override LogOnPage WaitForLoad()
-        {
-            return this;
         }
     }
 }

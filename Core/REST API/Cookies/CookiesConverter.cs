@@ -1,12 +1,11 @@
-﻿using System.Collections.ObjectModel;
-using System.Net;
-using DefaultCookie = System.Net.Cookie;
-using SeleniumCookie = OpenQA.Selenium.Cookie;
-
-
-namespace Core.REST_API.Cookies
+﻿namespace Core.REST_API.Cookies
 {
-    public class CookiesConverter
+    using System.Collections.ObjectModel;
+    using System.Net;
+    using DefaultCookie = System.Net.Cookie;
+    using SeleniumCookie = OpenQA.Selenium.Cookie;
+
+    public class CookiesConverter : ICookiesConverter
     {
         public CookieContainer ExtractCookies(ReadOnlyCollection<SeleniumCookie> cookies)
         {
@@ -16,14 +15,14 @@ namespace Core.REST_API.Cookies
             {
                 try
                 {
-                    DefaultCookie _cookie = new DefaultCookie
+                    DefaultCookie defaultCookie = new DefaultCookie
                     {
                         Name = cookie.Name,
                         Value = cookie.Value,
-                        Domain = cookie.Domain
+                        Domain = cookie.Domain,
                     };
 
-                    container.Add(_cookie);
+                    container.Add(defaultCookie);
                 }
                 catch (CookieException)
                 {

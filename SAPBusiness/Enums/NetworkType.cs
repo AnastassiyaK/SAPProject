@@ -1,11 +1,14 @@
-﻿/// <summary>
-/// Networl types in the footer on the pages
-/// </summary>
-public enum NetworkType
+﻿namespace SAPBusiness.Enums
 {
-    Facebook,
-    Twitter,
-    Youtube,
-    LinkedIn,
-    Github
+    /// <summary>
+    /// Networl types in the footer on the pages.
+    /// </summary>
+    public enum NetworkType
+    {
+        Facebook,
+        Twitter,
+        Youtube,
+        LinkedIn,
+        Github
+    }
 }

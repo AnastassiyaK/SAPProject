@@ -1,29 +1,23 @@
-﻿using Core.WebDriver;
-
-namespace SAPBusiness.WEB.PageObjects
+﻿namespace SAPBusiness.WEB.PageObjects
 {
-    public interface IPageObject<PageObject> where PageObject : class
-    {
-        PageObject WaitForPageLoad();
-    }
+    using Core.WebDriver;
+    using NLog;
 
-    public abstract class BasePageObject<PageObject> : IPageObject<PageObject> where PageObject : class
+    public abstract class BasePageObject
     {
-        protected BaseWebDriver _driver;
+        protected WebDriver _driver;
 
-        public BasePageObject(BaseWebDriver driver)
+        protected ILogger _logger;
+
+        public BasePageObject(WebDriver driver, ILogger logger)
         {
             _driver = driver;
+            _logger = logger;
         }
 
-        public PageObject WaitForPageLoad()
+        public virtual void WaitForPageLoad()
         {
             _driver.WaitReadyState();
-            return WaitForLoad();
         }
-
-        protected abstract PageObject WaitForLoad();
     }
-
-
 }

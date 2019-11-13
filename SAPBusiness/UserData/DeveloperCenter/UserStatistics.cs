@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-
-namespace SAPBusiness.UserData.DeveloperCenter
+﻿namespace SAPBusiness.UserData.DeveloperCenter
 {
+    using Newtonsoft.Json;
+
     public class UserStatistics
     {
         [JsonProperty("userProgress")]

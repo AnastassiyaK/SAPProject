@@ -1,11 +1,24 @@
-﻿using System.Collections.Generic;
-
-namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
+﻿namespace SAPBusiness.WEB.PageObjects.TutorialNavigator
 {
-    public interface ITutorialNavigator : IPageObject<ITutorialNavigator>
+    using System.Collections.Generic;
+    using SAPBusiness.Enums;
+
+    public interface ITutorialNavigator : IPageObject
     {
+        List<TileElement> GetAllTilesCache();
+
         List<TileElement> GetAllTiles();
+
+        List<TileElement> GetTiles(TutorialType type);
+
+        void Open();
+
+        void OpenWithTilesOnPage(int tileAmmount);
+
         bool HasTiles();
-        TutorialNavigator WaitForFilterLoad();
+
+        bool HasTiles(TutorialType type);
+
+        bool HasPagination();
     }
 }

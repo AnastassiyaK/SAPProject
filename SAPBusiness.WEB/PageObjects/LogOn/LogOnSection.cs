@@ -1,13 +1,14 @@
-﻿using Core.WebDriver;
-using OpenQA.Selenium;
-
-namespace SAPBusiness.WEB.PageObjects.LogOn
+﻿namespace SAPBusiness.WEB.PageObjects.LogOn
 {
-    public class LogOnSection: BasePageObject<LogOnSection>, ILogOnSection
-    {
-        public LogOnSection(BaseWebDriver driver) : base(driver)
-        {
+    using Core.WebDriver;
+    using NLog;
+    using OpenQA.Selenium;
 
+    public class LogOnSection : BasePageObject, ILogOnSection
+    {
+        public LogOnSection(WebDriver driver, ILogger logger)
+            : base(driver, logger)
+        {
         }
 
         public IWebElement UserNameInput
@@ -32,11 +33,6 @@ namespace SAPBusiness.WEB.PageObjects.LogOn
             {
                 return _driver.FindElement(By.Id("logOnFormSubmit"));
             }
-        }
-
-        protected override LogOnSection WaitForLoad()
-        {
-            return this;
         }
     }
 }

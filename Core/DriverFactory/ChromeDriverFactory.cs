@@ -1,22 +1,27 @@
-﻿using Core.Configuration;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-
-namespace Core.DriverFactory
+﻿namespace Core.DriverFactory
 {
-    public class ChromeDriverFactory : BaseWebDriverFactory
+    using Core.Configuration;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
+
+    public class ChromeDriverFactory : WebDriverFactory
     {
-        public ChromeDriverFactory(IDriverConfiguration configuration) : base(configuration)
+        public ChromeDriverFactory(DriverConfiguration configuration)
+            : base(configuration)
         {
         }
+
+        public override Browser Name { get; } = Browser.Chrome;
 
         protected override ICapabilities Capabilities
         {
             get
             {
                 ChromeOptions options = new ChromeOptions();
-                options.AddExcludedArgument("enable-automation");//enable info-bar
-                options.AddAdditionalCapability("useAutomationExtension", false);//enable extensions 
+
+                options.AddExcludedArgument("enable-automation");
+                options.AddAdditionalCapability("useAutomationExtension", false);
+                options.AddArguments("start-maximized");
                 return options.ToCapabilities();
             }
         }
@@ -24,8 +29,9 @@ namespace Core.DriverFactory
         protected override IWebDriver CreateLocalWebDriver()
         {
             ChromeOptions options = new ChromeOptions();
-            options.AddExcludedArgument("enable-automation");//enable info-bar
-            options.AddAdditionalCapability("useAutomationExtension", false);//enable extensions  
+            options.AddExcludedArgument("enable-automation");
+            options.AddAdditionalCapability("useAutomationExtension", false);
+
             _driver = new ChromeDriver(options);
             return _driver;
         }

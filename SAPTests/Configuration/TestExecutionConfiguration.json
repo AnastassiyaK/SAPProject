@@ -1,0 +1,4 @@
+﻿{
+  "Browsers": [ "Chrome", "Firefox", "IE" ],
+  "MobileVersion": [ "ChromeMobile" ]
+}

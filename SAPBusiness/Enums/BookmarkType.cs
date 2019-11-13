@@ -1,9 +1,12 @@
-﻿/// <summary>
-/// Types of Tiles 
-/// </summary>
-public enum BookmarkType
+﻿namespace SAPBusiness.Enums
 {
-    Tutorial,
-    Mission,
-    Group
+    /// <summary>
+    /// Types of Tiles.
+    /// </summary>
+    public enum BookmarkType
+    {
+        Tutorial,
+        Mission,
+        Group
+    }
 }

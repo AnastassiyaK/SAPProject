@@ -1,19 +1,22 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Core.Configuration
+﻿namespace Core.Configuration
 {
-    public class DriverConfiguration : IDriverConfiguration
+    using Newtonsoft.Json;
+
+    public class DriverConfiguration
     {
-        [JsonProperty("hubUrl")]
+        [JsonProperty("DissapearTime")]
+        public int DissapearTime { get; set; }
+
+        [JsonProperty("HubUrl")]
         public string HubUrl { get; set; }
+
+        [JsonProperty("TimeOutPageLoad")]
+        public int TimeOutPageLoad { get; set; }
 
         [JsonProperty("TimeOutSearch")]
         public int TimeOutSearch { get; set; }
 
-        [JsonProperty("Grid")]
+        [JsonProperty("UseGrid")]
         public bool UseGrid { get; set; }
     }
 }
