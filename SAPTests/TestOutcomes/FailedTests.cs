@@ -26,8 +26,7 @@
             {
                 if (item.Contains("("))
                 {
-                    int count = item.Length - item.IndexOf("(");
-                    tempFailed.Add(item.Remove(item.IndexOf("("), count));
+                    tempFailed.Add(item.Remove(item.IndexOf("(")));
                 }
                 else
                 {
