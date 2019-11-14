@@ -15,6 +15,7 @@
     using SAPBusiness.WEB.PageObjects.TutorialNavigator;
     using SAPBusiness.WEB.PageObjects.TutorialNavigator.FilterSection;
     using SAPTests.Browsers;
+    using SAPTests.TestsAttributes;
 
     [TestFixtureSource(typeof(BrowsersList), nameof(BrowsersList.DefaultModeBrowsers))]
     [Category("BookmarksFixture")]
@@ -58,6 +59,7 @@
         /// Checks if added bookmarks on Tutorial Navigator page appear on http:\\people.sap.com.
         /// </summary>
         [Test]
+        [Priority(6)]
         public void CheckBookmarks()
         {
             var bookmarksPage = Scope.Resolve<IBookmarkPage>();
