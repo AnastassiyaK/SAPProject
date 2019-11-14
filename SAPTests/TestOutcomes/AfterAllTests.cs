@@ -10,7 +10,7 @@
     public class AfterAllTests
     {
         [Test]
-        [AfterAll(true)]
+        [AfterAll(1)]
         public void CreateCommandForFailedTests()
         {
             var failed = FailedTests.Failed;
