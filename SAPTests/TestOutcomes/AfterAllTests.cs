@@ -21,7 +21,7 @@
                 filter += $"Name~{test} ";
             }
 
-            string command = $"dotnet test SAPTests.csproj --filter {filter}-l:trx;LogFileName=TestOutput.xml";
+            string command = $"dotnet test --filter {filter}-l:trx;LogFileName=TestOutput.xml";
 
             if (!string.IsNullOrEmpty(filter))
             {
