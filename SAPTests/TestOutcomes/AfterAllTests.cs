@@ -32,7 +32,7 @@
                 filter += $"\"Name~{failed[0]}\"";
             }
 
-            string command = $"dotnet test --filter {filter} -l:trx;LogFileName=TestOutput.xml";
+            string command = $"dotnet test --filter {filter} -l:trx;LogFileName=TestOutputAfterAll.xml";
 
             if (!string.IsNullOrEmpty(filter))
             {

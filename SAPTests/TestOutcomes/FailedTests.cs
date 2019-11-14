@@ -14,11 +14,28 @@
 
             var results = document.GetElementsByTagName("UnitTestResult").Cast<XmlNode>().ToList();
 
-            Failed = results
+            var failed = results
                 .Where(x => x.Attributes["outcome"].Value == "Failed")
                 .Select(x => x.Attributes["testName"].Value)
                 .Distinct()
                 .ToList();
+
+            var tempFailed = new List<string>();
+
+            foreach (var item in failed)
+            {
+                if (item.Contains("("))
+                {
+                    int count = item.Length - item.IndexOf("(");
+                    tempFailed.Add(item.Remove(item.IndexOf("("), count));
+                }
+                else
+                {
+                    tempFailed.Add(item);
+                }
+            }
+
+            Failed = tempFailed.Distinct().ToList();
         }
 
         public static List<string> Failed { get; private set; }
