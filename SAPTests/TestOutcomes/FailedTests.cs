@@ -10,7 +10,7 @@
         static FailedTests()
         {
             XmlDocument document = new XmlDocument();
-            document.Load($@"{Directory.GetCurrentDirectory()}\TestResults\TestOutput.xml");
+            document.Load($@"{GetPath()}\TestResults\TestOutput.xml");
 
             var results = document.GetElementsByTagName("UnitTestResult").Cast<XmlNode>().ToList();
 
@@ -22,5 +22,12 @@
         }
 
         public static List<string> Failed { get; private set; }
+
+        private static string GetPath()
+        {
+            var directory = Directory.GetCurrentDirectory();
+            var shortDirectory = Directory.GetCurrentDirectory().Remove(directory.IndexOf("bin"));
+            return shortDirectory;
+        }
     }
 }
