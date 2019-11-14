@@ -16,12 +16,23 @@
             var failed = FailedTests.Failed;
 
             var filter = "";
-            foreach (var test in failed)
+            if (failed.Count > 1)
             {
-                filter += $"Name~{test} ";
+                filter = "\"";
+                foreach (var test in failed)
+                {
+                    filter += $"Name~{test}|";
+                }
+
+                filter = filter.Remove(filter.Length - 1, 1);
+                filter = $"{filter}\"";
+            }
+            else
+            {
+                filter += $"\"Name~{failed[0]}\"";
             }
 
-            string command = $"dotnet test --filter {filter}-l:trx;LogFileName=TestOutput.xml";
+            string command = $"dotnet test --filter {filter} -l:trx;LogFileName=TestOutput.xml";
 
             if (!string.IsNullOrEmpty(filter))
             {
