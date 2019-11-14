@@ -44,6 +44,7 @@
         }
 
         [Test(Description = "Pull a random word from projects and put into search. Check search works")]
+        [Priority(6)]
         [Order(1)]
         public void CheckProjectSearchByRandomString()
         {
@@ -79,6 +80,7 @@
         }
 
         [Test(Description = "Check all projects have the same background images as main images")]
+        [Priority(6)]
         [Order(2)]
         public void CheckProjectBackgroundImage()
         {
@@ -123,6 +125,7 @@
         }
 
         [Test(Description = "Check all memberships have title and description")]
+        [Priority(6)]
         [Order(4)]
         public void CheckMembershipsTitleDescription()
         {
