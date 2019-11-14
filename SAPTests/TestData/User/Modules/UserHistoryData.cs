@@ -14,7 +14,7 @@
 
         public static IList<DeveloperHistory> GetUserHistory(string path)
         {
-            var reader = File.OpenText($@"{Directory.GetCurrentDirectory()}\TestData\download.csv");
+            var reader = File.OpenText($@"{Directory.GetCurrentDirectory()}\TestData\{path}.csv");
             var csv = new CsvReader(reader);
             var userHistory = csv.GetRecords<DeveloperHistory>().ToList();
             csv.Dispose();

@@ -8,6 +8,7 @@
     public class AfterAllTests
     {
         [Test]
+        [Ignore("Only for Jenkins")]
         [AfterAll]
         public void CreateCommandForFailedTests()
         {
