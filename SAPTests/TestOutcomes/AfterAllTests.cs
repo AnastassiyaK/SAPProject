@@ -1,8 +1,6 @@
 ﻿namespace SAPTests.TestOutcomes
 {
-    using System;
     using System.IO;
-    using System.Reflection;
     using NUnit.Core;
     using NUnit.Framework;
     using SAPTests.TestsAttributes;
@@ -15,10 +13,9 @@
         {
             var failed = FailedTests.Failed;
 
-            var filter = "";
+            var filter = "\"";
             if (failed.Count > 1)
             {
-                filter = "\"";
                 foreach (var test in failed)
                 {
                     filter += $"Name~{test}|";
@@ -29,9 +26,14 @@
             }
             else
             {
-                filter += $"\"Name~{failed[0]}\"";
+                filter += $"Name~{failed[0]}\"";
             }
 
+            SaveCommandIntoFile(filter);
+        }
+
+        private static void SaveCommandIntoFile(string filter)
+        {
             string command = $"dotnet test --filter {filter} -l:trx;LogFileName=TestOutputAfterAll.xml";
 
             if (!string.IsNullOrEmpty(filter))
